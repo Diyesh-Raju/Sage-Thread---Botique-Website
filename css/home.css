@@ -1,0 +1,35 @@
+/* HOME — warm ivory · charcoal · antique gold */
+:root {
+  --bg: #f6f1e9;
+  --surface: #fffdf9;
+  --text: #221d17;
+  --muted: #6f6557;
+  --accent: #b08d57;
+  --accent-2: #2b2419;
+  --line: rgba(34,29,23,.14);
+  --footer-bg: #1a1611;
+  --footer-fg: #efe6d6;
+  --hero-overlay: linear-gradient(180deg, rgba(20,16,11,.28) 0%, rgba(20,16,11,.18) 45%, rgba(20,16,11,.72) 100%);
+
+  --font-display: "Cormorant Garamond", Georgia, serif;
+  --font-accent: "Italiana", Georgia, serif;
+  --font-body: "Jost", system-ui, sans-serif;
+}
+.brand, .hero__title, .display { font-weight: 600; }
+
+/* collections */
+.collections { display: grid; gap: clamp(1rem,2.2vw,1.6rem); }
+@media (min-width: 760px) { .collections { grid-template-columns: repeat(3,1fr); } }
+.collections .tile { aspect-ratio: 3/4.1; }
+.collections .tile:first-child { aspect-ratio: 3/4.1; }
+@media (min-width:760px){
+  .collections .tile:nth-child(2){ margin-top: 3.5rem; }
+  .collections .tile:nth-child(3){ margin-top: 7rem; }
+}
+
+/* intro figures */
+.intro-figs { display: grid; gap: 1.2rem; grid-template-columns: repeat(2,1fr); }
+.intro-figs .media:first-child { aspect-ratio: 3/4; }
+.intro-figs .media:last-child { aspect-ratio: 3/4; margin-top: 3rem; }
+
+.ampersand { font-family: var(--font-display); font-style: italic; color: var(--accent); }

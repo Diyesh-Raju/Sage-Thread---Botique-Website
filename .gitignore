@@ -1,0 +1,15 @@
+# dependencies (only used for local screenshot testing — not needed to deploy)
+# keeping these out keeps the deploy a pure static site (no npm install on Vercel)
+node_modules/
+package.json
+package-lock.json
+
+# dev tooling
+_shot.mjs
+_diag.mjs
+assets/img/_gen_marble.py
+
+# OS / editor
+.DS_Store
+*.log
+.vercel

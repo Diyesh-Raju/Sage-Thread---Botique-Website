@@ -1,0 +1,35 @@
+/* FASHION — blush · ink-plum · rose gold */
+:root {
+  --bg: #f7eef0;
+  --surface: #fffafb;
+  --text: #1d1419;
+  --muted: #7c6770;
+  --accent: #b76e79;        /* rose gold */
+  --accent-2: #181018;      /* ink plum */
+  --line: rgba(29,20,25,.14);
+  --footer-bg: #160f15;
+  --footer-fg: #f3e6ea;
+  --hero-overlay: linear-gradient(180deg, rgba(24,12,20,.18), rgba(24,12,20,.12) 40%, rgba(24,12,20,.66));
+
+  --font-display: "Bodoni Moda", Georgia, serif;
+  --font-accent: "Italiana", Georgia, serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
+}
+::selection { background: var(--accent); }
+.hero__title { font-weight: 500; }
+
+/* lookbook masonry */
+.lookbook { columns: 2; column-gap: clamp(1rem,2.2vw,1.6rem); }
+@media (min-width: 900px) { .lookbook { columns: 3; } }
+.lookbook .tile { break-inside: avoid; margin-bottom: clamp(1rem,2.2vw,1.6rem); display: block; }
+
+/* dark editorial section */
+.editorial { background: var(--accent-2); color: #f3e6ea; }
+.editorial .eyebrow { color: var(--accent); }
+.editorial h2 { color: #fff; }
+.editorial .lead { color: rgba(243,230,234,.72); }
+
+.video-feature { position: relative; border-radius: var(--radius); overflow: hidden; }
+.video-feature video { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
+.video-feature__cap { position: absolute; left: clamp(1.2rem,3vw,2.4rem); bottom: clamp(1.2rem,3vw,2.4rem); color: #fff; z-index: 2; }
+.video-feature::after { content:""; position:absolute; inset:0; background: linear-gradient(0deg, rgba(0,0,0,.5), transparent 60%); }

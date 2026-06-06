@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marble — Sage Thread Boutique</title>
+  <meta name="description" content="Quarried marble and natural stone — Calacatta, Carrara, Nero and more, cut and finished for floors, surfaces and sculpture." />
+  <meta name="theme-color" content="#1b2124" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/marble.css" />
+</head>
+<body>
+
+  <header class="site-header" data-header>
+    <div class="nav-wrap">
+      <a class="brand" href="index.html">Sage Thread<span>boutique</span></a>
+      <nav class="nav-links" data-nav>
+        <a href="index.html">Home</a>
+        <a href="furniture.html">Furniture</a>
+        <a href="fashion.html">Fashion</a>
+        <a href="marble.html" class="active">Marble</a>
+        <a href="contact.html" class="nav-cta">Contact</a>
+      </nav>
+      <button class="nav-toggle" data-nav-toggle aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero (SVG marble texture) -->
+    <section class="hero">
+      <div class="hero__media">
+        <div class="kenburns marble-hero-bg" style="position:absolute;inset:0"></div>
+      </div>
+      <div class="hero__inner container">
+        <p class="eyebrow" data-stagger style="--sd:.1s">The Stone House</p>
+        <h1 class="hero__title" data-stagger style="--sd:.22s">Quarried<br><span class="script">light</span></h1>
+        <p class="hero__sub" data-stagger style="--sd:.42s">Marble and natural stone — drawn from the earth, cut with patience, finished to last centuries.</p>
+        <div class="mt-2" data-stagger style="--sd:.58s"><a href="#swatches" class="btn btn--solid">Explore the stones <span class="arrow">→</span></a></div>
+      </div>
+      <div class="scroll-cue">Scroll</div>
+    </section>
+
+    <!-- Intro -->
+    <section class="section">
+      <div class="container split">
+        <div class="feature__media" data-reveal="left">
+          <div class="media" data-img><img src="assets/img/marble-arch.jpg" alt="A sculptural stone staircase" loading="lazy" decoding="async" /></div>
+          <div class="feature__badge"><span class="script">Book-matched</span><small>slabs cut from a single block</small></div>
+        </div>
+        <div data-reveal="right">
+          <p class="eyebrow">A material with memory</p>
+          <h2 style="font-size:clamp(2rem,4.6vw,3.6rem)">Each vein is<br>a million years</h2>
+          <p class="lead mt-2 measure">No two slabs are alike. We hand-select blocks at the quarry and book-match the cuts, so the stone in your home carries a pattern that exists nowhere else on earth.</p>
+          <p class="mt-2 measure" style="color:var(--muted)">Floors, surfaces, basins and sculpture — fabricated to the millimetre by our stoneworkers.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Swatches -->
+    <section class="section section--tight" id="swatches">
+      <div class="container">
+        <div class="sec-head sec-head--row">
+          <div data-reveal><p class="eyebrow">The palette</p><h2>Our stones</h2></div>
+          <p class="measure-sm" data-reveal style="--d:.1s; color:var(--muted)">Six signature marbles, each with its own temperament — from luminous white to deep, dramatic black.</p>
+        </div>
+        <div class="swatches">
+          <div class="swatch" data-reveal data-tilt><div class="swatch__tex" style="background-image:url('assets/img/marble-calacatta.svg')"></div><div class="swatch__cap"><h3>Calacatta Oro</h3><small>White · Gold vein</small></div></div>
+          <div class="swatch" data-reveal data-tilt style="--d:.08s"><div class="swatch__tex" style="background-image:url('assets/img/marble-carrara.svg')"></div><div class="swatch__cap"><h3>Carrara</h3><small>White · Soft grey</small></div></div>
+          <div class="swatch" data-reveal data-tilt style="--d:.16s"><div class="swatch__tex" style="background-image:url('assets/img/marble-statuario.svg')"></div><div class="swatch__cap"><h3>Statuario</h3><small>Bright · Charcoal</small></div></div>
+          <div class="swatch" data-reveal data-tilt><div class="swatch__tex" style="background-image:url('assets/img/marble-nero.svg')"></div><div class="swatch__cap"><h3>Nero Oro</h3><small>Black · Gold vein</small></div></div>
+          <div class="swatch" data-reveal data-tilt style="--d:.08s"><div class="swatch__tex" style="background-image:url('assets/img/marble-emperador.svg')"></div><div class="swatch__cap"><h3>Emperador</h3><small>Brown · Cream</small></div></div>
+          <div class="swatch" data-reveal data-tilt style="--d:.16s"><div class="swatch__tex" style="background-image:url('assets/img/marble-verde.svg')"></div><div class="swatch__cap"><h3>Verde Alpi</h3><small>Green · White</small></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Video feature -->
+    <section class="section">
+      <div class="container split">
+        <div data-reveal="left">
+          <p class="eyebrow">From block to surface</p>
+          <h2 style="font-size:clamp(2rem,4.4vw,3.4rem)">Cut, honed,<br>polished, placed</h2>
+          <p class="lead mt-2 measure">We follow each slab from the quarry face to your floor — sawn to size, the edges profiled, the surface honed matte or mirror-polished to your finish.</p>
+          <div class="finishes mt-2">
+            <div class="finish" data-reveal><div class="finish__row"><h3>Polished</h3><span class="idx">01</span></div><p style="color:var(--muted)">A high-gloss mirror that deepens the colour and vein.</p></div>
+            <div class="finish" data-reveal style="--d:.06s"><div class="finish__row"><h3>Honed</h3><span class="idx">02</span></div><p style="color:var(--muted)">A soft matte surface, contemporary and tactile.</p></div>
+            <div class="finish" data-reveal style="--d:.12s"><div class="finish__row"><h3>Brushed</h3><span class="idx">03</span></div><p style="color:var(--muted)">Lightly textured — warm underfoot, naturally anti-slip.</p></div>
+          </div>
+        </div>
+        <div class="media" data-img data-reveal="right" style="aspect-ratio:4/5;border-radius:var(--radius);overflow:hidden">
+          <video autoplay muted loop playsinline preload="none" poster="assets/img/marble-clip-poster.jpg" style="width:100%;height:100%;object-fit:cover">
+            <source src="assets/video/marble-clip.webm" type="video/webm" />
+            <source src="assets/video/marble-clip.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Band -->
+    <section class="band section">
+      <div class="band__bg"><img src="assets/img/marble-context1.jpg" alt="" data-parallax="0.12" loading="lazy" decoding="async" /></div>
+      <div class="container">
+        <blockquote data-reveal>“I saw the angel in the marble and carved until I set him free.”</blockquote>
+        <cite data-reveal style="--d:.15s">— Michelangelo</cite>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Calacatta</span><span>Carrara</span><span>Statuario</span><span>Nero</span><span>Emperador</span><span>Verde</span>
+        <span>Calacatta</span><span>Carrara</span><span>Statuario</span><span>Nero</span><span>Emperador</span><span>Verde</span>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-cta">
+        <p class="eyebrow">Stone consultation</p>
+        <h2>Planning a project in stone?</h2>
+        <p class="lead mt-1" style="color:rgba(255,255,255,.7)">Bring your drawings — we’ll match the marble and fabricate to fit.</p>
+        <div class="mt-2"><a href="contact.html" class="btn btn--solid">Request a quote <span class="arrow">→</span></a></div>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-brand"><a class="brand" href="index.html">Sage Thread<span>boutique</span></a><p>Quarried marble and natural stone, hand-selected and fabricated to last centuries.</p></div>
+        <div><h4>Explore</h4><a href="index.html">Home</a><br><a href="furniture.html">Furniture</a><br><a href="fashion.html">Fashion</a><br><a href="marble.html">Marble</a></div>
+        <div><h4>Marble</h4><a href="#swatches">Stones</a><br><a href="#swatches">Finishes</a><br><a href="contact.html">Fabrication</a><br><a href="contact.html">Samples</a></div>
+        <div><h4>Project</h4><a href="contact.html">Consultation</a><br><a href="contact.html">Trade</a><br><a href="contact.html">Care guide</a><br><a href="contact.html">Contact</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span data-year>2026</span> Sage Thread Boutique</span><span>Crafted with care · Privacy · Terms</span></div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

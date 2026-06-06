@@ -1,0 +1,41 @@
+/* MARBLE — cool alabaster · slate · verdigris vein */
+:root {
+  --bg: #eceff1;
+  --surface: #ffffff;
+  --text: #20262b;
+  --muted: #687279;
+  --accent: #5f7d78;        /* verdigris */
+  --accent-2: #2c3438;      /* slate */
+  --line: rgba(32,38,43,.13);
+  --footer-bg: #1b2124;
+  --footer-fg: #e6ebed;
+  --hero-overlay: linear-gradient(180deg, rgba(20,26,30,.30), rgba(20,26,30,.20) 45%, rgba(20,26,30,.62));
+
+  --font-display: "Cinzel", Georgia, serif;
+  --font-accent: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Manrope", system-ui, sans-serif;
+}
+.hero__title { letter-spacing: .04em; font-size: clamp(2.6rem, 8vw, 7rem); }
+.brand { letter-spacing: .18em; }
+
+/* marble hero uses SVG texture */
+.marble-hero-bg { background: #ece7df url("../assets/img/marble-calacatta.svg") center/cover; }
+
+/* swatch grid */
+.swatches { display: grid; gap: clamp(1rem,2.4vw,1.6rem); grid-template-columns: repeat(2,1fr); }
+@media (min-width: 760px) { .swatches { grid-template-columns: repeat(3,1fr); } }
+.swatch { border-radius: var(--radius); overflow: hidden; position: relative; aspect-ratio: 4/5; }
+.swatch__tex { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 1.2s var(--ease); }
+.swatch:hover .swatch__tex { transform: scale(1.07); }
+.swatch__cap { position: absolute; inset: auto 0 0 0; padding: 1.4rem 1.4rem 1.2rem; z-index: 2; background: linear-gradient(0deg, rgba(20,24,26,.6), transparent); color: #fff; }
+.swatch__cap h3 { font-family: var(--font-accent); font-size: 1.7rem; font-weight: 600; }
+.swatch__cap small { font-family: var(--font-body); font-size: .68rem; letter-spacing: .22em; text-transform: uppercase; opacity: .82; }
+
+/* finishes list */
+.finishes { display: grid; gap: 0; }
+.finish { display: grid; gap: .4rem; padding: clamp(1.4rem,3vw,2.2rem) 0; border-top: 1px solid var(--line); transition: padding-left .5s var(--ease); }
+.finish:last-child { border-bottom: 1px solid var(--line); }
+.finish:hover { padding-left: 1rem; }
+.finish__row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.finish h3 { font-family: var(--font-accent); font-size: clamp(1.5rem,3vw,2.2rem); font-weight: 600; }
+.finish .idx { font-family: var(--font-accent); color: var(--accent); font-size: 1rem; }
