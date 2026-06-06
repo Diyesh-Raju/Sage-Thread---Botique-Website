@@ -1,15 +1,28 @@
-# dependencies (only used for local screenshot testing — not needed to deploy)
-# keeping these out keeps the deploy a pure static site (no npm install on Vercel)
-node_modules/
-package.json
-package-lock.json
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-# dev tooling
+# next.js
+/.next/
+/out/
+next-env.d.ts
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+*.log
+
+# local env files
+.env*.local
+.env
+
+# vercel
+.vercel
+
+# dev tooling (local screenshot testing only)
 _shot.mjs
 _diag.mjs
-assets/img/_gen_marble.py
-
-# OS / editor
-.DS_Store
-*.log
-.vercel

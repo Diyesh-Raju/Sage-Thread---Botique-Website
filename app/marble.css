@@ -19,7 +19,7 @@
 .brand { letter-spacing: .18em; }
 
 /* marble hero uses SVG texture */
-.marble-hero-bg { background: #ece7df url("../assets/img/marble-calacatta.svg") center/cover; }
+.marble-hero-bg { background: #ece7df url("/assets/img/marble-calacatta.svg") center/cover; }
 
 /* swatch grid */
 .swatches { display: grid; gap: clamp(1rem,2.4vw,1.6rem); grid-template-columns: repeat(2,1fr); }
