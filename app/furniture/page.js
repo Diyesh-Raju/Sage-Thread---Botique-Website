@@ -21,7 +21,7 @@ export default function FurniturePage() {
       />
       <link rel="preload" as="image" href="/assets/img/furniture-hero.jpg" />
 
-      <Header active="furniture" />
+      <Header />
 
       <main>
         {/* Hero */}
@@ -301,7 +301,7 @@ export default function FurniturePage() {
           </div>
         </section>
 
-        <div className="marquee" aria-hidden="true">
+        <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">
             <span>Oak</span>
             <span>Walnut</span>
@@ -319,7 +319,7 @@ export default function FurniturePage() {
 
       <footer className="site-footer">
         <div className="container">
-          <div className="footer-cta">
+          <div className="footer-cta" data-reveal>
             <p className="eyebrow">Design service</p>
             <h2>Furnishing a whole room?</h2>
             <p className="lead mt-1" style={{ color: "rgba(255,255,255,.7)" }}>
@@ -331,7 +331,7 @@ export default function FurniturePage() {
               </a>
             </div>
           </div>
-          <div className="footer-grid">
+          <div className="footer-grid" data-reveal>
             <div className="footer-brand">
               <a className="brand" href="/">
                 Sage Thread<span>boutique</span>
@@ -372,7 +372,7 @@ export default function FurniturePage() {
               <a href="/contact">Contact</a>
             </div>
           </div>
-          <div className="footer-bottom">
+          <div className="footer-bottom" data-reveal>
             <span>© {year} Sage Thread Boutique</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>

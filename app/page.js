@@ -22,7 +22,7 @@ export default function HomePage() {
       />
       <link rel="preload" as="image" href="/assets/img/hero-poster.jpg" />
 
-      <Header active="home" />
+      <Header />
 
       <main>
         {/* ===== Hero ===== */}
@@ -264,7 +264,7 @@ export default function HomePage() {
         </section>
 
         {/* ===== Marquee ===== */}
-        <div className="marquee" aria-hidden="true">
+        <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">
             <span>Furniture</span>
             <span>Fashion</span>
@@ -283,7 +283,7 @@ export default function HomePage() {
       {/* ===== Footer ===== */}
       <footer className="site-footer">
         <div className="container">
-          <div className="footer-cta">
+          <div className="footer-cta" data-reveal>
             <p className="eyebrow">Join the house</p>
             <h2>Receive first looks &amp; private viewings</h2>
             <form className="newsletter" data-newsletter>
@@ -298,7 +298,7 @@ export default function HomePage() {
               </button>
             </form>
           </div>
-          <div className="footer-grid">
+          <div className="footer-grid" data-reveal>
             <div className="footer-brand">
               <a className="brand" href="/">
                 Sage Thread<span>boutique</span>
@@ -339,7 +339,7 @@ export default function HomePage() {
               <a href="/contact">Contact</a>
             </div>
           </div>
-          <div className="footer-bottom">
+          <div className="footer-bottom" data-reveal>
             <span>© {year} Sage Thread Boutique</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>

@@ -21,7 +21,7 @@ export default function FashionPage() {
       />
       <link rel="preload" as="image" href="/assets/img/fashion-hero.jpg" />
 
-      <Header active="fashion" />
+      <Header />
 
       <main>
         {/* Hero */}
@@ -247,7 +247,7 @@ export default function FashionPage() {
           </div>
         </section>
 
-        <div className="marquee" aria-hidden="true">
+        <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">
             <span>Tailoring</span>
             <span>Silk</span>
@@ -265,7 +265,7 @@ export default function FashionPage() {
 
       <footer className="site-footer">
         <div className="container">
-          <div className="footer-cta">
+          <div className="footer-cta" data-reveal>
             <p className="eyebrow">Personal styling</p>
             <h2>Book a private fitting</h2>
             <p className="lead mt-1" style={{ color: "rgba(255,255,255,.7)" }}>
@@ -277,7 +277,7 @@ export default function FashionPage() {
               </a>
             </div>
           </div>
-          <div className="footer-grid">
+          <div className="footer-grid" data-reveal>
             <div className="footer-brand">
               <a className="brand" href="/">
                 Sage Thread<span>boutique</span>
@@ -318,7 +318,7 @@ export default function FashionPage() {
               <a href="/contact">Contact</a>
             </div>
           </div>
-          <div className="footer-bottom">
+          <div className="footer-bottom" data-reveal>
             <span>© {year} Sage Thread Boutique</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>

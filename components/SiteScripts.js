@@ -7,8 +7,10 @@ import { usePathname } from "next/navigation";
    SAGE THREAD — interactions (ported from the original js/main.js)
    Runs after each route renders so IntersectionObservers, the rAF scroll
    loop, counters and form handlers re-bind to the freshly mounted DOM.
-   All listeners/observers are torn down on cleanup to avoid stacking across
-   client-side navigations.
+
+   Reveals + counters REPLAY: they toggle on every entry/exit of the
+   viewport (scroll down -> animate in, scroll back up -> reset, scroll
+   down again -> animate in once more).
    ========================================================================= */
 export default function SiteScripts() {
   const pathname = usePathname();
@@ -22,6 +24,15 @@ export default function SiteScripts() {
 
     // track everything we need to clean up
     const cleanups = [];
+
+    /* ---------- Always start a new page at the top ----------
+       Bypass CSS `scroll-behavior: smooth` so the jump is instant on a
+       cross-page navigation (same-page menu clicks are smooth — see Header). */
+    const htmlEl = document.documentElement;
+    const prevBehavior = htmlEl.style.scrollBehavior;
+    htmlEl.style.scrollBehavior = "auto";
+    window.scrollTo(0, 0);
+    htmlEl.style.scrollBehavior = prevBehavior;
 
     /* ---------- Mobile nav ---------- */
     const toggle = document.querySelector("[data-nav-toggle]");
@@ -37,7 +48,7 @@ export default function SiteScripts() {
       });
     }
 
-    /* ---------- Scroll reveal ---------- */
+    /* ---------- Scroll reveal (replays on every entry/exit) ---------- */
     const revealEls = document.querySelectorAll("[data-reveal], [data-img]");
     if ("IntersectionObserver" in window && !reduceMotion) {
       const io = new IntersectionObserver(
@@ -45,7 +56,9 @@ export default function SiteScripts() {
           entries.forEach((e) => {
             if (e.isIntersecting) {
               e.target.classList.add("is-visible");
-              io.unobserve(e.target);
+            } else {
+              // reset so it animates again next time it scrolls into view
+              e.target.classList.remove("is-visible");
             }
           });
         },
@@ -57,38 +70,58 @@ export default function SiteScripts() {
       revealEls.forEach((el) => el.classList.add("is-visible"));
     }
 
-    /* ---------- Counters ---------- */
+    /* ---------- Counters (replay: count up on enter, reset on exit) ---------- */
     const counters = document.querySelectorAll("[data-count]");
+    const counterRafs = new Map();
     if (counters.length && "IntersectionObserver" in window) {
+      const dur = 1600;
       const cObs = new IntersectionObserver(
         (entries) => {
           entries.forEach((e) => {
-            if (!e.isIntersecting) return;
             const el = e.target;
             const target = parseFloat(el.getAttribute("data-count"));
             const suffix = el.getAttribute("data-suffix") || "";
-            const dur = 1600;
-            let start = null;
-            if (reduceMotion) {
-              el.textContent = target + suffix;
-              cObs.unobserve(el);
+
+            if (!e.isIntersecting) {
+              // leaving view -> cancel + reset to 0 so it can replay
+              const r = counterRafs.get(el);
+              if (r) {
+                cancelAnimationFrame(r);
+                counterRafs.delete(el);
+              }
+              el.textContent = "0";
               return;
             }
-            function step(ts) {
+
+            if (reduceMotion) {
+              el.textContent = target + suffix;
+              return;
+            }
+            if (counterRafs.has(el)) return; // already counting
+
+            let start = null;
+            const step = (ts) => {
               if (!start) start = ts;
               const p = Math.min((ts - start) / dur, 1);
               const eased = 1 - Math.pow(1 - p, 3);
               el.textContent = Math.round(target * eased) + suffix;
-              if (p < 1) requestAnimationFrame(step);
-            }
-            requestAnimationFrame(step);
-            cObs.unobserve(el);
+              if (p < 1) {
+                counterRafs.set(el, requestAnimationFrame(step));
+              } else {
+                counterRafs.delete(el);
+              }
+            };
+            counterRafs.set(el, requestAnimationFrame(step));
           });
         },
         { threshold: 0.5 }
       );
       counters.forEach((c) => cObs.observe(c));
-      cleanups.push(() => cObs.disconnect());
+      cleanups.push(() => {
+        cObs.disconnect();
+        counterRafs.forEach((r) => cancelAnimationFrame(r));
+        counterRafs.clear();
+      });
     }
 
     /* ---------- Header state + parallax (single rAF loop) ---------- */

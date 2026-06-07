@@ -21,7 +21,7 @@ export default function ContactPage() {
       />
       <link rel="preload" as="image" href="/assets/img/contact-hero.jpg" />
 
-      <Header active="contact" />
+      <Header />
 
       <main>
         {/* Hero (short) */}
@@ -210,7 +210,7 @@ export default function ContactPage() {
 
       <footer className="site-footer">
         <div className="container">
-          <div className="footer-cta">
+          <div className="footer-cta" data-reveal>
             <p className="eyebrow">Stay close</p>
             <h2>First looks &amp; private events</h2>
             <form className="newsletter" data-newsletter>
@@ -225,7 +225,7 @@ export default function ContactPage() {
               </button>
             </form>
           </div>
-          <div className="footer-grid">
+          <div className="footer-grid" data-reveal>
             <div className="footer-brand">
               <a className="brand" href="/">
                 Sage Thread<span>boutique</span>
@@ -266,7 +266,7 @@ export default function ContactPage() {
               <a href="/contact">Contact</a>
             </div>
           </div>
-          <div className="footer-bottom">
+          <div className="footer-bottom" data-reveal>
             <span>© {year} Sage Thread Boutique</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>
