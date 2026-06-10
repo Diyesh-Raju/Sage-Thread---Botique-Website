@@ -1,8 +1,11 @@
 /* Furniture piece carousel — image left, copy + dot/arrow nav right */
 .fc {
+  /* Shared, fixed row height so only the left image swaps — the description
+     box keeps the exact same size on every slide (no resize jump). */
+  --fc-h: clamp(360px, 40vw, 480px);
   display: grid;
   gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: stretch;
+  align-items: center;
 }
 @media (min-width: 860px) {
   .fc { grid-template-columns: 1.05fr 0.95fr; }
@@ -10,8 +13,9 @@
 
 .fc-media {
   /* Frameless: the piece floats on the page — no box, background or border.
-     Built for transparent-PNG product cut-outs (object shown whole, centered). */
-  aspect-ratio: 4 / 3.4;
+     Built for transparent-PNG product cut-outs (object shown whole, centered).
+     Fixed height so portrait/landscape pieces both fit the same footprint. */
+  height: var(--fc-h);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,6 +37,8 @@
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: clamp(1.6rem, 3.5vw, 3rem);
+  /* Same fixed height as the media — box stays identical across all slides. */
+  height: var(--fc-h);
   display: flex;
   flex-direction: column;
   justify-content: center;
