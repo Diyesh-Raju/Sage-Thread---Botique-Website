@@ -2,6 +2,7 @@ import "./home.css";
 import Header from "@/components/Header";
 import { CircularGallery } from "@/components/CircularGallery";
 import Faq from "@/components/Faq";
+import { faqItems } from "@/components/faqData";
 
 // Placeholder showcase imagery (furniture · marble · fashion), drawn from the
 // existing assets and mixed around the circle. Swap these `photo.url`s for the
@@ -16,29 +17,6 @@ const galleryItems = [
   { common: "In the Workshop", binomial: "Furniture · Craft", photo: { url: "/assets/img/furniture-feature.jpg", text: "Furniture craft still life", by: "Sage Thread" } },
   { common: "Parisian Ease", binomial: "Fashion · Street", photo: { url: "/assets/img/home-intro-fashion.jpg", text: "A couple in Parisian tailoring", by: "Sage Thread" } },
   { common: "Stone Forms", binomial: "Marble · Sculpture", photo: { url: "/assets/img/home-col-marble.jpg", text: "Stone podium forms", by: "Sage Thread" } },
-];
-
-const faqItems = [
-  {
-    q: "Do you offer interior design consultations?",
-    a: "Yes. Our interiors team can help you compose a single room or a whole home — pairing furniture, fabric and stone into one considered whole. Arrange a consultation through the contact page.",
-  },
-  {
-    q: "Can I arrange a private viewing of a piece?",
-    a: "Of course. Private viewings are available by appointment daily, including evenings, at our Paris boutique. Tell us which pieces you'd like to see and we'll set them aside.",
-  },
-  {
-    q: "Do you ship and deliver internationally?",
-    a: "We do. Our team arranges insured worldwide delivery, with white-glove installation for larger furniture and stonework.",
-  },
-  {
-    q: "Is your marble made to order?",
-    a: "Most of it. We hand-select the block at the quarry and fabricate to your dimensions and finish — polished, honed or brushed — so no two commissions are alike.",
-  },
-  {
-    q: "What is your return policy?",
-    a: "Stock pieces may be returned within 14 days in their original condition. Made-to-order and bespoke commissions are final sale.",
-  },
 ];
 
 export const metadata = {

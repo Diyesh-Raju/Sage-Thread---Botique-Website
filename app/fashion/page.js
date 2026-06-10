@@ -1,5 +1,7 @@
 import "../fashion.css";
 import Header from "@/components/Header";
+import Faq from "@/components/Faq";
+import { faqItems } from "@/components/faqData";
 
 export const metadata = {
   title: "Fashion — Sage Thread Boutique",
@@ -261,6 +263,18 @@ export default function FashionPage() {
             <span>Couture</span>
           </div>
         </div>
+
+        {/* ===== FAQ ===== */}
+        <section className="section faq-section">
+          <div className="container">
+            <p className="eyebrow faq-eyebrow" data-reveal>
+              Frequently Asked Questions
+            </p>
+            <div data-reveal>
+              <Faq items={faqItems} />
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="site-footer">

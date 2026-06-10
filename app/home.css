@@ -37,10 +37,5 @@
 /* emphasised lead phrase — stands out from the muted sentence around it */
 .text-emph { font-weight: 600; color: var(--text); }
 
-/* FAQ */
-.faq-section .faq-eyebrow {
-  display: block;
-  text-align: center;
-  margin-bottom: clamp(2rem, 5vw, 3.2rem);
-}
-
+/* The FAQ section (styles now live in components/Faq.css so the section is
+   self-contained and identical on every page that renders it). */

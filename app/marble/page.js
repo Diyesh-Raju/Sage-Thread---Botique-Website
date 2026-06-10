@@ -1,5 +1,7 @@
 import "../marble.css";
 import Header from "@/components/Header";
+import Faq from "@/components/Faq";
+import { faqItems } from "@/components/faqData";
 
 export const metadata = {
   title: "Marble — Sage Thread Boutique",
@@ -291,6 +293,18 @@ export default function MarblePage() {
             <span>Verde</span>
           </div>
         </div>
+
+        {/* ===== FAQ ===== */}
+        <section className="section faq-section">
+          <div className="container">
+            <p className="eyebrow faq-eyebrow" data-reveal>
+              Frequently Asked Questions
+            </p>
+            <div data-reveal>
+              <Faq items={faqItems} />
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="site-footer">

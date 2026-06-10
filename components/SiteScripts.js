@@ -174,21 +174,55 @@ export default function SiteScripts() {
       requestAnimationFrame(() => hero.classList.add("loaded"));
     }
 
-    /* ---------- Scroll cue -> smooth-scroll to the next section ---------- */
+    /* ---------- Scroll cue -> smooth-scroll to the next section ----------
+       A custom rAF tween (easeInOutCubic, ~900ms) rather than the native
+       scrollIntoView: that jumped instantly here and gave no control over the
+       pace. We force scroll-behavior:auto for the duration so the global
+       `scroll-behavior: smooth` (base.css) doesn't fight the per-frame jumps. */
     const scrollCue = document.querySelector(".scroll-cue");
     if (scrollCue && hero) {
+      let cueRaf = null;
+      const easeInOutCubic = (t) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
       const onCueClick = () => {
         const next = hero.nextElementSibling;
-        if (next) {
-          next.scrollIntoView({ behavior: "smooth", block: "start" });
-        } else {
-          window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+        const targetY = next
+          ? next.getBoundingClientRect().top + window.pageYOffset
+          : window.innerHeight;
+
+        if (reduceMotion) {
+          window.scrollTo(0, targetY);
+          return;
         }
+
+        if (cueRaf) cancelAnimationFrame(cueRaf);
+        const startY = window.pageYOffset;
+        const dist = targetY - startY;
+        const dur = 900;
+        let startTs = null;
+
+        const prevBehavior = htmlEl.style.scrollBehavior;
+        htmlEl.style.scrollBehavior = "auto";
+
+        const step = (ts) => {
+          if (startTs === null) startTs = ts;
+          const p = Math.min((ts - startTs) / dur, 1);
+          window.scrollTo(0, startY + dist * easeInOutCubic(p));
+          if (p < 1) {
+            cueRaf = requestAnimationFrame(step);
+          } else {
+            cueRaf = null;
+            htmlEl.style.scrollBehavior = prevBehavior;
+          }
+        };
+        cueRaf = requestAnimationFrame(step);
       };
       scrollCue.addEventListener("click", onCueClick);
-      cleanups.push(() =>
-        scrollCue.removeEventListener("click", onCueClick)
-      );
+      cleanups.push(() => {
+        scrollCue.removeEventListener("click", onCueClick);
+        if (cueRaf) cancelAnimationFrame(cueRaf);
+      });
     }
 
     /* ---------- Newsletter (demo, no backend) ---------- */

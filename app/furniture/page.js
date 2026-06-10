@@ -1,6 +1,8 @@
 import "../furniture.css";
 import Header from "@/components/Header";
 import FurnitureCarousel from "@/components/FurnitureCarousel";
+import Faq from "@/components/Faq";
+import { faqItems } from "@/components/faqData";
 
 // Placeholder pieces for the carousel — real images + copy to follow.
 const furniturePieces = [
@@ -390,6 +392,18 @@ export default function FurniturePage() {
             <span>Cane</span>
           </div>
         </div>
+
+        {/* ===== FAQ ===== */}
+        <section className="section faq-section">
+          <div className="container">
+            <p className="eyebrow faq-eyebrow" data-reveal>
+              Frequently Asked Questions
+            </p>
+            <div data-reveal>
+              <Faq items={faqItems} />
+            </div>
+          </div>
+        </section>
       </main>
 
       <footer className="site-footer">
