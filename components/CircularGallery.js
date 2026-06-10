@@ -1,92 +1,140 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./CircularGallery.css";
 
 // A simple utility for conditional class names
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
-/* A scroll-PINNED 3D circular gallery (behaves like the Obsidian Blade home
-   gallery): the section pins to the viewport and scroll progress scrubs the
-   rotation linearly from 0deg (first card) through -360deg, so you "scroll
-   across" the carousel until you've come full circle, then the page continues
-   to the next section. Reversing the scroll reverses the spin. No auto-rotate.
+/* Scroll-PINNED 3D circular gallery. The section pins to the viewport and
+   scroll progress scrubs the cylinder's rotation from 0deg through -360deg —
+   you "scroll across" the carousel until you've come full circle, then the page
+   continues. Reversing the scroll reverses the spin.
 
-   Implemented with plain CSS `position: sticky` over a tall wrapper — no GSAP.
-   `heading` is rendered inside the pinned area so it stays put while the cards
-   turn. */
-function CircularGallery({ items, heading, radius = 600, className }) {
+   Smoothness: instead of binding rotation 1:1 to the scroll position (which
+   feels stepped), scroll only sets a *target* angle; a requestAnimationFrame
+   loop eases the live angle toward it (inertia/lerp) and writes transforms
+   straight to the DOM — no per-frame React re-render. Each card's depth
+   (scale + fade + subtle blur) is recomputed from its live angle off-front, so
+   the front card reads as the "main" one and the rest recede into the
+   background cleanly. */
+function CircularGallery({ items, heading, radius, className }) {
   const wrapRef = useRef(null);
-  const [rotation, setRotation] = useState(0);
+  const stageRef = useRef(null);
+  const itemRefs = useRef([]);
+
+  const cur = useRef(0); // live (eased) rotation
+  const target = useRef(0); // scroll-derived target rotation
+  const raf = useRef(0);
+  const running = useRef(false);
+
+  const n = items.length;
+  const anglePerItem = n ? 360 / n : 0;
+
+  // Spread the cards so neighbours sit a clean gap apart (half-card = 160px).
+  const R =
+    radius ??
+    Math.round((160 / Math.tan((Math.PI * anglePerItem) / 360)) * 1.45);
 
   useEffect(() => {
     const wrap = wrapRef.current;
-    if (!wrap) return;
+    const stage = stageRef.current;
+    if (!wrap || !stage) return;
 
-    let ticking = false;
-    const compute = () => {
-      ticking = false;
+    const readTarget = () => {
       const rect = wrap.getBoundingClientRect();
-      // distance the wrapper scrolls while its sticky child stays pinned
-      const dist = rect.height - window.innerHeight;
-      let progress = dist > 0 ? -rect.top / dist : 0;
-      progress = Math.min(1, Math.max(0, progress));
-      setRotation(-progress * 360);
+      const dist = rect.height - window.innerHeight; // travel while pinned
+      let p = dist > 0 ? -rect.top / dist : 0;
+      p = Math.min(1, Math.max(0, p));
+      target.current = -p * 360;
     };
-    const onScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(compute);
+
+    const applyDepth = (rot) => {
+      for (let i = 0; i < n; i++) {
+        const el = itemRefs.current[i];
+        if (!el) continue;
+        const itemAngle = i * anglePerItem;
+        // signed angle of this card off the front face, in [-180, 180]
+        let rel = (itemAngle + rot) % 360;
+        if (rel < -180) rel += 360;
+        if (rel > 180) rel -= 360;
+        const a = Math.abs(rel) / 180; // 0 = front … 1 = directly behind
+        const opacity = 1 - a * 0.72; // 1 → 0.28
+        const scale = 1 - a * 0.15; // 1 → 0.85
+        // keep the front card and its neighbours crisp; only the cards turned
+        // well away (past ~72°) pick up a touch of blur to sit behind
+        const blur = a < 0.4 ? 0 : ((a - 0.4) / 0.6) * 2.2;
+        el.style.transform = `rotateY(${itemAngle}deg) translateZ(${R}px) scale(${scale.toFixed(
+          3
+        )})`;
+        el.style.opacity = opacity.toFixed(3);
+        el.style.filter = `blur(${blur.toFixed(2)}px)`;
+        el.style.zIndex = String(Math.round(1000 - a * 1000));
       }
     };
 
+    const tick = () => {
+      const diff = target.current - cur.current;
+      cur.current += diff * 0.1; // ease toward target — the "smooth" follow
+      if (Math.abs(diff) < 0.01) cur.current = target.current;
+      stage.style.transform = `rotateY(${cur.current}deg)`;
+      applyDepth(cur.current);
+      if (Math.abs(target.current - cur.current) > 0.01) {
+        raf.current = requestAnimationFrame(tick);
+      } else {
+        running.current = false; // settled — idle until the next scroll
+      }
+    };
+
+    const ensure = () => {
+      if (!running.current) {
+        running.current = true;
+        raf.current = requestAnimationFrame(tick);
+      }
+    };
+
+    const onScroll = () => {
+      readTarget();
+      ensure();
+    };
+    const onResize = () => {
+      readTarget();
+      ensure();
+    };
+
+    // start settled at the correct angle (no first-paint jump)
+    readTarget();
+    cur.current = target.current;
+    stage.style.transform = `rotateY(${cur.current}deg)`;
+    applyDepth(cur.current);
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", compute, { passive: true });
-    compute();
+    window.addEventListener("resize", onResize, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", compute);
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(raf.current);
     };
-  }, []);
-
-  const anglePerItem = items.length ? 360 / items.length : 0;
+  }, [n, anglePerItem, R]);
 
   return (
     <div ref={wrapRef} className={cn("cg-pin-wrap", className)}>
       <div className="cg-pin">
         {heading ? <div className="cg-heading">{heading}</div> : null}
-        <div
-          className="cg-root"
-          role="region"
-          aria-label="Circular 3D Gallery"
-          style={{ perspective: "2000px" }}
-        >
-          <div
-            className="cg-stage"
-            style={{
-              transform: `rotateY(${rotation}deg)`,
-              transformStyle: "preserve-3d",
-            }}
-          >
+        <div className="cg-root" role="region" aria-label="Circular 3D Gallery">
+          <div ref={stageRef} className="cg-stage">
             {items.map((item, i) => {
               const itemAngle = i * anglePerItem;
-              const totalRotation = rotation % 360;
-              const relativeAngle = (itemAngle + totalRotation + 360) % 360;
-              const normalizedAngle = Math.abs(
-                relativeAngle > 180 ? 360 - relativeAngle : relativeAngle
-              );
-              const opacity = Math.max(0.25, 1 - normalizedAngle / 180);
-
               return (
                 <div
                   key={item.photo.url}
+                  ref={(el) => (itemRefs.current[i] = el)}
                   role="group"
                   aria-label={item.common}
                   className="cg-item"
                   style={{
-                    transform: `rotateY(${itemAngle}deg) translateZ(${radius}px)`,
-                    opacity,
-                    transition: "opacity 0.15s linear",
+                    transform: `rotateY(${itemAngle}deg) translateZ(${R}px)`,
+                    willChange: "transform, opacity, filter",
                   }}
                 >
                   <div className="cg-card">

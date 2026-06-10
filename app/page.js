@@ -281,7 +281,10 @@ export default function HomePage() {
         />
 
         {/* ===== Band quote ===== */}
-        <section className="band section">
+        <section
+          className="band section"
+          style={{ marginTop: "clamp(3rem, 8vh, 7rem)" }}
+        >
           <div className="band__bg">
             <img
               src="/assets/img/home-band.jpg"
