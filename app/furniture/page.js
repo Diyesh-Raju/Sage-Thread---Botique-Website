@@ -1,5 +1,16 @@
 import "../furniture.css";
 import Header from "@/components/Header";
+import FurnitureCarousel from "@/components/FurnitureCarousel";
+
+// Placeholder pieces for the carousel — real images + copy to follow.
+const furniturePieces = [
+  { name: "Émeraude Sofa", eyebrow: "Seating", desc: "Deep emerald velvet over a low, generous frame — the seat a whole room settles around.", img: "/assets/img/furniture-1.jpg" },
+  { name: "Brigitte Chair", eyebrow: "Seating", desc: "Hand-tufted and softly sculpted, a quiet armchair that flatters every corner it sits in.", img: "/assets/img/furniture-2.jpg" },
+  { name: "Soleil Lounge", eyebrow: "Seating", desc: "Warm, easy and a little sunlit — a lounge chair made for long, unhurried afternoons.", img: "/assets/img/furniture-3.jpg" },
+  { name: "Atelier Stool", eyebrow: "Objects", desc: "Carved from a single block of timber — equal parts seat, side table and sculpture.", img: "/assets/img/furniture-4.jpg" },
+  { name: "Lin Bed", eyebrow: "Bedroom", desc: "Upholstered in washed linen, a headboard that turns a bedroom into a quiet retreat.", img: "/assets/img/furniture-5.jpg" },
+  { name: "Noir Accent", eyebrow: "Seating", desc: "Sculptural and self-assured — a graphic accent chair with presence to spare.", img: "/assets/img/furniture-6.jpg" },
+];
 
 export const metadata = {
   title: "Furniture — Sage Thread Boutique",
@@ -276,6 +287,70 @@ export default function FurniturePage() {
                   <div className="lbl">Maker ateliers</div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Change 1 — intention feature (big image left, copy right) ===== */}
+        <section className="section">
+          <div className="container split">
+            <div
+              className="media"
+              data-img
+              data-reveal="left"
+              style={{ aspectRatio: "4 / 3.4" }}
+            >
+              <img
+                src="/assets/img/furniture-context.jpg"
+                alt="A warm, considered living room"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div data-reveal="right">
+              <p className="eyebrow">Where luxury meets intention</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.6rem)" }}>
+                Luxury is not about excess; it’s about intention
+              </h2>
+              <p className="lead mt-2 measure">
+                Every piece we place is chosen for the life it will hold, not the
+                attention it demands — considered proportions, honest materials
+                and quiet craft you feel long before you notice it.
+              </p>
+              <a href="/contact" className="btn btn--ghost mt-3">
+                Get a quote <span className="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Change 2 — full-width quote on stone ===== */}
+        <section className="quote-band">
+          <img
+            className="quote-band__img"
+            src="/assets/img/furniture-quote-bg.jpg"
+            alt="A carved stone bench on a warm background"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="quote-band__text" data-reveal>
+            <blockquote>
+              <span>“Simplicity Is The Ultimate</span>
+              <span>Sophistication.”</span>
+            </blockquote>
+            <cite>— Leonardo da Vinci</cite>
+          </div>
+        </section>
+
+        {/* ===== Change 3 — furniture piece carousel ===== */}
+        <section className="section">
+          <div className="container">
+            <div className="sec-head" data-reveal>
+              <p className="eyebrow">The pieces</p>
+              <h2>Explore the collection</h2>
+            </div>
+            <div data-reveal>
+              <FurnitureCarousel items={furniturePieces} />
             </div>
           </div>
         </section>

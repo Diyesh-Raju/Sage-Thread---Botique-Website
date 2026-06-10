@@ -1,0 +1,58 @@
+/* FAQ accordion — Obsidian-Blade-style, themed with this site's tokens */
+.faq {
+  max-width: 820px;
+  margin-inline: auto;
+}
+.faq-list {
+  border-top: 1px solid var(--line);
+}
+.faq-item {
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+.faq-q {
+  width: 100%;
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: clamp(1.02rem, 1rem + 0.3vw, 1.18rem);
+  color: var(--text);
+  cursor: pointer;
+  transition: color 0.3s var(--ease);
+}
+.faq-q:hover,
+.faq-item.is-open .faq-q {
+  color: var(--accent);
+}
+.faq-chevron {
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform 0.5s var(--ease);
+}
+.faq-item.is-open .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-a-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.5s var(--ease), opacity 0.5s var(--ease);
+}
+.faq-item.is-open .faq-a-wrap {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.faq-a-inner {
+  overflow: hidden;
+}
+.faq-a {
+  margin: 0;
+  padding: 0 clamp(0rem, 4vw, 3rem) 1.6rem 0;
+  color: var(--muted);
+  font-size: clamp(0.96rem, 0.92rem + 0.2vw, 1.05rem);
+  line-height: 1.7;
+}

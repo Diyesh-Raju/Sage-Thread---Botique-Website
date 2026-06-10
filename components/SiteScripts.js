@@ -174,6 +174,23 @@ export default function SiteScripts() {
       requestAnimationFrame(() => hero.classList.add("loaded"));
     }
 
+    /* ---------- Scroll cue -> smooth-scroll to the next section ---------- */
+    const scrollCue = document.querySelector(".scroll-cue");
+    if (scrollCue && hero) {
+      const onCueClick = () => {
+        const next = hero.nextElementSibling;
+        if (next) {
+          next.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          window.scrollTo({ top: window.innerHeight, behavior: "smooth" });
+        }
+      };
+      scrollCue.addEventListener("click", onCueClick);
+      cleanups.push(() =>
+        scrollCue.removeEventListener("click", onCueClick)
+      );
+    }
+
     /* ---------- Newsletter (demo, no backend) ---------- */
     const nf = document.querySelector("[data-newsletter]");
     if (nf) {

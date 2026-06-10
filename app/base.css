@@ -93,6 +93,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
 .btn--solid { background: var(--accent); color: #fff; --bd: var(--accent); }
 .btn--solid::before { background: var(--accent-2); }
 .btn--ghost { --bd: currentColor; }
+/* larger, more legible label (tighter tracking, bigger type) */
+.btn--lg { font-size: .95rem; letter-spacing: .12em; padding: 1.05em 2.4em; }
 .btn .arrow { transition: transform .5s var(--ease); }
 .btn:hover .arrow { transform: translateX(4px); }
 
@@ -196,7 +198,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
   display: flex; flex-direction: column; align-items: center; gap: .7rem; z-index: 1;
   font-family: var(--font-accent); font-size: .62rem; letter-spacing: .35em; text-transform: uppercase;
   color: rgba(255,255,255,.8);
+  cursor: pointer; /* clickable — smooth-scrolls to the next section (see SiteScripts) */
+  transition: color .4s var(--ease);
 }
+.scroll-cue:hover { color: #fff; }
 .scroll-cue::after {
   content: ""; width: 1px; height: 56px; background: rgba(255,255,255,.6);
   animation: cue 2.4s var(--ease) infinite;
@@ -250,8 +255,8 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
 /* ---------- Stats ---------- */
 .stats { display: grid; gap: 2rem; grid-template-columns: repeat(2,1fr); }
 @media (min-width: 760px) { .stats { grid-template-columns: repeat(4,1fr); } }
-.stat .num { font-family: var(--font-display); font-size: clamp(2.4rem,5vw,3.6rem); line-height: 1; color: var(--accent); }
-.stat .lbl { font-family: var(--font-accent); font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-top: .6rem; }
+.stat .num { font-family: var(--font-display); font-size: clamp(2.8rem,5.6vw,4.2rem); line-height: 1; color: var(--accent); }
+.stat .lbl { font-family: var(--font-accent); font-size: .84rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-top: .7rem; }
 
 /* ---------- Quote / band ---------- */
 .band { position: relative; color: #fff; overflow: hidden; }

@@ -31,3 +31,40 @@
 .chip.is-on { background: var(--accent-2); color: #fff; border-color: var(--accent-2); }
 
 .feature__badge .script { font-family: var(--font-display); font-style: italic; }
+
+/* full-width quote-on-stone band */
+.quote-band { position: relative; width: 100%; overflow: hidden; }
+.quote-band__img { display: block; width: 100%; height: auto; }
+.quote-band__text {
+  position: absolute;
+  left: clamp(1.25rem, 6vw, 7rem);
+  top: 36%;
+}
+.quote-band blockquote {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: #312114;
+  font-size: clamp(1.4rem, 4.4vw, 4rem);
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
+}
+.quote-band blockquote span {
+  display: block;
+  white-space: nowrap; /* keep the exact 2-line break the quote was written with */
+}
+.quote-band cite {
+  display: block;
+  margin-top: clamp(0.5rem, 1.6vw, 1.2rem);
+  font-style: normal;
+  font-family: var(--font-accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: clamp(0.58rem, 1.4vw, 0.95rem);
+  color: #5b4a38;
+}
+@media (max-width: 600px) {
+  /* keep the short mobile image readable behind the quote */
+  .quote-band__img { height: 62vw; object-fit: cover; }
+  .quote-band__text { top: 30%; max-width: 80%; }
+}

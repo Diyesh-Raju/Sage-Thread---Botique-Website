@@ -1,5 +1,45 @@
 import "./home.css";
 import Header from "@/components/Header";
+import { CircularGallery } from "@/components/CircularGallery";
+import Faq from "@/components/Faq";
+
+// Placeholder showcase imagery (furniture · marble · fashion), drawn from the
+// existing assets and mixed around the circle. Swap these `photo.url`s for the
+// real photos when they arrive.
+const galleryItems = [
+  { common: "Warm Minimalism", binomial: "Furniture · Living", photo: { url: "/assets/img/home-intro-furniture.jpg", text: "A curated living room", by: "Sage Thread" } },
+  { common: "City Tailoring", binomial: "Fashion · Atelier", photo: { url: "/assets/img/fashion-1.jpg", text: "Street style tailoring", by: "Sage Thread" } },
+  { common: "Quarried Light", binomial: "Marble · Stone", photo: { url: "/assets/img/marble-arch.jpg", text: "A sculptural stone staircase", by: "Sage Thread" } },
+  { common: "Émeraude Sofa", binomial: "Furniture · Seating", photo: { url: "/assets/img/furniture-1.jpg", text: "Green velvet sofa", by: "Sage Thread" } },
+  { common: "Rouge", binomial: "Fashion · Editorial", photo: { url: "/assets/img/fashion-3.jpg", text: "Bold colour study", by: "Sage Thread" } },
+  { common: "Vein & Grain", binomial: "Marble · Surface", photo: { url: "/assets/img/marble-context1.jpg", text: "Marble surface detail", by: "Sage Thread" } },
+  { common: "In the Workshop", binomial: "Furniture · Craft", photo: { url: "/assets/img/furniture-feature.jpg", text: "Furniture craft still life", by: "Sage Thread" } },
+  { common: "Parisian Ease", binomial: "Fashion · Street", photo: { url: "/assets/img/home-intro-fashion.jpg", text: "A couple in Parisian tailoring", by: "Sage Thread" } },
+  { common: "Stone Forms", binomial: "Marble · Sculpture", photo: { url: "/assets/img/home-col-marble.jpg", text: "Stone podium forms", by: "Sage Thread" } },
+];
+
+const faqItems = [
+  {
+    q: "Do you offer interior design consultations?",
+    a: "Yes. Our interiors team can help you compose a single room or a whole home — pairing furniture, fabric and stone into one considered whole. Arrange a consultation through the contact page.",
+  },
+  {
+    q: "Can I arrange a private viewing of a piece?",
+    a: "Of course. Private viewings are available by appointment daily, including evenings, at our Paris boutique. Tell us which pieces you'd like to see and we'll set them aside.",
+  },
+  {
+    q: "Do you ship and deliver internationally?",
+    a: "We do. Our team arranges insured worldwide delivery, with white-glove installation for larger furniture and stonework.",
+  },
+  {
+    q: "Is your marble made to order?",
+    a: "Most of it. We hand-select the block at the quarry and fabricate to your dimensions and finish — polished, honed or brushed — so no two commissions are alike.",
+  },
+  {
+    q: "What is your return policy?",
+    a: "Stock pieces may be returned within 14 days in their original condition. Made-to-order and bespoke commissions are final sale.",
+  },
+];
 
 export const metadata = {
   title: "Sage Thread — Boutique of Curated Living",
@@ -81,23 +121,23 @@ export default function HomePage() {
                 Three disciplines, one sensibility — considered, tactile, and
                 made to last a lifetime.
               </p>
-              <a href="#collections" className="btn btn--ghost mt-3">
+              <a href="#collections" className="btn btn--ghost btn--lg mt-3">
                 Discover collections <span className="arrow">→</span>
               </a>
             </div>
             <div className="intro-figs" data-reveal="right">
               <div className="media" data-img>
                 <img
-                  src="/assets/img/furniture-2.jpg"
-                  alt="A sculptural armchair"
+                  src="/assets/img/home-intro-furniture.jpg"
+                  alt="A curated living room in warm natural materials"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
               <div className="media" data-img style={{ "--d": ".15s" }}>
                 <img
-                  src="/assets/img/fashion-2.jpg"
-                  alt="Fashion editorial portrait"
+                  src="/assets/img/home-intro-fashion.jpg"
+                  alt="A couple in considered Parisian tailoring"
                   loading="lazy"
                   decoding="async"
                 />
@@ -117,7 +157,12 @@ export default function HomePage() {
               <p
                 className="measure-sm"
                 data-reveal
-                style={{ "--d": ".1s", color: "var(--muted)" }}
+                style={{
+                  "--d": ".1s",
+                  color: "var(--muted)",
+                  fontSize: "clamp(1.1rem, 1rem + .5vw, 1.35rem)",
+                  lineHeight: 1.6,
+                }}
               >
                 Move between rooms — each with its own character, all sharing
                 Sage Thread’s eye for the exceptional.
@@ -127,7 +172,7 @@ export default function HomePage() {
             <div className="collections">
               <a href="/furniture" className="tile" data-reveal data-tilt>
                 <img
-                  src="/assets/img/home-col-furniture.jpg"
+                  src="/assets/img/home-col-furniture-v2.jpg"
                   alt="Furniture collection"
                   loading="lazy"
                   decoding="async"
@@ -164,15 +209,13 @@ export default function HomePage() {
                 data-tilt
                 style={{ "--d": ".24s" }}
               >
+                <img
+                  src="/assets/img/home-col-marble.jpg"
+                  alt="Marble collection"
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span className="plus">→</span>
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background:
-                      "#ece7df url('/assets/img/marble-calacatta.svg') center/cover",
-                  }}
-                ></div>
                 <div className="tile__cap">
                   <p className="meta">03 — Stone</p>
                   <h3>Marble</h3>
@@ -207,9 +250,11 @@ export default function HomePage() {
                 chosen with care
               </h2>
               <p className="lead mt-2 measure">
-                Nothing enters the house by accident. Every collection is edited
-                in person — for material honesty, for craft, and for the way it
-                makes a room feel.
+                <strong className="text-emph">
+                  Nothing enters the house by accident.
+                </strong>{" "}
+                Every collection is edited in person — for material honesty, for
+                craft, and for the way it makes a room feel.
               </p>
               <div className="stats mt-3">
                 <div className="stat">
@@ -240,6 +285,22 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* ===== Showcase gallery (scroll-pinned) ===== */}
+        <CircularGallery
+          items={galleryItems}
+          heading={
+            <>
+              <p className="eyebrow">The showcase</p>
+              <h2
+                className="display"
+                style={{ fontSize: "clamp(2.2rem,5.5vw,4.2rem)" }}
+              >
+                Where Style Meets <span className="script">Luxury</span>
+              </h2>
+            </>
+          }
+        />
 
         {/* ===== Band quote ===== */}
         <section className="band section">
@@ -278,6 +339,18 @@ export default function HomePage() {
             <span>Atelier</span>
           </div>
         </div>
+
+        {/* ===== FAQ ===== */}
+        <section className="section faq-section">
+          <div className="container">
+            <p className="eyebrow faq-eyebrow" data-reveal>
+              Frequently Asked Questions
+            </p>
+            <div data-reveal>
+              <Faq items={faqItems} />
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* ===== Footer ===== */}

@@ -1,0 +1,109 @@
+/* Scroll-pinned circular 3D gallery — styling uses the site's design tokens */
+
+/* Tall wrapper provides the scroll distance the pin scrubs across */
+.cg-pin-wrap {
+  position: relative;
+  height: 400vh;
+}
+@media (max-width: 768px) {
+  .cg-pin-wrap { height: 300vh; }
+}
+
+/* Sticky child stays fixed in the viewport while the wrapper scrolls past */
+.cg-pin {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.cg-heading {
+  text-align: center;
+  padding-top: clamp(5rem, 12vh, 9rem);
+  padding-inline: var(--pad);
+}
+.cg-heading h2 { margin-top: 0.5rem; }
+
+.cg-root {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cg-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.cg-item {
+  position: absolute;
+  width: 300px;
+  height: 400px;
+  left: 50%;
+  top: 50%;
+  margin-left: -150px;
+  margin-top: -200px;
+}
+.cg-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.cg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.cg-cap {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1.2rem 1.2rem 1.1rem;
+  color: #fff;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.82), transparent);
+}
+.cg-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
+.cg-bino {
+  display: block;
+  margin-top: 0.15rem;
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 0.85;
+}
+.cg-by {
+  margin-top: 0.6rem;
+  font-family: var(--font-accent);
+  font-size: 0.64rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+@media (max-width: 560px) {
+  /* tighter cards so the front face fits small screens */
+  .cg-item {
+    width: 240px;
+    height: 330px;
+    margin-left: -120px;
+    margin-top: -165px;
+  }
+}
