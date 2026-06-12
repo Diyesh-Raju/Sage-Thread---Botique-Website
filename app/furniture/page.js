@@ -98,8 +98,10 @@ export default function FurniturePage() {
               <span>“Simplicity Is The Ultimate</span>
               <span>Sophistication.”</span>
             </blockquote>
-            <cite>— Leonardo da Vinci</cite>
           </div>
+          <cite className="quote-band__cite" data-reveal>
+            — Leonardo da Vinci
+          </cite>
         </section>
 
         {/* ===== Change 3 — furniture piece carousel ===== */}

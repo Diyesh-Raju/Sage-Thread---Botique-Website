@@ -38,7 +38,7 @@
 .quote-band__text {
   position: absolute;
   left: clamp(2.5rem, 12vw, 13rem);
-  top: 24%;
+  top: 31%;
   /* Lay the type down onto the slab's top surface so it reads as resting
      on the stone — hinge at the bottom-left where it meets the slab. */
   transform-origin: left bottom;
@@ -59,23 +59,34 @@
   display: block;
   white-space: nowrap; /* keep the exact 2-line break the quote was written with */
 }
-.quote-band cite {
+.quote-band__cite {
+  /* Sit the attribution on the flat top surface of the slab, to the right
+     of the quote, laid down to follow the stone's perspective. */
+  position: absolute;
+  left: 57%;
+  top: 44%;
   display: block;
-  margin-top: clamp(0.5rem, 1.6vw, 1.2rem);
   font-style: normal;
   font-family: var(--font-accent);
   letter-spacing: 0.18em;
   text-transform: uppercase;
   font-size: clamp(0.58rem, 1.4vw, 0.95rem);
   color: #5b4a38;
+  transform-origin: left bottom;
+  transform: perspective(1100px) rotateX(44deg) rotateZ(-2deg);
 }
 @media (max-width: 600px) {
   /* keep the short mobile image readable behind the quote */
   .quote-band__img { height: 62vw; object-fit: cover; }
   .quote-band__text {
-    top: 30%;
+    top: 36%;
     max-width: 80%;
     /* gentler tilt so the smaller type stays legible on mobile */
+    transform: perspective(700px) rotateX(34deg) rotateZ(-1.5deg);
+  }
+  .quote-band__cite {
+    left: 52%;
+    top: 50%;
     transform: perspective(700px) rotateX(34deg) rotateZ(-1.5deg);
   }
 }
