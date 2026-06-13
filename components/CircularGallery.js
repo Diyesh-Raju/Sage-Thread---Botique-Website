@@ -34,6 +34,10 @@ function CircularGallery({ items, heading, radius, className }) {
   // than re-spreading them evenly around the circle).
   const SPACING_COUNT = 9;
   const anglePerItem = 360 / SPACING_COUNT;
+  // Sweep only from the first card to the last (Stone Forms), instead of a full
+  // 360° loop — so scrolling down settles on the last box and scrolling back up
+  // returns to the first.
+  const maxRot = (n - 1) * anglePerItem;
 
   // Spread the cards so neighbours sit a clean gap apart (half-card = 160px).
   const R =
@@ -50,7 +54,7 @@ function CircularGallery({ items, heading, radius, className }) {
       const dist = rect.height - window.innerHeight; // travel while pinned
       let p = dist > 0 ? -rect.top / dist : 0;
       p = Math.min(1, Math.max(0, p));
-      target.current = -p * 360;
+      target.current = -p * maxRot;
     };
 
     const applyDepth = (rot) => {
@@ -119,7 +123,7 @@ function CircularGallery({ items, heading, radius, className }) {
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(raf.current);
     };
-  }, [n, anglePerItem, R]);
+  }, [n, anglePerItem, R, maxRot]);
 
   return (
     <div ref={wrapRef} className={cn("cg-pin-wrap", className)}>
