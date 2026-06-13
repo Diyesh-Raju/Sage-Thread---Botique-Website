@@ -11,10 +11,7 @@ const galleryItems = [
   { common: "Warm Minimalism", binomial: "Furniture · Living", photo: { url: "/assets/img/home-intro-furniture.jpg", text: "A curated living room", by: "Sage Thread" } },
   { common: "City Tailoring", binomial: "Fashion · Atelier", photo: { url: "/assets/img/fashion-1.jpg", text: "Street style tailoring", by: "Sage Thread" } },
   { common: "Quarried Light", binomial: "Marble · Stone", photo: { url: "/assets/img/marble-arch.jpg", text: "A sculptural stone staircase", by: "Sage Thread" } },
-  { common: "Émeraude Sofa", binomial: "Furniture · Seating", photo: { url: "/assets/img/furniture-1.jpg", text: "Green velvet sofa", by: "Sage Thread" } },
   { common: "Rouge", binomial: "Fashion · Editorial", photo: { url: "/assets/img/fashion-3.jpg", text: "Bold colour study", by: "Sage Thread" } },
-  { common: "Vein & Grain", binomial: "Marble · Surface", photo: { url: "/assets/img/marble-context1.jpg", text: "Marble surface detail", by: "Sage Thread" } },
-  { common: "In the Workshop", binomial: "Furniture · Craft", photo: { url: "/assets/img/furniture-feature.jpg", text: "Furniture craft still life", by: "Sage Thread" } },
   { common: "Parisian Ease", binomial: "Fashion · Street", photo: { url: "/assets/img/home-intro-fashion.jpg", text: "A couple in Parisian tailoring", by: "Sage Thread" } },
   { common: "Stone Forms", binomial: "Marble · Sculpture", photo: { url: "/assets/img/home-col-marble.jpg", text: "Stone podium forms", by: "Sage Thread" } },
 ];
