@@ -29,7 +29,11 @@ function CircularGallery({ items, heading, radius, className }) {
   const running = useRef(false);
 
   const n = items.length;
-  const anglePerItem = n ? 360 / n : 0;
+  // Keep the per-card spacing fixed to the original 9-card ring, so removing
+  // cards leaves the remaining boxes exactly as far apart as before (rather
+  // than re-spreading them evenly around the circle).
+  const SPACING_COUNT = 9;
+  const anglePerItem = 360 / SPACING_COUNT;
 
   // Spread the cards so neighbours sit a clean gap apart (half-card = 160px).
   const R =
