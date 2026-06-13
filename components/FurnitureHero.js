@@ -3,23 +3,25 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-/* Furniture hero — a two-piece showcase (bed / sofa). Each piece is a
-   background-stripped cutout that floats over its own room background image.
-   The pieces auto-advance every 2s with a smooth crossfade (background image,
-   cutout and copy all fade together) and the arrows step through manually. */
+/* Furniture hero — full-bleed room photos that fill the screen and crossfade
+   every 2 seconds. Same bottom-left nav arrows as before step through manually. */
 
 const ITEMS = [
   {
-    img: "/assets/img/hero-bed.png",
-    bg: "/assets/img/hero-bg-bed.jpg",
-    heading: "Luxury Begins Where Your Head Rests",
-    sub: "We craft beds that don’t just hold you, they embrace you.",
+    img: "/assets/img/furniture-hero-1.jpg",
+    heading: ["Where Comfort", "Commands Attention"],
+    sub: [
+      "Sink in. Stay awhile. A sofa that invites you to stay.",
+      "Deep comfort meets undeniable presence — the piece every room needs.",
+    ],
   },
   {
-    img: "/assets/img/hero-sofa.png",
-    bg: "/assets/img/hero-bg-sofa.jpg",
-    heading: "Where Comfort Commands Attention",
-    sub: "Sink In. Stay Awhile. A sofa that invites you to stay. Deep comfort meets undeniable presence. The piece every room needs.",
+    img: "/assets/img/furniture-hero-2.jpg",
+    heading: ["Luxury Begins Where", "Your Head Rests"],
+    sub: [
+      "We craft beds that don’t just hold you,",
+      "they embrace you.",
+    ],
   },
 ];
 
@@ -35,13 +37,11 @@ export default function FurnitureHero() {
   const timer = useRef(null);
   const n = ITEMS.length;
 
-  // Preload every background + cutout up front so crossfades never flash.
+  // Preload both images up front so crossfades never flash.
   useEffect(() => {
     ITEMS.forEach((it) => {
-      [it.img, it.bg].forEach((src) => {
-        const im = new Image();
-        im.src = src;
-      });
+      const im = new Image();
+      im.src = it.img;
     });
   }, []);
 
@@ -52,7 +52,7 @@ export default function FurnitureHero() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Auto-advance bed → sofa → bed every 2 seconds.
+  // Auto-advance through the photos every 2 seconds.
   const startTimer = () => {
     clearInterval(timer.current);
     timer.current = setInterval(() => setActive((p) => (p + 1) % n), 2000);
@@ -72,22 +72,26 @@ export default function FurnitureHero() {
       style={{
         position: "relative",
         width: "100%",
-        height: "100vh",
+        aspectRatio: "16 / 9",
         overflow: "hidden",
         background: "#0d0b0a",
         fontFamily: "Inter, sans-serif",
       }}
     >
-      {/* Background room images — crossfade between pieces */}
+      {/* Full-width room photos shown whole — crossfade between pieces */}
       {ITEMS.map((it, i) => (
-        <div
+        <img
           key={"bg" + i}
+          src={it.img}
+          alt=""
+          draggable={false}
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage: `url(${it.bg})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition: "center",
             opacity: i === active ? 1 : 0,
             transition: `opacity ${FADE}ms ${EASE}`,
             zIndex: 0,
@@ -95,7 +99,7 @@ export default function FurnitureHero() {
         />
       ))}
 
-      {/* Legibility gradients for the bottom-left copy */}
+      {/* Legibility gradients for the bottom-left copy + controls */}
       <div
         style={{
           position: "absolute",
@@ -117,41 +121,6 @@ export default function FurnitureHero() {
         }}
       />
 
-      {/* Furniture cutouts — crossfade, sitting centered on the floor */}
-      {ITEMS.map((it, i) => (
-        <div
-          key={"p" + i}
-          style={{
-            position: "absolute",
-            left: "50%",
-            bottom: isMobile ? "12%" : "7%",
-            transform: "translateX(-50%)",
-            width: isMobile ? "94%" : "66%",
-            maxWidth: "1080px",
-            display: "flex",
-            justifyContent: "center",
-            opacity: i === active ? 1 : 0,
-            transition: `opacity ${FADE}ms ${EASE}`,
-            zIndex: 3,
-            pointerEvents: "none",
-          }}
-        >
-          <img
-            src={it.img}
-            alt={it.heading}
-            draggable={false}
-            style={{
-              width: "100%",
-              height: "auto",
-              maxHeight: isMobile ? "52vh" : "74vh",
-              objectFit: "contain",
-              objectPosition: "bottom center",
-              filter: "drop-shadow(0 34px 44px rgba(0,0,0,0.55))",
-            }}
-          />
-        </div>
-      ))}
-
       {/* Grain overlay */}
       <div
         style={{
@@ -166,71 +135,77 @@ export default function FurnitureHero() {
         }}
       />
 
-      {/* Bottom-left copy (per piece) + nav arrows */}
+      {/* Bottom-left copy (per image) */}
       <div
         style={{
           position: "absolute",
           bottom: isMobile ? "1.5rem" : "4.5rem",
           left: isMobile ? "1rem" : "6rem",
           zIndex: 20,
-          maxWidth: isMobile ? "88%" : "470px",
+          width: isMobile ? "92vw" : "640px",
+          height: isMobile ? "190px" : "220px",
         }}
       >
-        {/* fixed-height text stack so the arrows below never shift */}
-        <div
-          style={{
-            position: "relative",
-            height: isMobile ? "190px" : "220px",
-          }}
-        >
-          {ITEMS.map((it, i) => (
-            <div
-              key={"t" + i}
+        {ITEMS.map((it, i) => (
+          <div
+            key={"t" + i}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              opacity: i === active ? 1 : 0,
+              transition: `opacity ${FADE}ms ${EASE}`,
+            }}
+          >
+            <h1
               style={{
-                position: "absolute",
-                left: 0,
-                right: 0,
-                bottom: 0,
-                opacity: i === active ? 1 : 0,
-                transition: `opacity ${FADE}ms ${EASE}`,
+                fontFamily: "'Playfair Display', serif",
+                fontWeight: 600,
+                color: "#ffffff",
+                fontSize: isMobile
+                  ? "clamp(1.5rem, 7vw, 2rem)"
+                  : "clamp(1.9rem, 2.9vw, 2.9rem)",
+                lineHeight: 1.12,
+                letterSpacing: "-0.01em",
+                textShadow: "0 2px 18px rgba(0,0,0,0.45)",
               }}
             >
-              <h1
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontWeight: 600,
-                  color: "#ffffff",
-                  fontSize: isMobile
-                    ? "clamp(1.5rem, 7vw, 2rem)"
-                    : "clamp(1.9rem, 2.9vw, 2.9rem)",
-                  lineHeight: 1.12,
-                  letterSpacing: "-0.01em",
-                  textShadow: "0 2px 18px rgba(0,0,0,0.45)",
-                }}
-              >
-                {it.heading}
-              </h1>
-              <p
-                style={{
-                  marginTop: isMobile ? "0.6rem" : "0.9rem",
-                  color: "#ffffff",
-                  opacity: 0.85,
-                  fontSize: isMobile ? "0.85rem" : "0.98rem",
-                  lineHeight: 1.6,
-                  maxWidth: "440px",
-                  textShadow: "0 1px 10px rgba(0,0,0,0.4)",
-                }}
-              >
-                {it.sub}
-              </p>
-            </div>
-          ))}
-        </div>
+              {it.heading[0]}
+              <br />
+              {it.heading[1]}
+            </h1>
+            <p
+              style={{
+                marginTop: isMobile ? "0.6rem" : "0.9rem",
+                color: "#ffffff",
+                opacity: 0.85,
+                fontSize: isMobile ? "0.85rem" : "0.98rem",
+                lineHeight: 1.6,
+                textShadow: "0 1px 10px rgba(0,0,0,0.4)",
+              }}
+            >
+              {it.sub[0]}
+              <br />
+              {it.sub[1]}
+            </p>
+          </div>
+        ))}
+      </div>
 
-        <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
+      {/* Bottom-right nav arrows */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: isMobile ? "1.5rem" : "4.5rem",
+          right: isMobile ? "1rem" : "6rem",
+          zIndex: 20,
+        }}
+      >
+        <div style={{ display: "flex", gap: "0.75rem" }}>
           {[
-            { Icon: ArrowLeft, dir: "prev", label: "Previous piece" },
-            { Icon: ArrowRight, dir: "next", label: "Next piece" },
+            { Icon: ArrowLeft, dir: "prev", label: "Previous image" },
+            { Icon: ArrowRight, dir: "next", label: "Next image" },
           ].map(({ Icon, dir, label }) => (
             <button
               key={dir}

@@ -41,7 +41,7 @@ export default function FurniturePage() {
       <Header />
 
       <main>
-        {/* Hero — TOONHUB figurine carousel */}
+        {/* Hero — full-bleed room photos that crossfade every 2s */}
         <FurnitureHero />
 
         {/* Intro */}
@@ -63,7 +63,7 @@ export default function FurniturePage() {
             </div>
             <div data-reveal="right">
               <p className="eyebrow">Made to be lived with</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.6rem)" }}>
+              <h2 style={{ fontSize: "clamp(1.6rem,2.8vw,2.55rem)" }}>
                 Luxury is not about excess;
                 <br />
                 it&rsquo;s about intention
