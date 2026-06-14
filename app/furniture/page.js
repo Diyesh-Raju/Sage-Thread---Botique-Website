@@ -200,7 +200,7 @@ export default function FurniturePage() {
               Italian Modern Design
             </p>
             <blockquote className="big-quote" data-reveal>
-              Your space is more than a room — it&rsquo;s where design meets life.
+              Your space is more than a room, it&rsquo;s where design meets life.
             </blockquote>
             <div className="quote-cta" data-reveal>
               <a href="/contact" className="btn btn--solid">
