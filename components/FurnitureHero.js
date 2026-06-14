@@ -7,26 +7,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
    every 2 seconds. Same bottom-left nav arrows as before step through manually. */
 
 const ITEMS = [
-  {
-    img: "/assets/img/furniture-hero-1.jpg",
-    heading: ["Where Comfort", "Commands Attention"],
-    sub: [
-      "Sink in. Stay awhile. A sofa that invites you to stay.",
-      "Deep comfort meets undeniable presence — the piece every room needs.",
-    ],
-  },
-  {
-    img: "/assets/img/furniture-hero-2.jpg",
-    heading: ["Luxury Begins Where", "Your Head Rests"],
-    sub: [
-      "We craft beds that don’t just hold you,",
-      "they embrace you.",
-    ],
-  },
-  {
-    img: "/assets/img/furniture-hero-3.jpg",
-    // heading + description to be added later
-  },
+  { img: "/assets/img/furniture-hero-1.jpg", heading: "Where comfort demands attention" },
+  { img: "/assets/img/furniture-hero-2.jpg", heading: "Luxury begins where your head rests" },
+  { img: "/assets/img/furniture-hero-3.jpg", heading: "Where art meets function" },
+  { img: "/assets/img/furniture-hero-4.jpg", heading: "Designed to Inspire" },
+  { img: "/assets/img/furniture-hero-5.jpg", heading: "Timeless design, unmatched craft" },
 ];
 
 const EASE = "cubic-bezier(0.4,0,0.2,1)";
@@ -176,24 +161,8 @@ export default function FurnitureHero() {
                 textShadow: "0 2px 18px rgba(0,0,0,0.45)",
               }}
             >
-              {it.heading[0]}
-              <br />
-              {it.heading[1]}
+              {it.heading}
             </h1>
-            <p
-              style={{
-                marginTop: isMobile ? "0.6rem" : "0.9rem",
-                color: "#ffffff",
-                opacity: 0.85,
-                fontSize: isMobile ? "0.85rem" : "0.98rem",
-                lineHeight: 1.6,
-                textShadow: "0 1px 10px rgba(0,0,0,0.4)",
-              }}
-            >
-              {it.sub[0]}
-              <br />
-              {it.sub[1]}
-            </p>
           </div>
           )
         )}

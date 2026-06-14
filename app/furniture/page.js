@@ -1,19 +1,13 @@
 import "../furniture.css";
 import Header from "@/components/Header";
 import FurnitureHero from "@/components/FurnitureHero";
-import FurnitureCarousel from "@/components/FurnitureCarousel";
+import FurnitureFinishes from "@/components/FurnitureFinishes";
+import { LandingAccordionItem } from "@/components/FurnitureAccordion";
+import FurnitureRooms from "@/components/FurnitureRooms";
+import FurnitureServices from "@/components/FurnitureServices";
+import FurnitureSocial from "@/components/FurnitureSocial";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
-
-// Placeholder pieces for the carousel — real images + copy to follow.
-const furniturePieces = [
-  { name: "Émeraude Sofa", eyebrow: "Seating", desc: "Deep emerald velvet over a low, generous frame — the seat a whole room settles around.", img: "/assets/img/furniture-1.jpg" },
-  { name: "Brigitte Chair", eyebrow: "Seating", desc: "Hand-tufted and softly sculpted, a quiet armchair that flatters every corner it sits in.", img: "/assets/img/furniture-2.jpg" },
-  { name: "Soleil Lounge", eyebrow: "Seating", desc: "Warm, easy and a little sunlit — a lounge chair made for long, unhurried afternoons.", img: "/assets/img/furniture-3.jpg" },
-  { name: "Atelier Stool", eyebrow: "Objects", desc: "Carved from a single block of timber — equal parts seat, side table and sculpture.", img: "/assets/img/furniture-4.jpg" },
-  { name: "Lin Bed", eyebrow: "Bedroom", desc: "Upholstered in washed linen, a headboard that turns a bedroom into a quiet retreat.", img: "/assets/img/furniture-5.jpg" },
-  { name: "Noir Accent", eyebrow: "Seating", desc: "Sculptural and self-assured — a graphic accent chair with presence to spare.", img: "/assets/img/furniture-6.jpg" },
-];
 
 export const metadata = {
   title: "Furniture — Sage Thread Boutique",
@@ -44,45 +38,11 @@ export default function FurniturePage() {
         {/* Hero — full-bleed room photos that crossfade every 2s */}
         <FurnitureHero />
 
-        {/* Intro */}
-        <section className="section">
-          <div className="container split">
-            <div className="feature__media" data-reveal>
-              <div className="media" data-img>
-                <img
-                  src="/assets/img/furniture-context.jpg"
-                  alt="A warm furnished interior"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="feature__badge">
-                <span className="script">Hand-finished</span>
-                <small>by partner ateliers across Europe</small>
-              </div>
-            </div>
-            <div data-reveal="right">
-              <p className="eyebrow">Made to be lived with</p>
-              <h2 style={{ fontSize: "clamp(1.6rem,2.8vw,2.55rem)" }}>
-                Luxury is not about excess;
-                <br />
-                it&rsquo;s about intention
-              </h2>
-              <p className="lead mt-2 measure">
-                Every piece earns its place. We work with joiners and weavers who
-                still measure twice and finish by hand — so the grain, the joint
-                and the seat all age beautifully.
-              </p>
-              <div className="chiplist mt-3">
-                <span className="chip is-on">Solid oak</span>
-                <span className="chip">Walnut</span>
-                <span className="chip">Travertine</span>
-                <span className="chip">Bouclé</span>
-                <span className="chip">Cane</span>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Intro — pick a wood finish to preview it on the left */}
+        <FurnitureFinishes />
+
+        {/* 21st.dev image-accordion template (placeholder content) */}
+        <LandingAccordionItem />
 
         {/* ===== Change 2 — full-width quote on stone ===== */}
         <section className="quote-band">
@@ -104,18 +64,158 @@ export default function FurniturePage() {
           </cite>
         </section>
 
-        {/* ===== Change 3 — furniture piece carousel ===== */}
-        <section className="section" id="gallery">
-          <div className="container">
-            <div className="sec-head" data-reveal>
-              <p className="eyebrow">The pieces</p>
-              <h2>Explore the collection</h2>
+        {/* Shop-by-room grid (Anima Domus style) */}
+        <FurnitureRooms />
+
+        {/* Fabrics — image left, copy right (Magari "Indulge in textures") */}
+        <section className="section">
+          <div className="container split split--img-left">
+            <div className="feature__media" data-reveal>
+              <div className="media media--tall" data-img>
+                <img
+                  src="/assets/img/fabrics-textures.jpg"
+                  alt="A neatly folded stack of neutral linen fabrics with lace trim"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             </div>
-            <div data-reveal>
-              <FurnitureCarousel items={furniturePieces} />
+            <div data-reveal="right">
+              <p className="eyebrow">Indulge in textures</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Fabrics</h2>
+              <p className="lead mt-2 measure">
+                Our fabric collection is a celebration of the finest textiles. We
+                partner with specialist mills and weavers to bring you a curated
+                range of premium cloth — linens, bouclés and velvets in a quiet
+                palette of textures, patterns and tones, each chosen to wear
+                beautifully and stand the test of time.
+              </p>
             </div>
           </div>
         </section>
+
+        {/* Upholstery — copy left, image right (Magari "Wrapped in style") */}
+        <section className="section">
+          <div className="container split split--img-right">
+            <div data-reveal>
+              <p className="eyebrow">Wrapped in style</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Upholstery</h2>
+              <p className="lead mt-2 measure">
+                Customize your pieces with upholstery handpicked from the finest
+                mills to ensure the highest quality and durability. Our collection
+                offers a variety of fabrics, in an array of colours and patterns
+                to choose from — from statement sofas to cosy armchairs, there is
+                something to suit every taste and style.
+              </p>
+            </div>
+            <div className="feature__media" data-reveal="right">
+              <div className="media media--tall" data-img>
+                <img
+                  src="/assets/img/upholstery.jpg"
+                  alt="Beige ribbed-velvet tub chairs with brass legs on marble"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Wallpaper — image left, copy right (Magari "Tasteful wall art") */}
+        <section className="section">
+          <div className="container split split--img-left">
+            <div className="feature__media" data-reveal>
+              <div className="media media--tall" data-img>
+                <img
+                  src="/assets/img/wallpaper.jpg"
+                  alt="Emerald and gold leaf-patterned wallpaper behind a dark wood bed"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <div data-reveal="right">
+              <p className="eyebrow">Tasteful wall art</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Wallpaper</h2>
+              <p className="lead mt-2 measure">
+                Breathe a sense of ethereal wonder into your spaces with our
+                stunning wallpaper collection. From bold prints to subtle
+                patterns, each design is made from the highest quality materials
+                and adds a touch of sophistication and style to your living
+                spaces.
+              </p>
+              <p className="lead mt-2 measure">
+                Our wallpapers are easy to install, maintain and remove — making
+                it simple to refresh your home decor.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Our Services — four cards with icon tiles + dividers */}
+        <FurnitureServices />
+
+        {/* Fixed-image consultation CTA */}
+        <section className="fixed-cta">
+          <div className="container">
+            <div className="fixed-cta__panel">
+              <div className="split">
+                <div className="fixed-cta__media" data-reveal>
+                  <img
+                    src="/assets/img/consult-zoom.jpg"
+                    alt="A video design consultation with our in-house team"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </div>
+                <div data-reveal="right">
+                  <h2 style={{ fontSize: "clamp(1.8rem,3.4vw,2.8rem)" }}>
+                    Schedule a Free Design Video Consultation
+                  </h2>
+                  <p className="lead mt-2">
+                    Ready to move from ideas to a clear plan? Book a complimentary
+                    30-minute consultation with one of our in-house designers.
+                  </p>
+                  <p className="lead mt-2">
+                    We&rsquo;ll review your project goals, discuss layout and
+                    design options, and walk you through the materials, products
+                    and services that best fit your space.
+                  </p>
+                  <p className="lead mt-2">
+                    No obligation — just a focused, professional conversation to
+                    see how we can help transform your home.
+                  </p>
+                  <div className="mt-3">
+                    <a href="/contact" className="btn btn--solid btn--sage">
+                      Book a Free Video Call or Schedule Appointment{" "}
+                      <span className="arrow">→</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Statement quote */}
+        <section className="section quote-statement">
+          <div className="container">
+            <p className="eyebrow" data-reveal>
+              Italian Modern Design
+            </p>
+            <blockquote className="big-quote" data-reveal>
+              Your space is more than a room — it&rsquo;s where design meets life.
+            </blockquote>
+            <div className="quote-cta" data-reveal>
+              <a href="/contact" className="btn btn--solid">
+                Are you ready to create yours? <span className="arrow">→</span>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        {/* 2nd fixed image — 3D-hover social icons */}
+        <FurnitureSocial />
 
         {/* Band */}
         <section className="band section">
