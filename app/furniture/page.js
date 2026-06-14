@@ -181,10 +181,6 @@ export default function FurniturePage() {
                     design options, and walk you through the materials, products
                     and services that best fit your space.
                   </p>
-                  <p className="lead mt-2">
-                    No obligation — just a focused, professional conversation to
-                    see how we can help transform your home.
-                  </p>
                   <div className="mt-3">
                     <a href="/contact" className="btn btn--solid btn--sage">
                       Book a Free Video Call or Schedule Appointment{" "}
@@ -216,27 +212,6 @@ export default function FurniturePage() {
 
         {/* 2nd fixed image — 3D-hover social icons */}
         <FurnitureSocial />
-
-        {/* Band */}
-        <section className="band section">
-          <div className="band__bg">
-            <img
-              src="/assets/img/furniture-feature.jpg"
-              alt=""
-              data-parallax="0.12"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="container">
-            <blockquote data-reveal>
-              “A good table is never finished — it keeps a record of every meal.”
-            </blockquote>
-            <cite data-reveal style={{ "--d": ".15s" }}>
-              — The Sage Thread Atelier
-            </cite>
-          </div>
-        </section>
 
         <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">

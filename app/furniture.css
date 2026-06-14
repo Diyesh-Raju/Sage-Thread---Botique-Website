@@ -100,13 +100,14 @@
   background-attachment: fixed;          /* the "fixed image" parallax effect */
   padding-block: clamp(3rem, 8vw, 7rem);
 }
+.fixed-cta .container { max-width: 1480px; }
 .fixed-cta__panel {
   background: rgba(247, 242, 233, 0.86);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
   border-radius: 8px;
-  padding: clamp(1.2rem, 2vw, 1.8rem) clamp(1.6rem, 3.4vw, 3.2rem);
-  max-width: 1120px;
+  padding: clamp(1rem, 1.6vw, 1.4rem) clamp(1.6rem, 3.4vw, 3.2rem);
+  max-width: 1400px;
   margin-inline: auto;
   box-shadow: 0 30px 70px rgba(40, 25, 10, 0.22);
 }

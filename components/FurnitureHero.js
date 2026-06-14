@@ -41,10 +41,10 @@ export default function FurnitureHero() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Auto-advance through the photos every 2 seconds.
+  // Auto-advance through the photos every 3 seconds.
   const startTimer = () => {
     clearInterval(timer.current);
-    timer.current = setInterval(() => setActive((p) => (p + 1) % n), 2000);
+    timer.current = setInterval(() => setActive((p) => (p + 1) % n), 3000);
   };
   useEffect(() => {
     startTimer();
