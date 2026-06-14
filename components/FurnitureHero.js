@@ -23,6 +23,10 @@ const ITEMS = [
       "they embrace you.",
     ],
   },
+  {
+    img: "/assets/img/furniture-hero-3.jpg",
+    // heading + description to be added later
+  },
 ];
 
 const EASE = "cubic-bezier(0.4,0,0.2,1)";
@@ -146,7 +150,8 @@ export default function FurnitureHero() {
           height: isMobile ? "190px" : "220px",
         }}
       >
-        {ITEMS.map((it, i) => (
+        {ITEMS.map((it, i) =>
+          !it.heading ? null : (
           <div
             key={"t" + i}
             style={{
@@ -190,7 +195,8 @@ export default function FurnitureHero() {
               {it.sub[1]}
             </p>
           </div>
-        ))}
+          )
+        )}
       </div>
 
       {/* Bottom-right nav arrows */}
