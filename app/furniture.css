@@ -138,7 +138,7 @@
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
-  padding-block: clamp(4.5rem, 11vw, 8.5rem);
+  padding-block: clamp(6rem, 15vw, 12rem);
   text-align: center;
 }
 .fixed-social__label {
