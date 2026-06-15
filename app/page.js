@@ -4,31 +4,20 @@ import { CircularGallery } from "@/components/CircularGallery";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { BUSINESS, SITE_URL } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/metadata";
 
 const galleryItems = [
-  { common: "Silk Drapes", binomial: "Designer Wear · Evening", photo: { url: "/assets/img/home-intro-furniture.jpg", text: "Designer evening wear at Sage Thread Boutique Bangalore", by: "Sage Thread Boutique" } },
-  { common: "City Tailoring", binomial: "Fashion · Atelier", photo: { url: "/assets/img/fashion-1.jpg", text: "Contemporary women's tailoring at our Bangalore boutique", by: "Sage Thread Boutique" } },
-  { common: "Festive Edit", binomial: "Ethnic Wear · Occasion", photo: { url: "/assets/img/marble-arch.jpg", text: "Ethnic occasion wear curated for Bengaluru celebrations", by: "Sage Thread Boutique" } },
-  { common: "Rouge", binomial: "Designer Dresses · Editorial", photo: { url: "/assets/img/fashion-3.jpg", text: "Designer dresses at Sage Thread women's fashion boutique", by: "Sage Thread Boutique" } },
-  { common: "Boutique Ease", binomial: "Contemporary · Street", photo: { url: "/assets/img/home-intro-fashion.jpg", text: "Everyday boutique fashion for women in Bangalore", by: "Sage Thread Boutique" } },
-  { common: "Artisan Forms", binomial: "Custom Stitching · Bespoke", photo: { url: "/assets/img/home-col-marble.jpg", text: "Tailor-made dresses crafted at our Indiranagar atelier", by: "Sage Thread Boutique" } },
+  { common: "Warm Minimalism", binomial: "Furniture · Living", photo: { url: "/assets/img/home-intro-furniture.jpg", text: "Curated luxury living room at Sage Thread", by: "Sage Thread" } },
+  { common: "City Tailoring", binomial: "Fashion · Atelier", photo: { url: "/assets/img/fashion-1.jpg", text: "Curated fashion at Sage Thread atelier", by: "Sage Thread" } },
+  { common: "Quarried Light", binomial: "Marble · Stone", photo: { url: "/assets/img/marble-arch.jpg", text: "Quarried marble at Sage Thread", by: "Sage Thread" } },
+  { common: "Rouge", binomial: "Fashion · Editorial", photo: { url: "/assets/img/fashion-3.jpg", text: "Curated fashion editorial at Sage Thread", by: "Sage Thread" } },
+  { common: "Parisian Ease", binomial: "Fashion · Street", photo: { url: "/assets/img/home-intro-fashion.jpg", text: "Designer fashion at Sage Thread boutique", by: "Sage Thread" } },
+  { common: "Stone Forms", binomial: "Marble · Sculpture", photo: { url: "/assets/img/home-col-marble.jpg", text: "Marble objects at Sage Thread", by: "Sage Thread" } },
 ];
 
-export const metadata = {
-  title: "Sage Thread Boutique | Women's Fashion Boutique Bangalore",
-  description:
-    "Sage Thread Boutique — luxury women's fashion in Bangalore. Designer wear, ethnic clothing, custom stitching & styling in Indiranagar, Karnataka.",
-  alternates: { canonical: `${SITE_URL}/` },
-  openGraph: {
-    title: "Sage Thread Boutique | Women's Fashion Boutique in Bangalore",
-    description:
-      "Designer wear, ethnic fashion & custom styling at Bangalore's premier women's boutique. Visit Sage Thread in Indiranagar.",
-    url: `${SITE_URL}/`,
-    siteName: BUSINESS.shortName,
-  },
-};
+export const metadata = PAGE_SEO.home;
 
 export const viewport = { themeColor: "#1a1611" };
 
@@ -36,7 +25,16 @@ export default function HomePage() {
   const year = new Date().getFullYear();
   return (
     <>
-      <JsonLd data={breadcrumbSchema([{ name: "Home", url: `${SITE_URL}/` }])} />
+      <JsonLd
+        data={[
+          webPageSchema({
+            path: "/",
+            name: "Sage Thread | Luxury Furniture, Fashion & Curated Living",
+            description: PAGE_SEO.home.description,
+          }),
+          breadcrumbSchema([{ name: "Home", url: `${SITE_URL}/` }]),
+        ]}
+      />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link

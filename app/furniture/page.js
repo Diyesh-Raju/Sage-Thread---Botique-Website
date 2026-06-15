@@ -9,21 +9,11 @@ import FurnitureSocial from "@/components/FurnitureSocial";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Designer Dresses Bangalore | Tailor-Made Occasion Wear",
-  description:
-    "Designer dresses & tailor-made occasion wear at Sage Thread Boutique, Bangalore. Evening gowns, bridal edits & custom stitching in Indiranagar.",
-  alternates: { canonical: `${SITE_URL}/furniture` },
-  openGraph: {
-    title: "Designer Dresses Bangalore | Sage Thread Boutique",
-    description:
-      "Luxury designer dresses and tailor-made occasion wear for women — visit our Bangalore boutique in Indiranagar.",
-    url: `${SITE_URL}/furniture`,
-  },
-};
+export const metadata = PAGE_SEO.furniture;
 
 export const viewport = { themeColor: "#241b14" };
 
@@ -32,10 +22,17 @@ export default function FurniturePage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", url: SITE_URL },
-          { name: "Designer Dresses", url: `${SITE_URL}/furniture` },
-        ])}
+        data={[
+          webPageSchema({
+            path: "/furniture",
+            name: "Luxury Furniture & Heirloom Design | Sage Thread",
+            description: PAGE_SEO.furniture.description,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: `${SITE_URL}/` },
+            { name: "Furniture", url: `${SITE_URL}/furniture` },
+          ]),
+        ]}
       />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />

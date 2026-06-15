@@ -3,21 +3,11 @@ import Header from "@/components/Header";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Ethnic Wear Bangalore | Sarees, Lehengas & Traditional Fashion",
-  description:
-    "Ethnic wear at Sage Thread Boutique, Bangalore — sarees, lehengas, anarkalis & custom traditional clothing. Luxury women's boutique in Indiranagar.",
-  alternates: { canonical: `${SITE_URL}/marble` },
-  openGraph: {
-    title: "Ethnic Wear Bangalore | Sage Thread Boutique",
-    description:
-      "Curated ethnic wear for women — sarees, lehengas, and traditional fashion at Bangalore's Sage Thread Boutique.",
-    url: `${SITE_URL}/marble`,
-  },
-};
+export const metadata = PAGE_SEO.marble;
 
 export const viewport = { themeColor: "#1b2124" };
 
@@ -26,10 +16,17 @@ export default function MarblePage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", url: SITE_URL },
-          { name: "Ethnic Wear", url: `${SITE_URL}/marble` },
-        ])}
+        data={[
+          webPageSchema({
+            path: "/marble",
+            name: "Quarried Marble & Natural Stone | Sage Thread",
+            description: PAGE_SEO.marble.description,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: `${SITE_URL}/` },
+            { name: "Marble", url: `${SITE_URL}/marble` },
+          ]),
+        ]}
       />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />

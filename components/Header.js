@@ -21,7 +21,13 @@ export default function Header() {
   return (
     <header className="site-header" data-header>
       <div className="nav-wrap">
-        <Link className="brand" href="/" onClick={handleClick("/")}>
+        <Link
+          className="brand"
+          href="/"
+          onClick={handleClick("/")}
+          aria-label="Sage Thread — Home"
+          title="Sage Thread"
+        >
           Sage Thread<span>boutique</span>
         </Link>
         <nav className="nav-links" data-nav>

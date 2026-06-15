@@ -3,21 +3,11 @@ import Header from "@/components/Header";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Women's Fashion & Designer Wear Bangalore",
-  description:
-    "Explore designer wear, contemporary fashion & boutique clothing at Sage Thread — Bangalore's luxury women's fashion boutique in Indiranagar.",
-  alternates: { canonical: `${SITE_URL}/fashion` },
-  openGraph: {
-    title: "Women's Fashion & Designer Wear | Sage Thread Boutique Bangalore",
-    description:
-      "Curated designer dresses, contemporary fashion & boutique styling at Sage Thread — your women's fashion destination in Bengaluru.",
-    url: `${SITE_URL}/fashion`,
-  },
-};
+export const metadata = PAGE_SEO.fashion;
 
 export const viewport = { themeColor: "#160f15" };
 
@@ -26,10 +16,17 @@ export default function FashionPage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", url: SITE_URL },
-          { name: "Women's Fashion", url: `${SITE_URL}/fashion` },
-        ])}
+        data={[
+          webPageSchema({
+            path: "/fashion",
+            name: "Curated Fashion & Atelier Wardrobes | Sage Thread",
+            description: PAGE_SEO.fashion.description,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: `${SITE_URL}/` },
+            { name: "Fashion", url: `${SITE_URL}/fashion` },
+          ]),
+        ]}
       />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />

@@ -1,21 +1,11 @@
 import "../contact.css";
 import Header from "@/components/Header";
 import JsonLd from "@/components/JsonLd";
-import { breadcrumbSchema } from "@/lib/schema";
+import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { BUSINESS, SITE_URL } from "@/lib/business";
+import { PAGE_SEO } from "@/lib/metadata";
 
-export const metadata = {
-  title: "Visit Sage Thread Boutique Bangalore | Book a Consultation",
-  description:
-    "Visit Sage Thread Boutique in Indiranagar, Bangalore. Book a fashion consultation, private styling session, or boutique appointment. Call +91 80 4123 4567.",
-  alternates: { canonical: `${SITE_URL}/contact` },
-  openGraph: {
-    title: "Visit Sage Thread Boutique | Indiranagar, Bangalore",
-    description:
-      "Schedule a boutique visit or fashion consultation at Sage Thread — Bangalore's luxury women's fashion boutique in Karnataka.",
-    url: `${SITE_URL}/contact`,
-  },
-};
+export const metadata = PAGE_SEO.contact;
 
 export const viewport = { themeColor: "#0a1410" };
 
@@ -24,10 +14,17 @@ export default function ContactPage() {
   return (
     <>
       <JsonLd
-        data={breadcrumbSchema([
-          { name: "Home", url: SITE_URL },
-          { name: "Contact", url: `${SITE_URL}/contact` },
-        ])}
+        data={[
+          webPageSchema({
+            path: "/contact",
+            name: "Visit Sage Thread | Book a Private Viewing",
+            description: PAGE_SEO.contact.description,
+          }),
+          breadcrumbSchema([
+            { name: "Home", url: `${SITE_URL}/` },
+            { name: "Contact", url: `${SITE_URL}/contact` },
+          ]),
+        ]}
       />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
