@@ -20,12 +20,13 @@ export const metadata = {
   title: "Sage Thread Boutique | Women's Fashion Boutique Bangalore",
   description:
     "Sage Thread Boutique — luxury women's fashion in Bangalore. Designer wear, ethnic clothing, custom stitching & styling in Indiranagar, Karnataka.",
-  alternates: { canonical: SITE_URL },
+  alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
     title: "Sage Thread Boutique | Women's Fashion Boutique in Bangalore",
     description:
       "Designer wear, ethnic fashion & custom styling at Bangalore's premier women's boutique. Visit Sage Thread in Indiranagar.",
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
+    siteName: BUSINESS.shortName,
   },
 };
 
@@ -35,9 +36,7 @@ export default function HomePage() {
   const year = new Date().getFullYear();
   return (
     <>
-      <JsonLd
-        data={breadcrumbSchema([{ name: "Home", url: SITE_URL }])}
-      />
+      <JsonLd data={breadcrumbSchema([{ name: "Home", url: `${SITE_URL}/` }])} />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link

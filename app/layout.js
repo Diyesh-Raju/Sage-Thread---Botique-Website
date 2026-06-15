@@ -34,12 +34,13 @@ export const metadata = {
     follow: true,
     googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
-  alternates: { canonical: SITE_URL },
+  applicationName: BUSINESS.shortName,
+  alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: SITE_URL,
-    siteName: BUSINESS.name,
+    url: `${SITE_URL}/`,
+    siteName: BUSINESS.shortName,
     title: "Sage Thread Boutique | Women's Fashion Boutique in Bangalore",
     description:
       "Designer wear, ethnic fashion & custom styling at Bangalore's premier women's boutique. Visit Sage Thread in Indiranagar.",
@@ -64,8 +65,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en-IN">
-      <body>
+      <head>
         <JsonLd data={allSchemas()} />
+      </head>
+      <body>
         {children}
         <SiteScripts />
       </body>
