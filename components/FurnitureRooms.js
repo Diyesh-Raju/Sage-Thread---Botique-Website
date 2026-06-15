@@ -1,8 +1,8 @@
 const OCCASIONS = [
-  { title: "Wedding & Bridal", img: "/assets/img/room-bedroom.jpg" },
-  { title: "Festive Celebrations", img: "/assets/img/room-living.jpg" },
-  { title: "Evening Occasions", img: "/assets/img/room-dining.jpg" },
-  { title: "Work & Contemporary", img: "/assets/img/room-office.jpg" },
+  { title: "Bedroom", img: "/assets/img/room-bedroom.jpg" },
+  { title: "Living Room", img: "/assets/img/room-living.jpg" },
+  { title: "Dining Room", img: "/assets/img/room-dining.jpg" },
+  { title: "Home Office", img: "/assets/img/room-office.jpg" },
 ];
 
 export default function FurnitureRooms() {
