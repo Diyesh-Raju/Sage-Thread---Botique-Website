@@ -2,11 +2,21 @@ import "../marble.css";
 import Header from "@/components/Header";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/business";
 
 export const metadata = {
-  title: "Marble — Sage Thread Boutique",
+  title: "Ethnic Wear Bangalore | Sarees, Lehengas & Traditional Fashion",
   description:
-    "Quarried marble and natural stone — Calacatta, Carrara, Nero and more, cut and finished for floors, surfaces and sculpture.",
+    "Ethnic wear at Sage Thread Boutique, Bangalore — sarees, lehengas, anarkalis & custom traditional clothing. Luxury women's boutique in Indiranagar.",
+  alternates: { canonical: `${SITE_URL}/marble` },
+  openGraph: {
+    title: "Ethnic Wear Bangalore | Sage Thread Boutique",
+    description:
+      "Curated ethnic wear for women — sarees, lehengas, and traditional fashion at Bangalore's Sage Thread Boutique.",
+    url: `${SITE_URL}/marble`,
+  },
 };
 
 export const viewport = { themeColor: "#1b2124" };
@@ -15,6 +25,12 @@ export default function MarblePage() {
   const year = new Date().getFullYear();
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: SITE_URL },
+          { name: "Ethnic Wear", url: `${SITE_URL}/marble` },
+        ])}
+      />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
@@ -25,87 +41,87 @@ export default function MarblePage() {
       <Header />
 
       <main>
-        {/* Hero (SVG marble texture) */}
         <section className="hero">
           <div className="hero__media">
             <div
               className="kenburns marble-hero-bg"
               style={{ position: "absolute", inset: 0 }}
+              role="img"
+              aria-label="Ethnic wear collection at Sage Thread Boutique Bangalore"
             ></div>
           </div>
           <div className="hero__inner container">
             <p className="eyebrow" data-stagger style={{ "--sd": ".1s" }}>
-              The Stone House
+              Ethnic Wear · Bangalore
             </p>
             <h1 className="hero__title" data-stagger style={{ "--sd": ".22s" }}>
-              Quarried
+              Woven
               <br />
-              <span className="script">light</span>
+              <span className="script">heritage</span>
             </h1>
             <p className="hero__sub" data-stagger style={{ "--sd": ".42s" }}>
-              Marble and natural stone — drawn from the earth, cut with patience,
-              finished to last centuries.
+              Sarees, lehengas, and traditional fashion — sourced from India&apos;s
+              finest weavers and finished for the modern Bangalore woman.
             </p>
             <div className="mt-2" data-stagger style={{ "--sd": ".58s" }}>
               <a href="#swatches" className="btn btn--solid">
-                Explore the stones <span className="arrow">→</span>
+                Explore Ethnic Collections <span className="arrow">→</span>
               </a>
             </div>
           </div>
           <div className="scroll-cue">Scroll</div>
         </section>
 
-        {/* Intro */}
         <section className="section">
           <div className="container split">
             <div className="feature__media" data-reveal="left">
               <div className="media" data-img>
                 <img
                   src="/assets/img/marble-arch.jpg"
-                  alt="A sculptural stone staircase"
+                  alt="Ethnic occasion wear at Sage Thread women's boutique Bangalore"
+                  title="Ethnic Fashion — Sage Thread Boutique"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
               <div className="feature__badge">
-                <span className="script">Book-matched</span>
-                <small>slabs cut from a single block</small>
+                <span className="script">Handwoven</span>
+                <small>textiles from artisan clusters across India</small>
               </div>
             </div>
             <div data-reveal="right">
-              <p className="eyebrow">A material with memory</p>
+              <p className="eyebrow">Indian craftsmanship</p>
               <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.6rem)" }}>
-                Each vein is
-                <br />a million years
+                Each thread tells
+                <br />a story
               </h2>
               <p className="lead mt-2 measure">
-                No two slabs are alike. We hand-select blocks at the quarry and
-                book-match the cuts, so the stone in your home carries a pattern
-                that exists nowhere else on earth.
+                No two ethnic pieces are alike. We hand-select fabrics from
+                weavers in Banaras, Kanchipuram, and Jaipur — so the saree or
+                lehenga you wear carries artistry that exists nowhere else.
               </p>
               <p className="mt-2 measure" style={{ color: "var(--muted)" }}>
-                Floors, surfaces, basins and sculpture — fabricated to the
-                millimetre by our stoneworkers.
+                Sarees, lehengas, anarkalis, and sharara sets — tailored to the
+                millimetre by our Bangalore atelier.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Swatches */}
         <section className="section section--tight" id="swatches">
           <div className="container">
             <div className="sec-head sec-head--row">
               <div data-reveal>
-                <p className="eyebrow">The palette</p>
-                <h2>Our stones</h2>
+                <p className="eyebrow">The collection</p>
+                <h2>Our ethnic edits</h2>
               </div>
               <p
                 className="measure-sm"
                 data-reveal
                 style={{ "--d": ".1s", color: "var(--muted)" }}
               >
-                Six signature marbles, each with its own temperament — from
-                luminous white to deep, dramatic black.
+                Six signature ethnic styles, each with its own character — from
+                luminous silk to deep, dramatic brocade.
               </p>
             </div>
             <div className="swatches">
@@ -115,10 +131,12 @@ export default function MarblePage() {
                   style={{
                     backgroundImage: "url('/assets/img/marble-calacatta.svg')",
                   }}
+                  role="img"
+                  aria-label="Kanjeevaram silk ethnic wear"
                 ></div>
                 <div className="swatch__cap">
-                  <h3>Calacatta Oro</h3>
-                  <small>White · Gold vein</small>
+                  <h3>Kanjeevaram Silk</h3>
+                  <small>Gold · Temple border</small>
                 </div>
               </div>
               <div className="swatch" data-reveal data-tilt style={{ "--d": ".08s" }}>
@@ -127,10 +145,12 @@ export default function MarblePage() {
                   style={{
                     backgroundImage: "url('/assets/img/marble-carrara.svg')",
                   }}
+                  role="img"
+                  aria-label="Banarasi weave sarees"
                 ></div>
                 <div className="swatch__cap">
-                  <h3>Carrara</h3>
-                  <small>White · Soft grey</small>
+                  <h3>Banarasi Weave</h3>
+                  <small>Silk · Soft zari</small>
                 </div>
               </div>
               <div className="swatch" data-reveal data-tilt style={{ "--d": ".16s" }}>
@@ -139,10 +159,12 @@ export default function MarblePage() {
                   style={{
                     backgroundImage: "url('/assets/img/marble-statuario.svg')",
                   }}
+                  role="img"
+                  aria-label="Chikankari ethnic wear"
                 ></div>
                 <div className="swatch__cap">
-                  <h3>Statuario</h3>
-                  <small>Bright · Charcoal</small>
+                  <h3>Chikankari</h3>
+                  <small>Cotton · Hand embroidery</small>
                 </div>
               </div>
               <div className="swatch" data-reveal data-tilt>
@@ -151,10 +173,12 @@ export default function MarblePage() {
                   style={{
                     backgroundImage: "url('/assets/img/marble-nero.svg')",
                   }}
+                  role="img"
+                  aria-label="Velvet lehenga collection"
                 ></div>
                 <div className="swatch__cap">
-                  <h3>Nero Oro</h3>
-                  <small>Black · Gold vein</small>
+                  <h3>Velvet Lehenga</h3>
+                  <small>Black · Gold zardozi</small>
                 </div>
               </div>
               <div className="swatch" data-reveal data-tilt style={{ "--d": ".08s" }}>
@@ -163,10 +187,12 @@ export default function MarblePage() {
                   style={{
                     backgroundImage: "url('/assets/img/marble-emperador.svg')",
                   }}
+                  role="img"
+                  aria-label="Bandhani festive wear"
                 ></div>
                 <div className="swatch__cap">
-                  <h3>Emperador</h3>
-                  <small>Brown · Cream</small>
+                  <h3>Bandhani</h3>
+                  <small>Tie-dye · Festive</small>
                 </div>
               </div>
               <div className="swatch" data-reveal data-tilt style={{ "--d": ".16s" }}>
@@ -175,57 +201,61 @@ export default function MarblePage() {
                   style={{
                     backgroundImage: "url('/assets/img/marble-verde.svg')",
                   }}
+                  role="img"
+                  aria-label="Indo-western ethnic fusion"
                 ></div>
                 <div className="swatch__cap">
-                  <h3>Verde Alpi</h3>
-                  <small>Green · White</small>
+                  <h3>Indo-Western</h3>
+                  <small>Fusion · Contemporary</small>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Video feature */}
         <section className="section">
           <div className="container split">
             <div data-reveal="left">
-              <p className="eyebrow">From block to surface</p>
+              <p className="eyebrow">From loom to boutique</p>
               <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.4rem)" }}>
-                Cut, honed,
+                Cut, draped,
                 <br />
-                polished, placed
+                perfected
               </h2>
               <p className="lead mt-2 measure">
-                We follow each slab from the quarry face to your floor — sawn to
-                size, the edges profiled, the surface honed matte or
-                mirror-polished to your finish.
+                We follow each ethnic garment from the weaver&apos;s loom to your
+                fitting — cut to your measurements, the borders finished, the
+                blouse tailored to your preferred style.
               </p>
               <div className="finishes mt-2">
                 <div className="finish" data-reveal>
                   <div className="finish__row">
-                    <h3>Polished</h3>
+                    <h3>Ready-to-Wear</h3>
                     <span className="idx">01</span>
                   </div>
                   <p style={{ color: "var(--muted)" }}>
-                    A high-gloss mirror that deepens the colour and vein.
+                    Curated ethnic pieces in standard sizes, ready for fitting at
+                    our Bangalore boutique.
                   </p>
                 </div>
                 <div className="finish" data-reveal style={{ "--d": ".06s" }}>
                   <div className="finish__row">
-                    <h3>Honed</h3>
+                    <h3>Made-to-Order</h3>
                     <span className="idx">02</span>
                   </div>
                   <p style={{ color: "var(--muted)" }}>
-                    A soft matte surface, contemporary and tactile.
+                    Commission a custom ethnic outfit in your choice of fabric and
+                    embellishment.
                   </p>
                 </div>
                 <div className="finish" data-reveal style={{ "--d": ".12s" }}>
                   <div className="finish__row">
-                    <h3>Brushed</h3>
+                    <h3>Bridal Edit</h3>
                     <span className="idx">03</span>
                   </div>
                   <p style={{ color: "var(--muted)" }}>
-                    Lightly textured — warm underfoot, naturally anti-slip.
+                    Complete bridal and wedding-guest styling with our Bangalore
+                    atelier team.
                   </p>
                 </div>
               </div>
@@ -247,6 +277,7 @@ export default function MarblePage() {
                 playsInline
                 preload="none"
                 poster="/assets/img/marble-clip-poster.jpg"
+                title="Ethnic wear craftsmanship at Sage Thread Boutique Bangalore"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               >
                 <source src="/assets/video/marble-clip.webm" type="video/webm" />
@@ -256,12 +287,12 @@ export default function MarblePage() {
           </div>
         </section>
 
-        {/* Band */}
         <section className="band section">
           <div className="band__bg">
             <img
               src="/assets/img/marble-context1.jpg"
-              alt=""
+              alt="Traditional ethnic fashion styling at Sage Thread Boutique Bengaluru"
+              title="Ethnic Wear Editorial — Sage Thread"
               data-parallax="0.12"
               loading="lazy"
               decoding="async"
@@ -269,32 +300,30 @@ export default function MarblePage() {
           </div>
           <div className="container">
             <blockquote data-reveal>
-              “I saw the angel in the marble and carved until I set him free.”
+              &ldquo;Tradition is not the worship of ashes, but the preservation of
+              fire — and the right ethnic wear carries that flame.&rdquo;
             </blockquote>
             <cite data-reveal style={{ "--d": ".15s" }}>
-              — Michelangelo
+              — Sage Thread Boutique, Bangalore
             </cite>
           </div>
         </section>
 
         <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">
-            <span>Calacatta</span>
-            <span>Carrara</span>
-            <span>Statuario</span>
-            <span>Nero</span>
-            <span>Emperador</span>
-            <span>Verde</span>
-            <span>Calacatta</span>
-            <span>Carrara</span>
-            <span>Statuario</span>
-            <span>Nero</span>
-            <span>Emperador</span>
-            <span>Verde</span>
+            <span>Sarees</span>
+            <span>Lehengas</span>
+            <span>Ethnic Wear</span>
+            <span>Bangalore</span>
+            <span>Handwoven</span>
+            <span>Sarees</span>
+            <span>Lehengas</span>
+            <span>Ethnic Wear</span>
+            <span>Bangalore</span>
+            <span>Handwoven</span>
           </div>
         </div>
 
-        {/* ===== FAQ ===== */}
         <section className="section faq-section">
           <div className="container">
             <p className="eyebrow faq-eyebrow" data-reveal>
@@ -310,14 +339,14 @@ export default function MarblePage() {
       <footer className="site-footer">
         <div className="container">
           <div className="footer-cta" data-reveal>
-            <p className="eyebrow">Stone consultation</p>
-            <h2>Planning a project in stone?</h2>
+            <p className="eyebrow">Ethnic styling</p>
+            <h2>Planning a wedding or festive occasion?</h2>
             <p className="lead mt-1" style={{ color: "rgba(255,255,255,.7)" }}>
-              Bring your drawings — we’ll match the marble and fabricate to fit.
+              Book an ethnic wear consultation — we&apos;ll curate the perfect look.
             </p>
             <div className="mt-2">
               <a href="/contact" className="btn btn--solid">
-                Request a quote <span className="arrow">→</span>
+                Connect With Our Designers <span className="arrow">→</span>
               </a>
             </div>
           </div>
@@ -327,43 +356,43 @@ export default function MarblePage() {
                 Sage Thread<span>boutique</span>
               </a>
               <p>
-                Quarried marble and natural stone, hand-selected and fabricated
-                to last centuries.
+                Ethnic wear and traditional fashion for women — curated at our
+                Bangalore boutique in Indiranagar, Karnataka.
               </p>
             </div>
             <div>
-              <h4>Explore</h4>
+              <h4>Collections</h4>
+              <a href="/fashion">Women&apos;s Fashion</a>
+              <br />
+              <a href="/furniture">Designer Dresses</a>
+              <br />
+              <a href="/marble">Ethnic Wear</a>
+              <br />
               <a href="/">Home</a>
-              <br />
-              <a href="/furniture">Furniture</a>
-              <br />
-              <a href="/fashion">Fashion</a>
-              <br />
-              <a href="/marble">Marble</a>
             </div>
             <div>
-              <h4>Marble</h4>
-              <a href="#swatches">Stones</a>
+              <h4>Ethnic Wear</h4>
+              <a href="#swatches">Sarees</a>
               <br />
-              <a href="#swatches">Finishes</a>
+              <a href="#swatches">Lehengas</a>
               <br />
-              <a href="/contact">Fabrication</a>
+              <a href="/contact">Custom Ethnic</a>
               <br />
-              <a href="/contact">Samples</a>
+              <a href="/contact">Bridal Styling</a>
             </div>
             <div>
-              <h4>Project</h4>
-              <a href="/contact">Consultation</a>
+              <h4>Visit</h4>
+              <a href="/contact">Book Appointment</a>
               <br />
-              <a href="/contact">Trade</a>
+              <a href="/contact">Fashion Consultation</a>
               <br />
-              <a href="/contact">Care guide</a>
+              <a href="/#faq">FAQ</a>
               <br />
               <a href="/contact">Contact</a>
             </div>
           </div>
           <div className="footer-bottom" data-reveal>
-            <span>© {year} Sage Thread Boutique</span>
+            <span>© {year} Sage Thread Boutique · Bengaluru</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>
         </div>

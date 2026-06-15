@@ -8,11 +8,21 @@ import FurnitureServices from "@/components/FurnitureServices";
 import FurnitureSocial from "@/components/FurnitureSocial";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { SITE_URL } from "@/lib/business";
 
 export const metadata = {
-  title: "Furniture — Sage Thread Boutique",
+  title: "Designer Dresses Bangalore | Tailor-Made Occasion Wear",
   description:
-    "Heirloom furniture in solid wood, stone and honest materials — sourced and made to be lived with for a lifetime.",
+    "Designer dresses & tailor-made occasion wear at Sage Thread Boutique, Bangalore. Evening gowns, bridal edits & custom stitching in Indiranagar.",
+  alternates: { canonical: `${SITE_URL}/furniture` },
+  openGraph: {
+    title: "Designer Dresses Bangalore | Sage Thread Boutique",
+    description:
+      "Luxury designer dresses and tailor-made occasion wear for women — visit our Bangalore boutique in Indiranagar.",
+    url: `${SITE_URL}/furniture`,
+  },
 };
 
 export const viewport = { themeColor: "#241b14" };
@@ -21,6 +31,12 @@ export default function FurniturePage() {
   const year = new Date().getFullYear();
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: SITE_URL },
+          { name: "Designer Dresses", url: `${SITE_URL}/furniture` },
+        ])}
+      />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
@@ -49,7 +65,8 @@ export default function FurniturePage() {
           <img
             className="quote-band__img"
             src="/assets/img/furniture-quote-bg.jpg"
-            alt="A carved stone bench on a warm background"
+            alt="Designer occasion wear at Sage Thread Boutique Bangalore"
+            title="Designer Dresses — Sage Thread"
             loading="lazy"
             decoding="async"
           />
@@ -74,21 +91,22 @@ export default function FurniturePage() {
               <div className="media media--tall" data-img>
                 <img
                   src="/assets/img/fabrics-textures.jpg"
-                  alt="A neatly folded stack of neutral linen fabrics with lace trim"
+                  alt="Premium boutique fabrics for designer dresses at Sage Thread Bangalore"
+                  title="Boutique Fabrics — Sage Thread"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
             </div>
             <div data-reveal="right">
-              <p className="eyebrow">Indulge in textures</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Fabrics</h2>
+              <p className="eyebrow">Premium textiles</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Boutique Fabrics</h2>
               <p className="lead mt-2 measure">
-                Our fabric collection is a celebration of the finest textiles. We
-                partner with specialist mills and weavers to bring you a curated
-                range of premium cloth — linens, bouclés and velvets in a quiet
-                palette of textures, patterns and tones, each chosen to wear
-                beautifully and stand the test of time.
+                Our fabric library is the foundation of every designer dress we
+                create. We partner with specialist mills and weavers across India
+                to source premium silks, linens, and velvets — each chosen for
+                drape, durability, and the way it flatters on the women of
+                Bangalore.
               </p>
             </div>
           </div>
@@ -98,21 +116,21 @@ export default function FurniturePage() {
         <section className="section">
           <div className="container split split--img-right">
             <div data-reveal>
-              <p className="eyebrow">Wrapped in style</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Upholstery</h2>
+              <p className="eyebrow">Tailor-made dresses</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Custom Stitching</h2>
               <p className="lead mt-2 measure">
-                Customize your pieces with upholstery handpicked from the finest
-                mills to ensure the highest quality and durability. Our collection
-                offers a variety of fabrics, in an array of colours and patterns
-                to choose from — from statement sofas to cosy armchairs, there is
-                something to suit every taste and style.
+                Commission a tailor-made dress crafted to your measurements and
+                vision. Choose from our fabric library, select embellishments, and
+                work with our Bangalore tailors through two fitting sessions — from
+                cocktail dresses to gala gowns, each piece is built for you alone.
               </p>
             </div>
             <div className="feature__media" data-reveal="right">
               <div className="media media--tall" data-img>
                 <img
                   src="/assets/img/upholstery.jpg"
-                  alt="Beige ribbed-velvet tub chairs with brass legs on marble"
+                  alt="Custom tailor-made dresses at Sage Thread women's boutique Bangalore"
+                  title="Custom Stitching — Sage Thread Boutique"
                   loading="lazy"
                   decoding="async"
                 />
@@ -128,25 +146,25 @@ export default function FurniturePage() {
               <div className="media media--tall" data-img>
                 <img
                   src="/assets/img/wallpaper.jpg"
-                  alt="Emerald and gold leaf-patterned wallpaper behind a dark wood bed"
+                  alt="Artisan embellishment on designer dresses at Sage Thread Bangalore"
+                  title="Artisan Finishing — Sage Thread"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
             </div>
             <div data-reveal="right">
-              <p className="eyebrow">Tasteful wall art</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Wallpaper</h2>
+              <p className="eyebrow">Embellishment &amp; detail</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Artisan Finishing</h2>
               <p className="lead mt-2 measure">
-                Breathe a sense of ethereal wonder into your spaces with our
-                stunning wallpaper collection. From bold prints to subtle
-                patterns, each design is made from the highest quality materials
-                and adds a touch of sophistication and style to your living
-                spaces.
+                From hand embroidery and zardozi to contemporary beadwork and
+                appliqué, our artisan partners bring depth and character to every
+                designer dress. Each finish is chosen to honour the occasion —
+                understated for workwear, luminous for celebrations.
               </p>
               <p className="lead mt-2 measure">
-                Our wallpapers are easy to install, maintain and remove — making
-                it simple to refresh your home decor.
+                Discuss embellishment options during your fashion consultation at
+                our Indiranagar boutique — we guide you from sketch to final stitch.
               </p>
             </div>
           </div>
@@ -163,27 +181,28 @@ export default function FurniturePage() {
                 <div className="fixed-cta__media" data-reveal>
                   <img
                     src="/assets/img/consult-zoom.jpg"
-                    alt="A video design consultation with our in-house team"
+                    alt="Fashion consultation with Sage Thread stylists in Bangalore"
+                    title="Book a Fashion Consultation"
                     loading="lazy"
                     decoding="async"
                   />
                 </div>
                 <div data-reveal="right">
                   <h2 style={{ fontSize: "clamp(1.8rem,3.4vw,2.8rem)" }}>
-                    Schedule a Free Design Video Consultation
+                    Book a Fashion Consultation
                   </h2>
                   <p className="lead mt-2">
-                    Ready to move from ideas to a clear plan? Book a complimentary
-                    30-minute consultation with one of our in-house designers.
+                    Ready to find your perfect designer dress? Book a complimentary
+                    styling session with our Bangalore atelier team.
                   </p>
                   <p className="lead mt-2">
-                    We&rsquo;ll review your project goals, discuss layout and
-                    design options, and walk you through the materials, products
-                    and services that best fit your space.
+                    We&rsquo;ll discuss your occasion, explore fabrics and
+                    silhouettes, and walk you through custom stitching options —
+                    in store or by video call.
                   </p>
                   <div className="mt-3">
                     <a href="/contact" className="btn btn--solid btn--sage">
-                      Book a Free Video Call or Schedule Appointment{" "}
+                      Schedule a Boutique Visit{" "}
                       <span className="arrow">→</span>
                     </a>
                   </div>
@@ -197,14 +216,14 @@ export default function FurniturePage() {
         <section className="section quote-statement">
           <div className="container">
             <p className="eyebrow" data-reveal>
-              Italian Modern Design
+              Designer Boutique · Bangalore
             </p>
             <blockquote className="big-quote" data-reveal>
-              Your space is more than a room, it&rsquo;s where design meets life.
+              Your wardrobe is more than clothing — it&rsquo;s how the world meets you.
             </blockquote>
             <div className="quote-cta" data-reveal>
               <a href="/contact" className="btn btn--solid">
-                Are you ready to create yours? <span className="arrow">→</span>
+                Discover Your Perfect Look <span className="arrow">→</span>
               </a>
             </div>
           </div>
@@ -215,16 +234,16 @@ export default function FurniturePage() {
 
         <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">
-            <span>Oak</span>
-            <span>Walnut</span>
-            <span>Travertine</span>
-            <span>Bouclé</span>
-            <span>Cane</span>
-            <span>Oak</span>
-            <span>Walnut</span>
-            <span>Travertine</span>
-            <span>Bouclé</span>
-            <span>Cane</span>
+            <span>Silk</span>
+            <span>Designer Dresses</span>
+            <span>Tailor-Made</span>
+            <span>Bangalore</span>
+            <span>Occasion Wear</span>
+            <span>Silk</span>
+            <span>Designer Dresses</span>
+            <span>Tailor-Made</span>
+            <span>Bangalore</span>
+            <span>Occasion Wear</span>
           </div>
         </div>
 
@@ -244,14 +263,14 @@ export default function FurniturePage() {
       <footer className="site-footer">
         <div className="container">
           <div className="footer-cta" data-reveal>
-            <p className="eyebrow">Design service</p>
-            <h2>Furnishing a whole room?</h2>
+            <p className="eyebrow">Designer dresses</p>
+            <h2>Planning a special occasion?</h2>
             <p className="lead mt-1" style={{ color: "rgba(255,255,255,.7)" }}>
-              Book a private consultation with our interiors team.
+              Book a private styling session at our Bangalore boutique.
             </p>
             <div className="mt-2">
               <a href="/contact" className="btn btn--solid">
-                Book a consultation <span className="arrow">→</span>
+                Book a Fashion Consultation <span className="arrow">→</span>
               </a>
             </div>
           </div>
@@ -261,43 +280,43 @@ export default function FurniturePage() {
                 Sage Thread<span>boutique</span>
               </a>
               <p>
-                Heirloom furniture in honest materials, sourced and made to last
-                a lifetime.
+                Designer dresses and tailor-made occasion wear at Bangalore&apos;s
+                luxury women&apos;s fashion boutique.
               </p>
             </div>
             <div>
-              <h4>Explore</h4>
+              <h4>Collections</h4>
+              <a href="/fashion">Women&apos;s Fashion</a>
+              <br />
+              <a href="/furniture">Designer Dresses</a>
+              <br />
+              <a href="/marble">Ethnic Wear</a>
+              <br />
               <a href="/">Home</a>
-              <br />
-              <a href="/furniture">Furniture</a>
-              <br />
-              <a href="/fashion">Fashion</a>
-              <br />
-              <a href="/marble">Marble</a>
             </div>
             <div>
-              <h4>Furniture</h4>
-              <a href="#gallery">Seating</a>
+              <h4>Designer Dresses</h4>
+              <a href="/contact">Evening Gowns</a>
               <br />
-              <a href="#gallery">Tables</a>
+              <a href="/contact">Cocktail Dresses</a>
               <br />
-              <a href="#gallery">Bedroom</a>
+              <a href="/contact">Bridal Edit</a>
               <br />
-              <a href="#gallery">Objects</a>
+              <a href="/contact">Custom Stitching</a>
             </div>
             <div>
-              <h4>Care</h4>
-              <a href="/contact">Delivery</a>
+              <h4>Visit</h4>
+              <a href="/contact">Book Appointment</a>
               <br />
-              <a href="/contact">Warranty</a>
+              <a href="/contact">Alterations</a>
               <br />
-              <a href="/contact">Trade</a>
+              <a href="/contact">Fashion Consultation</a>
               <br />
               <a href="/contact">Contact</a>
             </div>
           </div>
           <div className="footer-bottom" data-reveal>
-            <span>© {year} Sage Thread Boutique</span>
+            <span>© {year} Sage Thread Boutique · Bengaluru</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>
         </div>

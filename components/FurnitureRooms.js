@@ -1,24 +1,21 @@
-/* Shop-by-room grid (Anima Domus style) — a 2x2 set of room-category tiles
-   with the label in the bottom-left. Rounded corners, rose-gold gradient
-   borders, and a little gap between the tiles. */
-
-const ROOMS = [
-  { title: "Bedroom", img: "/assets/img/room-bedroom.jpg" },
-  { title: "Living Room", img: "/assets/img/room-living.jpg" },
-  { title: "Dining Room", img: "/assets/img/room-dining.jpg" },
-  { title: "Home Office", img: "/assets/img/room-office.jpg" },
+const OCCASIONS = [
+  { title: "Wedding & Bridal", img: "/assets/img/room-bedroom.jpg" },
+  { title: "Festive Celebrations", img: "/assets/img/room-living.jpg" },
+  { title: "Evening Occasions", img: "/assets/img/room-dining.jpg" },
+  { title: "Work & Contemporary", img: "/assets/img/room-office.jpg" },
 ];
 
 export default function FurnitureRooms() {
   return (
     <section className="rooms-section">
       <div className="rooms-grid" data-reveal>
-        {ROOMS.map((room) => (
+        {OCCASIONS.map((room) => (
           <div className="room-card" key={room.title}>
             <div className="room-card__inner">
               <img
                 src={room.img}
-                alt={room.title}
+                alt={`${room.title} — designer dresses at Sage Thread Boutique Bangalore`}
+                title={`${room.title} — Sage Thread`}
                 loading="lazy"
                 decoding="async"
               />

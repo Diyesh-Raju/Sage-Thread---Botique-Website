@@ -23,7 +23,7 @@ export default function FurnitureSocial() {
   return (
     <section className="fixed-social">
       <div className="container">
-        <p className="fixed-social__label">Follow our work</p>
+        <p className="fixed-social__label">Follow Sage Thread Boutique</p>
         <div className="social-row">
           {SOCIALS.map((s) => (
             <a

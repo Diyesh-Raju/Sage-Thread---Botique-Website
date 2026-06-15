@@ -2,26 +2,19 @@
 
 import { useEffect, useState } from "react";
 
-/* "Made to be lived with" intro — pick a wood finish and its photo appears on
-   the left. Teak is selected by default; clicking another finish fades its
-   sample in and highlights that chip green. */
-
-const WOODS = [
-  { name: "Teak", img: "/assets/img/wood-teak.jpg" },
-  { name: "Dark Oak", img: "/assets/img/wood-dark-oak.jpg" },
-  { name: "Rustic Walnut", img: "/assets/img/wood-rustic-walnut.jpg" },
-  { name: "Holly", img: "/assets/img/wood-holly.jpg" },
+const FABRICS = [
+  { name: "Silk", img: "/assets/img/wood-teak.jpg" },
+  { name: "Linen", img: "/assets/img/wood-dark-oak.jpg" },
+  { name: "Cotton", img: "/assets/img/wood-rustic-walnut.jpg" },
+  { name: "Georgette", img: "/assets/img/wood-holly.jpg" },
 ];
 
 export default function FurnitureFinishes() {
   const [selected, setSelected] = useState(0);
-  // The finish shown fully-opaque underneath while the new one fades in on top.
-  // Keeping an opaque base means the light page never bleeds through mid-fade.
   const [base, setBase] = useState(0);
 
-  // Preload every finish up front so switching never flashes an unloaded image.
   useEffect(() => {
-    WOODS.forEach((w) => {
+    FABRICS.forEach((w) => {
       const im = new Image();
       im.src = w.img;
     });
@@ -29,10 +22,6 @@ export default function FurnitureFinishes() {
 
   const choose = (i) => {
     if (i === selected) return;
-    // Leave the base on the *previous* finish for the whole fade — swapping it
-    // mid-fade is what caused the glitch. We promote the new finish to the base
-    // only once it has fully faded in (onAnimationEnd), while it's hidden behind
-    // the opaque top layer, so the swap is invisible.
     setSelected(i);
   };
 
@@ -41,9 +30,8 @@ export default function FurnitureFinishes() {
       <div className="container split">
         <div className="feature__media" data-reveal>
           <div className="media" data-img style={{ position: "relative" }}>
-            {/* Opaque base = the previous finish; prevents any background bleed */}
             <img
-              src={WOODS[base].img}
+              src={FABRICS[base].img}
               alt=""
               loading="eager"
               decoding="async"
@@ -54,11 +42,11 @@ export default function FurnitureFinishes() {
                 display: "block",
               }}
             />
-            {/* Incoming finish fades in over the base on each change */}
             <img
               key={selected}
-              src={WOODS[selected].img}
-              alt={`${WOODS[selected].name} finish`}
+              src={FABRICS[selected].img}
+              alt={`${FABRICS[selected].name} fabric for designer dresses at Sage Thread Boutique Bangalore`}
+              title={`${FABRICS[selected].name} — Sage Thread Fabrics`}
               loading="eager"
               decoding="async"
               onAnimationEnd={() => setBase(selected)}
@@ -75,23 +63,24 @@ export default function FurnitureFinishes() {
           </div>
           <div className="feature__badge">
             <span className="script">Hand-finished</span>
-            <small>by partner ateliers across Europe</small>
+            <small>by master tailors across India</small>
           </div>
         </div>
         <div data-reveal="right">
-          <p className="eyebrow">Made to be lived with</p>
+          <p className="eyebrow">Designer dresses</p>
           <h2 style={{ fontSize: "clamp(1.6rem,2.8vw,2.55rem)" }}>
-            Luxury is not about excess;
+            Luxury is not excess;
             <br />
-            it&rsquo;s about intention
+            it&apos;s the perfect fit
           </h2>
           <p className="lead mt-2 measure">
-            Every piece earns its place. We work with joiners and weavers who
-            still measure twice and finish by hand — so the grain, the joint and
-            the seat all age beautifully.
+            Every designer dress at Sage Thread Boutique is chosen for silhouette,
+            fabric, and the way it flatters. Our Bangalore stylists work with
+            skilled tailors who measure twice and finish by hand — so your
+            occasion wear drapes beautifully and lasts beyond a single season.
           </p>
           <div className="chiplist mt-3">
-            {WOODS.map((w, i) => (
+            {FABRICS.map((w, i) => (
               <button
                 key={w.name}
                 type="button"

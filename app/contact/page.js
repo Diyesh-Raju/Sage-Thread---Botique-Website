@@ -1,10 +1,20 @@
 import "../contact.css";
 import Header from "@/components/Header";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbSchema } from "@/lib/schema";
+import { BUSINESS, SITE_URL } from "@/lib/business";
 
 export const metadata = {
-  title: "Contact — Sage Thread Boutique",
+  title: "Visit Sage Thread Boutique Bangalore | Book a Consultation",
   description:
-    "Visit the Sage Thread boutique, book a private viewing, or send us a note. We would love to hear from you.",
+    "Visit Sage Thread Boutique in Indiranagar, Bangalore. Book a fashion consultation, private styling session, or boutique appointment. Call +91 80 4123 4567.",
+  alternates: { canonical: `${SITE_URL}/contact` },
+  openGraph: {
+    title: "Visit Sage Thread Boutique | Indiranagar, Bangalore",
+    description:
+      "Schedule a boutique visit or fashion consultation at Sage Thread — Bangalore's luxury women's fashion boutique in Karnataka.",
+    url: `${SITE_URL}/contact`,
+  },
 };
 
 export const viewport = { themeColor: "#0a1410" };
@@ -13,6 +23,12 @@ export default function ContactPage() {
   const year = new Date().getFullYear();
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Home", url: SITE_URL },
+          { name: "Contact", url: `${SITE_URL}/contact` },
+        ])}
+      />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
@@ -24,45 +40,46 @@ export default function ContactPage() {
       <Header />
 
       <main>
-        {/* Hero (short) */}
         <section className="hero" style={{ minHeight: "72svh" }}>
           <div className="hero__media">
             <img
               className="kenburns"
               src="/assets/img/contact-hero.jpg"
-              alt="The boutique interior at dusk"
+              alt="Inside Sage Thread Boutique — women's fashion store in Indiranagar, Bangalore"
+              title="Visit Sage Thread Boutique Bangalore"
             />
           </div>
           <div className="hero__inner container">
             <p className="eyebrow" data-stagger style={{ "--sd": ".1s" }}>
-              Say hello
+              Indiranagar · Bengaluru
             </p>
             <h1
               className="hero__title"
               data-stagger
               style={{ "--sd": ".22s", fontSize: "clamp(2.6rem,8vw,7rem)" }}
             >
-              Come <span className="script">visit</span>
+              Schedule a <span className="script">boutique visit</span>
             </h1>
             <p className="hero__sub" data-stagger style={{ "--sd": ".42s" }}>
-              Book a private viewing, plan a project, or simply drop in for a
-              coffee and a wander.
+              Book a fashion consultation, plan a custom outfit, or walk into
+              our Bangalore boutique for a personal styling experience.
             </p>
           </div>
         </section>
 
-        {/* Contact form + info */}
         <section className="section">
           <div className="container contact-grid">
             <div data-reveal>
-              <p className="eyebrow">Send a note</p>
+              <p className="eyebrow">Connect with our designers</p>
               <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.2rem)" }}>
-                Tell us what
+                Tell us about
                 <br />
-                you’re looking for
+                your perfect look
               </h2>
               <p className="lead mt-1 measure">
-                We reply to every message within one business day.
+                We reply to every enquiry within one business day. Share your
+                occasion, style preferences, or custom stitching needs — our
+                Bangalore stylists are ready to help.
               </p>
               <form className="mt-3" data-contact-form>
                 <div className="split" style={{ gap: "1.3rem" }}>
@@ -88,13 +105,14 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="field">
-                  <label htmlFor="topic">I’m interested in</label>
+                  <label htmlFor="topic">I&apos;m interested in</label>
                   <select id="topic" name="topic">
-                    <option>Furniture</option>
-                    <option>Fashion</option>
-                    <option>Marble &amp; stone</option>
-                    <option>Interior consultation</option>
-                    <option>Something else</option>
+                    <option>Designer Wear</option>
+                    <option>Women&apos;s Fashion</option>
+                    <option>Ethnic Wear</option>
+                    <option>Custom Stitching</option>
+                    <option>Fashion Consultation</option>
+                    <option>Occasion Wear</option>
                   </select>
                 </div>
                 <div className="field">
@@ -102,16 +120,16 @@ export default function ContactPage() {
                   <textarea
                     id="msg"
                     name="msg"
-                    placeholder="Tell us a little about your project…"
+                    placeholder="Tell us about your occasion, preferred style, or custom outfit ideas…"
                     required
                   ></textarea>
                 </div>
                 <button className="btn btn--solid" type="submit">
-                  Send message <span className="arrow">→</span>
+                  Book a Fashion Consultation <span className="arrow">→</span>
                 </button>
                 <p className="form-note" data-form-note hidden>
-                  ✦ Thank you — your message is on its way. We’ll be in touch
-                  shortly.
+                  ✦ Thank you — your message is on its way. We&apos;ll be in
+                  touch shortly.
                 </p>
               </form>
             </div>
@@ -121,11 +139,14 @@ export default function ContactPage() {
                 <div className="info-row">
                   <span className="ic">◷</span>
                   <div>
-                    <h4>The Boutique</h4>
+                    <h4>Sage Thread Boutique</h4>
                     <p>
-                      18 Rue de la Lumière
+                      {BUSINESS.address.street}
                       <br />
-                      75004 Paris, France
+                      {BUSINESS.address.cityAlt}, {BUSINESS.address.region}{" "}
+                      {BUSINESS.address.postalCode}
+                      <br />
+                      {BUSINESS.address.countryName}
                     </p>
                   </div>
                 </div>
@@ -133,21 +154,30 @@ export default function ContactPage() {
                   <span className="ic">✆</span>
                   <div>
                     <h4>Telephone</h4>
-                    <p>+33 1 84 25 09 90</p>
+                    <p>
+                      <a href={`tel:${BUSINESS.phone.replace(/\s/g, "")}`}>
+                        {BUSINESS.phoneDisplay}
+                      </a>
+                    </p>
                   </div>
                 </div>
                 <div className="info-row">
                   <span className="ic">✉</span>
                   <div>
                     <h4>Email</h4>
-                    <p>bonjour@sage-thread-boutique.com</p>
+                    <p>
+                      <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>
+                    </p>
                   </div>
                 </div>
                 <div className="info-row">
                   <span className="ic">✦</span>
                   <div>
-                    <h4>Private viewings</h4>
-                    <p>By appointment, daily — including evenings.</p>
+                    <h4>Private styling sessions</h4>
+                    <p>
+                      By appointment daily — including evenings. The preferred
+                      way to experience our Bangalore boutique.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -176,32 +206,37 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <span>Sunday</span>
-                    <span>By appointment</span>
+                    <span>11:00 – 17:00</span>
                   </div>
                 </div>
                 <div className="socials mt-2">
-                  <a href="#">Instagram</a>
-                  <a href="#">Pinterest</a>
-                  <a href="#">Journal</a>
+                  <a href={BUSINESS.social.instagram}>Instagram</a>
+                  <a href={BUSINESS.social.pinterest}>Pinterest</a>
+                  <a href="/#faq">FAQ</a>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Map */}
         <section className="section section--tight">
           <div className="container">
             <div className="sec-head" data-reveal>
               <p className="eyebrow">Find us</p>
-              <h2>In the heart of the Marais</h2>
+              <h2>Your boutique near me in Bangalore</h2>
+              <p className="measure-sm mt-2" style={{ color: "var(--muted)" }}>
+                Sage Thread Boutique is in Indiranagar — centrally located for
+                women across Bengaluru searching for a designer boutique, ethnic
+                wear, or custom women&apos;s clothing near Koramangala, Ulsoor,
+                and MG Road.
+              </p>
             </div>
             <div className="map-embed" data-reveal="scale">
               <iframe
-                title="Map to the boutique"
+                title="Map to Sage Thread Boutique — Indiranagar, Bangalore, Karnataka"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=2.350%2C48.854%2C2.368%2C48.862&layer=mapnik&marker=48.858%2C2.359"
+                src={`https://www.openstreetmap.org/export/embed.html?bbox=${BUSINESS.geo.longitude - 0.012}%2C${BUSINESS.geo.latitude - 0.008}%2C${BUSINESS.geo.longitude + 0.012}%2C${BUSINESS.geo.latitude + 0.008}&layer=mapnik&marker=${BUSINESS.geo.latitude}%2C${BUSINESS.geo.longitude}`}
               ></iframe>
             </div>
           </div>
@@ -212,7 +247,7 @@ export default function ContactPage() {
         <div className="container">
           <div className="footer-cta" data-reveal>
             <p className="eyebrow">Stay close</p>
-            <h2>First looks &amp; private events</h2>
+            <h2>New arrivals &amp; private styling events in Bangalore</h2>
             <form className="newsletter" data-newsletter>
               <input
                 type="email"
@@ -221,7 +256,7 @@ export default function ContactPage() {
                 aria-label="Email address"
               />
               <button className="btn btn--solid" type="submit">
-                Subscribe
+                Join Our List
               </button>
             </form>
           </div>
@@ -231,43 +266,43 @@ export default function ContactPage() {
                 Sage Thread<span>boutique</span>
               </a>
               <p>
-                A boutique house of curated furniture, fashion and marble in the
-                heart of Paris.
+                A women&apos;s fashion boutique in Indiranagar, Bangalore —
+                designer wear, ethnic clothing, and custom styling in Karnataka.
               </p>
             </div>
             <div>
-              <h4>Explore</h4>
+              <h4>Collections</h4>
+              <a href="/fashion">Women&apos;s Fashion</a>
+              <br />
+              <a href="/furniture">Designer Dresses</a>
+              <br />
+              <a href="/marble">Ethnic Wear</a>
+              <br />
               <a href="/">Home</a>
-              <br />
-              <a href="/furniture">Furniture</a>
-              <br />
-              <a href="/fashion">Fashion</a>
-              <br />
-              <a href="/marble">Marble</a>
             </div>
             <div>
               <h4>Visit</h4>
-              <a href="#">Directions</a>
+              <a href="#top">Directions</a>
               <br />
-              <a href="#">Private viewing</a>
+              <a href="/contact">Private Styling</a>
               <br />
-              <a href="#">Events</a>
+              <a href="/contact">Fashion Consultation</a>
               <br />
-              <a href="#">Press</a>
+              <a href="/#faq">FAQ</a>
             </div>
             <div>
-              <h4>Social</h4>
-              <a href="#">Instagram</a>
+              <h4>Connect</h4>
+              <a href={BUSINESS.social.instagram}>Instagram</a>
               <br />
-              <a href="#">Pinterest</a>
+              <a href={BUSINESS.social.pinterest}>Pinterest</a>
               <br />
-              <a href="#">Journal</a>
+              <a href={`mailto:${BUSINESS.email}`}>Email</a>
               <br />
-              <a href="/contact">Contact</a>
+              <a href={`tel:${BUSINESS.phone.replace(/\s/g, "")}`}>Call Us</a>
             </div>
           </div>
           <div className="footer-bottom" data-reveal>
-            <span>© {year} Sage Thread Boutique</span>
+            <span>© {year} Sage Thread Boutique · Bengaluru, Karnataka</span>
             <span>Crafted with care · Privacy · Terms</span>
           </div>
         </div>

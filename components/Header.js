@@ -58,7 +58,7 @@ export default function Header() {
             className={isActive("/contact") ? "nav-cta active" : "nav-cta"}
             onClick={handleClick("/contact")}
           >
-            Contact
+            Book a Visit
           </Link>
         </nav>
         <button

@@ -3,19 +3,16 @@
 import { useState, useEffect, useRef } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-/* Furniture hero — full-bleed room photos that fill the screen and crossfade
-   every 2 seconds. Same bottom-left nav arrows as before step through manually. */
-
 const ITEMS = [
-  { img: "/assets/img/furniture-hero-1.jpg", heading: "Where comfort demands attention" },
-  { img: "/assets/img/furniture-hero-2.jpg", heading: "Luxury begins where your head rests" },
-  { img: "/assets/img/furniture-hero-3.jpg", heading: "Where art meets function" },
-  { img: "/assets/img/furniture-hero-4.jpg", heading: "Designed to Inspire" },
-  { img: "/assets/img/furniture-hero-5.jpg", heading: "Timeless design, unmatched craft" },
+  { img: "/assets/img/furniture-hero-1.jpg", heading: "Designer dresses for every occasion" },
+  { img: "/assets/img/furniture-hero-2.jpg", heading: "Luxury begins with the perfect fit" },
+  { img: "/assets/img/furniture-hero-3.jpg", heading: "Where couture meets confidence" },
+  { img: "/assets/img/furniture-hero-4.jpg", heading: "Tailor-made for Bangalore's women" },
+  { img: "/assets/img/furniture-hero-5.jpg", heading: "Timeless style, expert craftsmanship" },
 ];
 
 const EASE = "cubic-bezier(0.4,0,0.2,1)";
-const FADE = 900; // crossfade duration (ms)
+const FADE = 900;
 
 const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E\")";
@@ -26,7 +23,6 @@ export default function FurnitureHero() {
   const timer = useRef(null);
   const n = ITEMS.length;
 
-  // Preload both images up front so crossfades never flash.
   useEffect(() => {
     ITEMS.forEach((it) => {
       const im = new Image();
@@ -41,7 +37,6 @@ export default function FurnitureHero() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Auto-advance through the photos every 3 seconds.
   const startTimer = () => {
     clearInterval(timer.current);
     timer.current = setInterval(() => setActive((p) => (p + 1) % n), 3000);
@@ -53,7 +48,7 @@ export default function FurnitureHero() {
 
   const go = (dir) => {
     setActive((p) => (p + (dir === "next" ? 1 : n - 1)) % n);
-    startTimer(); // restart the clock so it doesn't jump right after a click
+    startTimer();
   };
 
   return (
@@ -67,12 +62,12 @@ export default function FurnitureHero() {
         fontFamily: "Inter, sans-serif",
       }}
     >
-      {/* Full-width room photos shown whole — crossfade between pieces */}
       {ITEMS.map((it, i) => (
         <img
           key={"bg" + i}
           src={it.img}
-          alt=""
+          alt={it.heading}
+          title={it.heading}
           draggable={false}
           style={{
             position: "absolute",
@@ -88,7 +83,6 @@ export default function FurnitureHero() {
         />
       ))}
 
-      {/* Legibility gradients for the bottom-left copy + controls */}
       <div
         style={{
           position: "absolute",
@@ -110,7 +104,6 @@ export default function FurnitureHero() {
         }}
       />
 
-      {/* Grain overlay */}
       <div
         style={{
           position: "absolute",
@@ -124,7 +117,6 @@ export default function FurnitureHero() {
         }}
       />
 
-      {/* Bottom-left copy (per image) */}
       <div
         style={{
           position: "absolute",
@@ -168,7 +160,6 @@ export default function FurnitureHero() {
         )}
       </div>
 
-      {/* Bottom-right nav arrows */}
       <div
         style={{
           position: "absolute",

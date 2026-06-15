@@ -1,28 +1,25 @@
 import { Lightbulb, Home, Hammer, Sofa } from "lucide-react";
 
-/* "Our Services" — four cards, each with an icon tile straddling the top edge,
-   a title, a divider and a description (per the provided sketch). */
-
 const SERVICES = [
   {
     Icon: Lightbulb,
-    title: "Consultations",
-    desc: "Every great room begins with a conversation. Book a complimentary consultation — in our showroom, at home, or over video — and our design team will help you shape the space you have in mind.",
+    title: "Fashion Consultation",
+    desc: "Every perfect look begins with a conversation. Book a complimentary fashion consultation at our Bangalore boutique — in store or by appointment — and our stylists will help shape your wardrobe vision.",
   },
   {
     Icon: Home,
-    title: "Interior Design",
-    desc: "Our in-house studio handles it all — space planning, material selection and styling — so your rooms tell a single, cohesive story from floor to finish.",
+    title: "Personal Styling",
+    desc: "Our in-house team handles complete look curation — from silhouette selection to accessory pairing — so you arrive at every occasion confident and beautifully dressed.",
   },
   {
     Icon: Hammer,
-    title: "Custom Crafted",
-    desc: "Have something specific in mind? Our ateliers build made-to-order pieces in solid wood, stone and honest materials, finished by hand to your exact measurements.",
+    title: "Custom Stitching",
+    desc: "Have a specific designer dress in mind? Our master tailors create tailor-made outfits in premium fabrics, finished by hand to your exact measurements and style.",
   },
   {
     Icon: Sofa,
-    title: "Ready Made",
-    desc: "Prefer to take it home today? Explore our curated range of ready-made furniture — designer pieces held in stock and ready to deliver to your door.",
+    title: "Ready-to-Wear",
+    desc: "Prefer to take it home today? Explore our curated ready-to-wear designer dresses — boutique pieces held in stock at our Indiranagar store, ready for fitting.",
   },
 ];
 
@@ -31,7 +28,7 @@ export default function FurnitureServices() {
     <section className="section">
       <div className="container">
         <div className="sec-head sec-head--center" data-reveal>
-          <h2 style={{ fontSize: "clamp(2.2rem,5vw,3.4rem)" }}>Our Services</h2>
+          <h2 style={{ fontSize: "clamp(2.2rem,5vw,3.4rem)" }}>Boutique Services</h2>
         </div>
         <div className="services-grid" data-reveal>
           {SERVICES.map(({ Icon, title, desc }) => (

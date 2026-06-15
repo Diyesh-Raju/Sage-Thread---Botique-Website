@@ -2,17 +2,12 @@
 
 import { useState } from "react";
 
-/* Image-accordion (21st.dev template, ported off Tailwind to inline styles).
-   Hovering a category expands it; the rest collapse to a thin strip with a
-   vertical caption. Styled to match the furniture page (cream ground, Playfair
-   heading, terracotta button). */
-
 const accordionItems = [
-  { id: 1, title: "Couches", imageUrl: "/assets/img/furn-couches.jpg" },
-  { id: 2, title: "Lounge Chair", imageUrl: "/assets/img/furn-lounge-chair.jpg" },
-  { id: 3, title: "Bed Frames", imageUrl: "/assets/img/furn-bed-frames.jpg" },
-  { id: 4, title: "Kitchen Furniture", imageUrl: "/assets/img/furn-kitchen.jpg" },
-  { id: 5, title: "Closet & Wardrobe", imageUrl: "/assets/img/furn-closet.jpg" },
+  { id: 1, title: "Evening Gowns", imageUrl: "/assets/img/furn-couches.jpg" },
+  { id: 2, title: "Cocktail Dresses", imageUrl: "/assets/img/furn-lounge-chair.jpg" },
+  { id: 3, title: "Bridal Edit", imageUrl: "/assets/img/furn-bed-frames.jpg" },
+  { id: 4, title: "Festive Wear", imageUrl: "/assets/img/furn-kitchen.jpg" },
+  { id: 5, title: "Workwear", imageUrl: "/assets/img/furn-closet.jpg" },
 ];
 
 const FALLBACK = "https://placehold.co/400x450/2d3748/ffffff?text=Image";
@@ -34,7 +29,8 @@ function AccordionItem({ item, isActive, onMouseEnter }) {
     >
       <img
         src={item.imageUrl}
-        alt={item.title}
+        alt={`${item.title} — designer dresses at Sage Thread Boutique Bangalore`}
+        title={`${item.title} — Sage Thread`}
         onError={(e) => {
           e.target.onerror = null;
           e.target.src = FALLBACK;
@@ -92,9 +88,8 @@ export function LandingAccordionItem() {
             gap: "3rem",
           }}
         >
-          {/* Left: text content */}
           <div style={{ flex: "1 1 300px", minWidth: 0 }}>
-            <p className="eyebrow">Explore by room</p>
+            <p className="eyebrow">Shop by occasion</p>
             <h2
               style={{
                 fontSize: "clamp(2rem, 4.4vw, 3.4rem)",
@@ -103,26 +98,26 @@ export function LandingAccordionItem() {
                 marginTop: ".4rem",
               }}
             >
-              A piece for every
+              A designer dress
               <br />
-              corner of the home
+              for every moment
             </h2>
             <p
               className="lead"
               style={{ marginTop: "1.4rem", maxWidth: "34rem" }}
             >
-              Explore the collection by category — sink-in sofas and sculptural
-              lounge chairs, bed frames, kitchen and the quiet luxury of a
-              fitted wardrobe. Each piece made to be lived with for a lifetime.
+              Explore our designer dress collection by occasion — from evening
+              gowns and cocktail dresses to bridal edits, festive wear, and
+              polished workwear. Each piece at our Bangalore boutique is chosen
+              for women who expect more from their wardrobe.
             </p>
             <div style={{ marginTop: "2rem" }}>
               <a href="/contact" className="btn btn--solid">
-                Contact Us <span className="arrow">→</span>
+                Schedule a Boutique Visit <span className="arrow">→</span>
               </a>
             </div>
           </div>
 
-          {/* Right: image accordion */}
           <div style={{ flex: "1.8 1 540px", minWidth: 0 }}>
             <div
               style={{
