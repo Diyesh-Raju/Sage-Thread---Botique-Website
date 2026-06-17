@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 
 const FABRICS = [
-  { name: "Silk", img: "/assets/img/wood-teak.jpg" },
-  { name: "Linen", img: "/assets/img/wood-dark-oak.jpg" },
-  { name: "Cotton", img: "/assets/img/wood-rustic-walnut.jpg" },
-  { name: "Georgette", img: "/assets/img/wood-holly.jpg" },
+  { name: "Teak", img: "/assets/img/wood-teak.jpg" },
+  { name: "Dark Oak", img: "/assets/img/wood-dark-oak.jpg" },
+  { name: "Rustic Walnut", img: "/assets/img/wood-rustic-walnut.jpg" },
+  { name: "Holly", img: "/assets/img/wood-holly.jpg" },
 ];
 
 export default function FurnitureFinishes() {
