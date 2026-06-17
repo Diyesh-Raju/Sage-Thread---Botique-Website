@@ -63,9 +63,6 @@ export default function HomePage() {
             </video>
           </div>
           <div className="hero__inner container">
-            <p className="eyebrow" data-stagger style={{ "--sd": ".1s" }}>
-              Indiranagar, Bengaluru · Est. {BUSINESS.founded}
-            </p>
             <h1 className="hero__title" data-stagger style={{ "--sd": ".22s" }}>
               Sage Thread Boutique
               <br />
@@ -75,6 +72,9 @@ export default function HomePage() {
               A women&apos;s fashion boutique in Bangalore — designer wear,
               ethnic clothing, and tailor-made pieces for the woman who dresses
               with intention.
+            </p>
+            <p className="eyebrow mt-2" data-stagger style={{ "--sd": ".5s" }}>
+              Indiranagar, Bengaluru · Est. {BUSINESS.founded}
             </p>
             <div className="mt-2" data-stagger style={{ "--sd": ".58s" }}>
               <a href="#collections" className="btn btn--solid">

@@ -201,7 +201,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
   content: ""; position: absolute; inset: 0; background: var(--hero-overlay);
 }
 .hero__inner { padding-bottom: clamp(3.5rem, 9vh, 8rem); width: 100%; }
-.hero__title { font-size: clamp(3rem, 9.5vw, 9rem); color: #fff; }
+.hero__title { font-size: clamp(2.4rem, 7vw, 6.5rem); color: #fff; }
 .hero__sub { max-width: 46ch; margin-top: 1.4rem; color: rgba(255,255,255,.86); }
 .hero .eyebrow { color: rgba(255,255,255,.9); }
 .scroll-cue {
