@@ -261,3 +261,61 @@
     transform: perspective(700px) rotateX(34deg) rotateZ(-1.5deg);
   }
 }
+
+/* ===== Scroll-scrubbed video hero ===== */
+.furn-scrollhero {
+  position: relative;
+  height: 260vh;            /* scrub length — longer = slower playback */
+  background: #0d0b0a;
+}
+.furn-scrollhero__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #0d0b0a;
+}
+.furn-scrollhero__poster,
+.furn-scrollhero__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.furn-scrollhero__poster { object-fit: cover; object-position: center; z-index: 0; }
+.furn-scrollhero__canvas {
+  z-index: 1;
+  opacity: 0;               /* fades in once the first frame is drawn over the poster */
+  transition: opacity .25s ease;
+}
+.furn-scrollhero__cue {
+  position: absolute;
+  bottom: 2.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity .5s ease;
+}
+.furn-scrollhero__chevron {
+  display: block;
+  width: 18px;
+  height: 18px;
+  border-right: 2px solid rgba(255,255,255,.85);
+  border-bottom: 2px solid rgba(255,255,255,.85);
+  transform: rotate(45deg);
+  animation: furn-scrollhero-bounce 1.8s var(--ease, ease) infinite;
+}
+@keyframes furn-scrollhero-bounce {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: .55; }
+  50%      { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
+}
+@media (max-width: 640px) {
+  .furn-scrollhero { height: 200vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .furn-scrollhero { height: 100vh; height: 100svh; }
+  .furn-scrollhero__chevron { animation: none; }
+}

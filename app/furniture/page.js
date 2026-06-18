@@ -1,6 +1,6 @@
 import "../furniture.css";
 import Header from "@/components/Header";
-import FurnitureHero from "@/components/FurnitureHero";
+import FurnitureScrollHero from "@/components/FurnitureScrollHero";
 import FurnitureFinishes from "@/components/FurnitureFinishes";
 import { LandingAccordionItem } from "@/components/FurnitureAccordion";
 import FurnitureRooms from "@/components/FurnitureRooms";
@@ -44,12 +44,14 @@ export default function FurniturePage() {
         href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
+      {/* First hero frame — preloaded so the video hero paints instantly */}
+      <link rel="preload" as="image" href="/assets/furn-hero-seq/f_001.jpg" fetchPriority="high" />
 
       <Header />
 
       <main>
-        {/* Hero — full-bleed room photos that crossfade every 2s */}
-        <FurnitureHero />
+        {/* Hero — scroll-scrubbed video (frame sequence on canvas) */}
+        <FurnitureScrollHero />
 
         {/* Intro — pick a wood finish to preview it on the left */}
         <FurnitureFinishes />

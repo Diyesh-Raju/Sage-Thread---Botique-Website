@@ -26,3 +26,6 @@ next-env.d.ts
 # dev tooling (local screenshot testing only)
 _shot.mjs
 _diag.mjs
+
+# Local source media (re-encode source for the furniture scroll hero)
+media-source/
