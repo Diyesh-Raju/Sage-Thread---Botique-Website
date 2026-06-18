@@ -265,7 +265,7 @@
 /* ===== Scroll-scrubbed video hero ===== */
 .furn-scrollhero {
   position: relative;
-  height: 260vh;            /* scrub length — longer = slower playback */
+  height: 600vh;            /* scrub length — longer = slower playback */
   background: #0d0b0a;
 }
 .furn-scrollhero__sticky {
@@ -313,7 +313,7 @@
   50%      { transform: rotate(45deg) translate(4px, 4px); opacity: 1; }
 }
 @media (max-width: 640px) {
-  .furn-scrollhero { height: 200vh; }
+  .furn-scrollhero { height: 420vh; }
 }
 @media (prefers-reduced-motion: reduce) {
   .furn-scrollhero { height: 100vh; height: 100svh; }

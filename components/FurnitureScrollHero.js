@@ -76,6 +76,9 @@ export default function FurnitureScrollHero() {
       canvas.style.width = dispW + "px";
       canvas.style.height = dispH + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // high-quality scaling (some browsers reset these on canvas resize)
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = "high";
       lastDrawn = -1;
       draw(Math.round(current));
     };
