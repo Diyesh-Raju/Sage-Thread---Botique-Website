@@ -1,5 +1,8 @@
 /* FASHION — blush · ink-plum · rose gold */
-:root {
+/* Scoped to a per-page wrapper (not :root) so this palette can't linger on
+   the global :root after client-side navigation back to another page. */
+.page--fashion {
+  background: var(--bg); min-height: 100svh;
   --bg: #f7eef0;
   --surface: #fffafb;
   --text: #1d1419;

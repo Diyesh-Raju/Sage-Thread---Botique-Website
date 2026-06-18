@@ -12,7 +12,7 @@ export const viewport = { themeColor: "#0a1410" };
 export default function ContactPage() {
   const year = new Date().getFullYear();
   return (
-    <>
+    <div className="page--contact">
       <JsonLd
         data={[
           webPageSchema({
@@ -304,6 +304,6 @@ export default function ContactPage() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

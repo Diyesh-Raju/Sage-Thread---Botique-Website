@@ -1,5 +1,8 @@
 /* CONTACT — deep emerald · alabaster · gold (dark theme) */
-:root {
+/* Scoped to a per-page wrapper (not :root) so this palette can't linger on
+   the global :root after client-side navigation back to another page. */
+.page--contact {
+  background: var(--bg); min-height: 100svh;
   --bg: #0e1a16;
   --surface: #15241f;
   --text: #eaf1ec;

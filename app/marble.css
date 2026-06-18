@@ -1,5 +1,8 @@
 /* MARBLE — cool alabaster · slate · verdigris vein */
-:root {
+/* Scoped to a per-page wrapper (not :root) so this palette can't linger on
+   the global :root after client-side navigation back to another page. */
+.page--marble {
+  background: var(--bg); min-height: 100svh;
   --bg: #eceff1;
   --surface: #ffffff;
   --text: #20262b;

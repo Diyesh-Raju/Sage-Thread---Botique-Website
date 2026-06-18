@@ -14,7 +14,7 @@ export const viewport = { themeColor: "#160f15" };
 export default function FashionPage() {
   const year = new Date().getFullYear();
   return (
-    <>
+    <div className="page--fashion">
       <JsonLd
         data={[
           webPageSchema({
@@ -359,6 +359,6 @@ export default function FashionPage() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

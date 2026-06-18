@@ -20,7 +20,7 @@ export const viewport = { themeColor: "#241b14" };
 export default function FurniturePage() {
   const year = new Date().getFullYear();
   return (
-    <>
+    <div className="page--furniture">
       <JsonLd
         data={[
           webPageSchema({
@@ -318,6 +318,6 @@ export default function FurniturePage() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

@@ -14,7 +14,7 @@ export const viewport = { themeColor: "#1b2124" };
 export default function MarblePage() {
   const year = new Date().getFullYear();
   return (
-    <>
+    <div className="page--marble">
       <JsonLd
         data={[
           webPageSchema({
@@ -394,6 +394,6 @@ export default function MarblePage() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }

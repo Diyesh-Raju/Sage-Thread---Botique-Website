@@ -1,5 +1,8 @@
 /* FURNITURE — cream · espresso · terracotta + sage */
-:root {
+/* Scoped to a per-page wrapper (not :root) so this palette can't linger on
+   the global :root after client-side navigation back to another page. */
+.page--furniture {
+  background: var(--bg); min-height: 100svh;
   --bg: #f2ebdf;
   --surface: #fffdf8;
   --text: #2a211a;
