@@ -32,7 +32,6 @@ const PRODUCTS = [
   {
     name: "The Marshmallow",
     category: "Large 3-seat sofa",
-    badge: "Customize",
     images: [
       "/assets/img/products/marshmallow-1.jpg",
       "/assets/img/products/marshmallow-2.jpg",
@@ -42,9 +41,43 @@ const PRODUCTS = [
     moreSwatches: 5,
     info: "Available in 8 finishes · 4 dimensions",
   },
+  {
+    name: "The Chocolate Lounge",
+    category: "4-seat leather sofa",
+    images: [
+      "/assets/img/products/chocolate-lounge-1.jpg",
+      "/assets/img/products/chocolate-lounge-2.jpg",
+      { src: "/assets/img/products/chocolate-lounge-3.jpg", fit: "cover" },
+    ],
+    swatches: ["#6f4a2f", "#8a5a38", "#4a3221", "#2f2018"],
+    moreSwatches: 4,
+    info: "Available in 6 finishes · 3 dimensions",
+  },
+  {
+    name: "Coffee Table",
+    category: "Travertine coffee table",
+    images: [
+      "/assets/img/products/coffee-table-1.jpg",
+      "/assets/img/products/coffee-table-2.jpg",
+      "/assets/img/products/coffee-table-3.jpg",
+    ],
+    swatches: ["#e7ddc8", "#cdbb9a", "#6f4a2f"],
+    moreSwatches: 2,
+    info: "Available in 3 finishes · 2 dimensions",
+  },
+  {
+    name: "The Eclipse Lamp",
+    category: "Wooden floor lamp",
+    images: [
+      "/assets/img/products/eclipse-lamp-1.jpg",
+      { src: "/assets/img/products/eclipse-lamp-2.jpg", fit: "cover" },
+    ],
+    swatches: ["#5a3b24", "#1a1a1a"],
+    info: "Available in 2 finishes",
+  },
 ];
 
-const EMPTY_SLOTS = 3;
+const EMPTY_SLOTS = 0;
 
 export default function LivingRoomPage() {
   return (

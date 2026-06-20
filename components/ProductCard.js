@@ -9,29 +9,42 @@ import { useEffect, useRef, useState } from "react";
 export default function ProductCard({ product }) {
   const [index, setIndex] = useState(0);
   const [hovering, setHovering] = useState(false);
+  // Clicking an arrow pauses the auto-slide: the image stays put while the
+  // cursor sits on the arrow or leaves the card. Sliding only resumes when
+  // the pointer re-enters the card.
+  const [paused, setPaused] = useState(false);
   const [liked, setLiked] = useState(false);
   const timer = useRef(null);
 
-  const images = product.images || [];
-  const count = images.length;
+  // Each image may be a string or { src, fit } where fit is "contain"
+  // (product-on-white, default) or "cover" (fill the frame).
+  const slides = (product.images || []).map((it) =>
+    typeof it === "string" ? { src: it, fit: "contain" } : { fit: "contain", ...it }
+  );
+  const count = slides.length;
 
-  // Auto-advance through the images while hovering.
+  // Auto-advance through the images while hovering and not paused.
   useEffect(() => {
-    if (!hovering || count < 2) return undefined;
+    if (!hovering || paused || count < 2) return undefined;
     timer.current = setInterval(() => {
       setIndex((i) => (i + 1) % count);
     }, 1100);
     return () => clearInterval(timer.current);
-  }, [hovering, count]);
+  }, [hovering, paused, count]);
 
-  const enter = () => setHovering(true);
+  const enter = () => {
+    setHovering(true);
+    setPaused(false); // re-entering the card always resumes sliding
+  };
   const leave = () => {
     setHovering(false);
-    setIndex(0);
+    // Keep the arrow-selected frame on exit; otherwise reset to the hero shot.
+    if (!paused) setIndex(0);
   };
   const go = (dir) => (e) => {
     e.preventDefault();
     e.stopPropagation();
+    setPaused(true);
     setIndex((i) => (i + dir + count) % count);
   };
 
@@ -46,10 +59,13 @@ export default function ProductCard({ product }) {
           className="pcard__track"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
-          {images.map((src, i) => (
-            <div className="pcard__slide" key={src}>
+          {slides.map((slide, i) => (
+            <div
+              className={`pcard__slide${slide.fit === "cover" ? " pcard__slide--cover" : ""}`}
+              key={slide.src}
+            >
               <img
-                src={src}
+                src={slide.src}
                 alt={`${product.name} — view ${i + 1}`}
                 loading="lazy"
                 decoding="async"
@@ -99,9 +115,9 @@ export default function ProductCard({ product }) {
               ›
             </button>
             <div className="pcard__dots" aria-hidden="true">
-              {images.map((src, i) => (
+              {slides.map((slide, i) => (
                 <span
-                  key={src}
+                  key={slide.src}
                   className={i === index ? "is-active" : undefined}
                 />
               ))}

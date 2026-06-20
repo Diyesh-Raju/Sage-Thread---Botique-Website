@@ -341,11 +341,24 @@
 }
 
 .pgrid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(6, 1fr);
   gap: clamp(18px, 2.4vw, 40px);
 }
-@media (max-width: 900px) { .pgrid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 560px) { .pgrid { grid-template-columns: 1fr; } }
+/* Top row: 3 cards each spanning 2 cols. Bottom row: the 4th & 5th cards
+   offset inward so the two of them sit centred beneath the top three. */
+.pgrid > * { grid-column: span 2; }
+.pgrid > :nth-child(4) { grid-column: 2 / 4; }
+.pgrid > :nth-child(5) { grid-column: 4 / 6; }
+
+@media (max-width: 900px) {
+  .pgrid { grid-template-columns: repeat(2, 1fr); }
+  .pgrid > *,
+  .pgrid > :nth-child(4),
+  .pgrid > :nth-child(5) { grid-column: auto; }
+}
+@media (max-width: 560px) {
+  .pgrid { grid-template-columns: 1fr; }
+}
 
 /* ---- Product card (Roche Bobois style) ---- */
 .pcard { display: flex; flex-direction: column; }
@@ -356,6 +369,7 @@
 .pcard__track { display: flex; height: 100%; width: 100%; transition: transform .6s var(--ease); }
 .pcard__slide { flex: 0 0 100%; height: 100%; }
 .pcard__slide img { width: 100%; height: 100%; object-fit: contain; display: block; padding: 6%; }
+.pcard__slide--cover img { object-fit: cover; padding: 0; }
 
 .pcard__badge {
   position: absolute; top: 14px; left: 0; z-index: 3;
