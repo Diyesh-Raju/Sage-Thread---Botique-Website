@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 const OCCASIONS = [
+  { title: "Living Room", img: "/assets/img/room-living.jpg", href: "/furniture/living-room" },
   { title: "Bedroom", img: "/assets/img/room-bedroom.jpg" },
-  { title: "Living Room", img: "/assets/img/room-living.jpg" },
   { title: "Dining Room", img: "/assets/img/room-dining.jpg" },
   { title: "Home Office", img: "/assets/img/room-office.jpg" },
 ];
@@ -9,8 +11,8 @@ export default function FurnitureRooms() {
   return (
     <section className="rooms-section">
       <div className="rooms-grid" data-reveal>
-        {OCCASIONS.map((room) => (
-          <div className="room-card" key={room.title}>
+        {OCCASIONS.map((room) => {
+          const inner = (
             <div className="room-card__inner">
               <img
                 src={room.img}
@@ -21,8 +23,18 @@ export default function FurnitureRooms() {
               />
               <span className="room-card__label">{room.title}</span>
             </div>
-          </div>
-        ))}
+          );
+
+          return room.href ? (
+            <Link className="room-card room-card--link" key={room.title} href={room.href}>
+              {inner}
+            </Link>
+          ) : (
+            <div className="room-card" key={room.title}>
+              {inner}
+            </div>
+          );
+        })}
       </div>
     </section>
   );
