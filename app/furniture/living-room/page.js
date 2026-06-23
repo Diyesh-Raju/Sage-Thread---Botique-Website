@@ -81,7 +81,7 @@ const EMPTY_SLOTS = 0;
 
 export default function LivingRoomPage() {
   return (
-    <div className="page--furniture">
+    <div className="page--furniture page--collection">
       <JsonLd
         data={[
           webPageSchema({

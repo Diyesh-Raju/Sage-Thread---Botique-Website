@@ -360,6 +360,11 @@
   .pgrid { grid-template-columns: 1fr; }
 }
 
+/* Collection page: white canvas + roomier, larger product cards
+   (same 3-over-2 grid layout and image animation, just bigger). */
+.page--collection { --bg: #ffffff; }
+.page--collection .collection .container { max-width: 1560px; }
+
 /* ---- Product card (Roche Bobois style) ---- */
 .pcard { display: flex; flex-direction: column; }
 .pcard__stage {

@@ -2,9 +2,9 @@ import Link from "next/link";
 
 const OCCASIONS = [
   { title: "Living Room", img: "/assets/img/room-living.jpg", href: "/furniture/living-room" },
-  { title: "Bedroom", img: "/assets/img/room-bedroom.jpg" },
-  { title: "Dining Room", img: "/assets/img/room-dining.jpg" },
-  { title: "Home Office", img: "/assets/img/room-office.jpg" },
+  { title: "Bedroom", img: "/assets/img/room-bedroom.jpg", href: "/furniture/living-room" },
+  { title: "Dining Room", img: "/assets/img/room-dining.jpg", href: "/furniture/living-room" },
+  { title: "Home Office", img: "/assets/img/room-office.jpg", href: "/furniture/living-room" },
 ];
 
 export default function FurnitureRooms() {
