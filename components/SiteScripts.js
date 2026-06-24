@@ -132,14 +132,26 @@ export default function SiteScripts() {
           document.querySelectorAll("[data-parallax]")
         );
 
-    /* Expanding media box (marble page): scrub clip-path with scroll
-       progress through the [data-expand] section. */
-    const expandSection = reduceMotion
+    /* Pinned intro sequence (marble page): one sticky stage whose beats
+       (marble slides up -> stone line -> box appears -> box expands) are
+       scrubbed from scroll progress through the tall [data-intro] track. */
+    const introSection = reduceMotion
       ? null
-      : document.querySelector("[data-expand]");
-    const expandBox = expandSection
-      ? expandSection.querySelector(".expand__box")
+      : document.querySelector("[data-intro]");
+    const introMarble = introSection
+      ? introSection.querySelector("[data-intro-marble]")
       : null;
+    const introText = introSection
+      ? introSection.querySelector("[data-intro-text]")
+      : null;
+    const introBox = introSection
+      ? introSection.querySelector("[data-intro-box]")
+      : null;
+    const introCue = introSection
+      ? introSection.querySelector(".scroll-cue")
+      : null;
+    const clamp01 = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
+    const easeOut = (x) => 1 - Math.pow(1 - x, 3);
 
     let ticking = false;
     let lastY = -1;
@@ -170,26 +182,45 @@ export default function SiteScripts() {
         }
       }
 
-      if (expandBox) {
+      if (introSection) {
         const vh = window.innerHeight;
         const vw = window.innerWidth;
-        const r = expandSection.getBoundingClientRect();
+        const r = introSection.getBoundingClientRect();
         const total = r.height - vh;
-        let p = total > 0 ? -r.top / total : 0;
-        p = p < 0 ? 0 : p > 1 ? 1 : p;
-        const eased = 1 - Math.pow(1 - p, 1.6); // ease-out for a soft finish
-        const iy = ((1 - eased) * vh * 0.3).toFixed(1);
-        const ix = ((1 - eased) * vw * 0.32).toFixed(1);
-        const rad = ((1 - eased) * 18).toFixed(1);
-        const clip =
-          "inset(" + iy + "px " + ix + "px " + iy + "px " + ix + "px round " + rad + "px)";
-        expandBox.style.clipPath = clip;
-        expandBox.style.webkitClipPath = clip; // older WebKit/Safari
+        const p = total > 0 ? clamp01(-r.top / total) : 0;
 
+        // fade the scroll cue out once the first beat is underway
+        if (introCue) introCue.style.opacity = (1 - clamp01(p / 0.1)).toFixed(3);
+        // 1) marble slides up from the bottom to cover the hero (p: 0 -> .24)
+        if (introMarble) {
+          const m = easeOut(clamp01(p / 0.24));
+          introMarble.style.transform =
+            "translate3d(0," + ((1 - m) * 100).toFixed(2) + "%,0)";
+        }
+        // 2) the stone line fades / rises in over the marble (p: .16 -> .34)
+        if (introText) {
+          const t = clamp01((p - 0.16) / 0.18);
+          introText.style.opacity = t.toFixed(3);
+          introText.style.transform =
+            "translate3d(0," + ((1 - t) * 28).toFixed(1) + "px,0)";
+        }
+        // 3) the box appears (p: .40 -> .52), then 4) expands (p: .54 -> .82)
+        if (introBox) {
+          const appear = clamp01((p - 0.4) / 0.12);
+          introBox.style.opacity = appear.toFixed(3);
+          const e = easeOut(clamp01((p - 0.54) / 0.28));
+          const iy = ((1 - e) * vh * 0.3).toFixed(1);
+          const ix = ((1 - e) * vw * 0.32).toFixed(1);
+          const rad = ((1 - e) * 18).toFixed(1);
+          const clip =
+            "inset(" + iy + "px " + ix + "px " + iy + "px " + ix + "px round " + rad + "px)";
+          introBox.style.clipPath = clip;
+          introBox.style.webkitClipPath = clip; // older WebKit/Safari
+        }
       }
     }
     // On resize the scroll position may be unchanged, so force a recompute
-    // (parallax offsets + the expand-box clip-path depend on viewport size).
+    // (parallax offsets + the pinned-intro beats depend on viewport size).
     const onResize = () => {
       lastY = -1;
       update();
@@ -214,16 +245,18 @@ export default function SiteScripts() {
        pace. We force scroll-behavior:auto for the duration so the global
        `scroll-behavior: smooth` (base.css) doesn't fight the per-frame jumps. */
     const scrollCue = document.querySelector(".scroll-cue");
-    if (scrollCue && hero) {
+    if (scrollCue) {
       let cueRaf = null;
       const easeInOutCubic = (t) =>
         t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
       const onCueClick = () => {
-        const next = hero.nextElementSibling;
+        // On hero pages jump to the next section; on the pinned-intro page
+        // (no .hero) nudge one viewport down to advance the sequence.
+        const next = hero ? hero.nextElementSibling : null;
         const targetY = next
           ? next.getBoundingClientRect().top + window.pageYOffset
-          : window.innerHeight;
+          : window.pageYOffset + window.innerHeight;
 
         if (reduceMotion) {
           window.scrollTo(0, targetY);

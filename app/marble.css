@@ -21,85 +21,103 @@
 .hero__title { letter-spacing: .04em; font-size: clamp(2.6rem, 8vw, 7rem); }
 .brand { letter-spacing: .18em; }
 
-/* marble hero — single lifestyle photograph */
+/* marble hero photo — base layer of the pinned intro sequence */
 .marble-hero-bg { background: #1b2124 url("/assets/img/marble-hero.jpg") center/cover; }
-/* The .page--marble wrapper paints an opaque background that would otherwise
-   cover the hero's negative-z media. Lift the media above the wrapper bg and
-   keep the headline (and scroll cue) layered above the photograph. */
-.page--marble .hero__media { z-index: 0; }
-.page--marble .hero__inner { position: relative; z-index: 1; }
-.page--marble .scroll-cue { z-index: 2; }
 
 /* ============================================================
-   Stone reveal — full-bleed marble wallpaper with a centred
-   line. The marble settles in (fade + gentle zoom-out) and the
-   text rises in, both via IntersectionObserver -> .is-visible,
-   so the motion plays smoothly over a fixed duration no matter
-   how fast or slow the user scrolls. Only opacity/transform
-   animate (composited, lag-free across browsers/devices).
+   PINNED INTRO SEQUENCE (marble page)
+   One sticky stage scrubbed by scroll progress through a tall
+   track. As the user scrolls down from the hero:
+     1. the marble wallpaper slides UP from the bottom and covers
+        the hero photo + "Luxury that Lives With You";
+     2. the centred stone line fades / rises in over the marble;
+     3. a small black box appears in the middle;
+     4. the box expands to full bleed;
+     5. the stage releases into the rest of the page.
+   Only transform / opacity / clip-path animate (all composited),
+   driven from the single throttled rAF loop in SiteScripts — so
+   the beats play smoothly at any scroll speed, lag-free on every
+   browser / device, and reverse cleanly on scroll up.
    ============================================================ */
-.stone {
-  position: relative; overflow: hidden;
-  min-height: 100vh; min-height: 100svh;
-  display: grid; place-items: center;
-  background: #efeae3;
+.intro { position: relative; height: 400vh; }
+.intro__pin {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  overflow: hidden; background: #1b2124;
 }
-.stone__media { position: absolute; inset: 0; }
-.stone__media img {
+.intro__layer { position: absolute; inset: 0; }
+
+/* layer 0 — hero */
+.intro__heroBg { position: absolute; inset: 0; }
+.intro__heroBg::after {
+  content: ""; position: absolute; inset: 0; background: var(--hero-overlay);
+}
+.intro__heroText {
+  position: absolute; left: 0; right: 0;
+  bottom: clamp(3.5rem, 9vh, 8rem); z-index: 1;
+}
+.intro__heroText h1 {
+  color: #fff; letter-spacing: .04em;
+  font-size: clamp(2.4rem, 7vw, 6.5rem);
+  opacity: 0; transform: translate3d(0, 40px, 0);
+  animation: rise .95s var(--ease) forwards .25s;
+}
+
+/* layer 1 — marble wallpaper (slides up to cover the hero) */
+.intro__marble {
+  z-index: 2;
+  transform: translate3d(0, 100%, 0);   /* off-screen below; JS scrubs -> 0 */
+  will-change: transform;
+}
+.intro__marbleImg {
+  position: absolute; inset: 0;
   width: 100%; height: 100%; object-fit: cover; display: block;
 }
-/* override the default data-reveal (rise) with a slower marble settle */
-.stone__media[data-reveal] {
-  opacity: 0; transform: scale(1.12);
-  transition: opacity 1.4s var(--ease), transform 1.9s var(--ease);
-  will-change: opacity, transform;
+.intro__marbleText {
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; place-items: center; text-align: center;
+  padding-inline: clamp(1.25rem, 4vw, 4rem);
 }
-.stone__media[data-reveal].is-visible { opacity: 1; transform: none; }
-.stone__inner { position: relative; z-index: 1; text-align: center; }
-.stone__text {
+.intro__marbleText h2 {
   font-family: var(--font-accent);
   font-weight: 500; line-height: 1.36;
   font-size: clamp(1.5rem, 3.7vw, 3.2rem);
   letter-spacing: .005em; color: #2a2018;
-  max-width: 92vw; margin-inline: auto;
+  max-width: 92vw;
   text-wrap: balance;
   text-shadow: 0 1px 26px rgba(255, 253, 248, .6);
+  opacity: 0; transform: translate3d(0, 28px, 0);   /* JS scrubs in */
+  will-change: opacity, transform;
 }
 
-/* ============================================================
-   Expanding media box — a small rounded box appears, then
-   expands to full-bleed as you scroll. Driven by clip-path
-   (composited; not IntersectionObserved, so the clip-path/IO
-   trap doesn't apply). JS scrubs --inset-* from scroll progress.
-   ============================================================ */
-.expand { position: relative; height: 220vh; background: #efeae3; }
-.expand__sticky {
-  position: sticky; top: 0;
-  height: 100vh; height: 100svh;
-  display: grid; place-items: center; overflow: hidden;
-}
-.expand__box {
-  width: 100%; height: 100%;
-  background: #000;
-  /* default = small centred rounded rect (pre-JS / first paint) */
-  -webkit-clip-path: inset(
-    var(--inset-y, 30vh) var(--inset-x, 32vw)
-    var(--inset-y, 30vh) var(--inset-x, 32vw)
-    round var(--inset-r, 18px)
-  );
-  clip-path: inset(
-    var(--inset-y, 30vh) var(--inset-x, 32vw)
-    var(--inset-y, 30vh) var(--inset-x, 32vw)
-    round var(--inset-r, 18px)
-  );
-  will-change: clip-path;
+/* layer 2 — expanding black box (video placeholder) */
+.intro__box {
+  position: absolute; inset: 0; z-index: 3;
+  background: #000; opacity: 0;          /* JS scrubs in */
+  -webkit-clip-path: inset(30vh 32vw round 18px);
+  clip-path: inset(30vh 32vw round 18px); /* JS scrubs -> inset(0) */
+  will-change: clip-path, opacity;
+  pointer-events: none;
 }
 
+.intro .scroll-cue { z-index: 4; }
+
+/* Reduced motion / no-JS: drop the pin and lay the three beats out
+   as plain stacked full-height panels so all content stays reachable. */
 @media (prefers-reduced-motion: reduce) {
-  .stone__media[data-reveal] { opacity: 1 !important; transform: none !important; }
-  .expand { height: auto; }
-  .expand__sticky { position: static; }
-  .expand__box { clip-path: inset(0 round 0) !important; aspect-ratio: 16 / 9; height: auto; }
+  .intro { height: auto; }
+  .intro__pin { position: static; height: auto; }
+  .intro__layer { position: relative; }
+  .intro__hero { height: 100vh; height: 100svh; }
+  .intro__marble { transform: none; height: 100vh; height: 100svh; }
+  .intro__marbleText h2 { opacity: 1; transform: none; }
+  .intro__box {
+    position: relative; opacity: 1; aspect-ratio: 16 / 9;
+    -webkit-clip-path: inset(0 round 0) !important;
+    clip-path: inset(0 round 0) !important;
+  }
+  .intro__heroText h1 { opacity: 1; transform: none; animation: none; }
+  .intro .scroll-cue { display: none; }
 }
 
 /* swatch grid */

@@ -38,48 +38,47 @@ export default function MarblePage() {
       <Header />
 
       <main>
-        <section className="hero">
-          <div className="hero__media">
-            <div
-              className="kenburns marble-hero-bg"
-              style={{ position: "absolute", inset: 0 }}
-              role="img"
-              aria-label="A family's silhouette cast on travertine marble in a luxury garden — Sage Thread"
-            ></div>
-          </div>
-          <div className="hero__inner container">
-            <h1 className="hero__title" data-stagger style={{ "--sd": ".22s" }}>
-              Luxury that
-              <br />
-              Lives With You
-            </h1>
-          </div>
-          <div className="scroll-cue">Scroll</div>
-        </section>
+        {/* ===== Pinned intro: hero -> marble rises -> text -> box -> expand ===== */}
+        <section className="intro" data-intro>
+          <div className="intro__pin">
+            {/* layer 0 — hero photo + headline */}
+            <div className="intro__layer intro__hero">
+              <div
+                className="intro__heroBg kenburns marble-hero-bg"
+                role="img"
+                aria-label="A family's silhouette cast on travertine marble in a luxury garden — Sage Thread"
+              ></div>
+              <div className="intro__heroText container">
+                <h1>
+                  Luxury that
+                  <br />
+                  Lives With You
+                </h1>
+              </div>
+            </div>
 
-        {/* ===== Stone reveal — marble wallpaper + centred line ===== */}
-        <section className="stone" aria-label="A curation of natural stones">
-          <div className="stone__media" data-reveal aria-hidden="true">
-            <img
-              src="/assets/img/marble-wall.jpg"
-              alt=""
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="stone__inner container">
-            <h2 className="stone__text" data-reveal style={{ "--d": ".28s" }}>
-              Curation of the most exquisite natural stones.
-              <br />
-              Each vein tells a story.
-            </h2>
-          </div>
-        </section>
+            {/* layer 1 — marble wallpaper that slides up + centred line */}
+            <div className="intro__layer intro__marble" data-intro-marble>
+              <img
+                className="intro__marbleImg"
+                src="/assets/img/marble-wall.jpg"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+              <div className="intro__marbleText">
+                <h2 data-intro-text>
+                  Curation of the most exquisite natural stones.
+                  <br />
+                  Each vein tells a story.
+                </h2>
+              </div>
+            </div>
 
-        {/* ===== Expanding media box (scroll-scrubbed) — black placeholder ===== */}
-        <section className="expand" data-expand aria-hidden="true">
-          <div className="expand__sticky">
-            <div className="expand__box"></div>
+            {/* layer 2 — expanding black box (video placeholder) */}
+            <div className="intro__box" data-intro-box aria-hidden="true"></div>
+
+            <div className="scroll-cue">Scroll</div>
           </div>
         </section>
 
