@@ -44,29 +44,43 @@ export default function MarblePage() {
               className="kenburns marble-hero-bg"
               style={{ position: "absolute", inset: 0 }}
               role="img"
-              aria-label="Ethnic wear collection at Sage Thread Boutique Bangalore"
+              aria-label="A family's silhouette cast on travertine marble in a luxury garden — Sage Thread"
             ></div>
           </div>
           <div className="hero__inner container">
-            <p className="eyebrow" data-stagger style={{ "--sd": ".1s" }}>
-              Ethnic Wear · Bangalore
-            </p>
             <h1 className="hero__title" data-stagger style={{ "--sd": ".22s" }}>
-              Woven
+              Luxury that
               <br />
-              <span className="script">heritage</span>
+              Lives With You
             </h1>
-            <p className="hero__sub" data-stagger style={{ "--sd": ".42s" }}>
-              Sarees, lehengas, and traditional fashion — sourced from India&apos;s
-              finest weavers and finished for the modern Bangalore woman.
-            </p>
-            <div className="mt-2" data-stagger style={{ "--sd": ".58s" }}>
-              <a href="#swatches" className="btn btn--solid">
-                Explore Ethnic Collections <span className="arrow">→</span>
-              </a>
-            </div>
           </div>
           <div className="scroll-cue">Scroll</div>
+        </section>
+
+        {/* ===== Stone reveal — marble wallpaper + centred line ===== */}
+        <section className="stone" aria-label="A curation of natural stones">
+          <div className="stone__media" data-reveal aria-hidden="true">
+            <img
+              src="/assets/img/marble-wall.jpg"
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div className="stone__inner container">
+            <h2 className="stone__text" data-reveal style={{ "--d": ".28s" }}>
+              Curation of the most exquisite natural stones.
+              <br />
+              Each vein tells a story.
+            </h2>
+          </div>
+        </section>
+
+        {/* ===== Expanding media box (scroll-scrubbed) — black placeholder ===== */}
+        <section className="expand" data-expand aria-hidden="true">
+          <div className="expand__sticky">
+            <div className="expand__box"></div>
+          </div>
         </section>
 
         <section className="section">

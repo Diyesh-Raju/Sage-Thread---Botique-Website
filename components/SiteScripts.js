@@ -131,6 +131,16 @@ export default function SiteScripts() {
       : Array.prototype.slice.call(
           document.querySelectorAll("[data-parallax]")
         );
+
+    /* Expanding media box (marble page): scrub clip-path with scroll
+       progress through the [data-expand] section. */
+    const expandSection = reduceMotion
+      ? null
+      : document.querySelector("[data-expand]");
+    const expandBox = expandSection
+      ? expandSection.querySelector(".expand__box")
+      : null;
+
     let ticking = false;
     let lastY = -1;
 
@@ -159,13 +169,37 @@ export default function SiteScripts() {
             "translate3d(0," + offset.toFixed(1) + "px,0)";
         }
       }
+
+      if (expandBox) {
+        const vh = window.innerHeight;
+        const vw = window.innerWidth;
+        const r = expandSection.getBoundingClientRect();
+        const total = r.height - vh;
+        let p = total > 0 ? -r.top / total : 0;
+        p = p < 0 ? 0 : p > 1 ? 1 : p;
+        const eased = 1 - Math.pow(1 - p, 1.6); // ease-out for a soft finish
+        const iy = ((1 - eased) * vh * 0.3).toFixed(1);
+        const ix = ((1 - eased) * vw * 0.32).toFixed(1);
+        const rad = ((1 - eased) * 18).toFixed(1);
+        const clip =
+          "inset(" + iy + "px " + ix + "px " + iy + "px " + ix + "px round " + rad + "px)";
+        expandBox.style.clipPath = clip;
+        expandBox.style.webkitClipPath = clip; // older WebKit/Safari
+
+      }
     }
+    // On resize the scroll position may be unchanged, so force a recompute
+    // (parallax offsets + the expand-box clip-path depend on viewport size).
+    const onResize = () => {
+      lastY = -1;
+      update();
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", update, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
     update();
     cleanups.push(() => {
       window.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", update);
+      window.removeEventListener("resize", onResize);
     });
 
     /* ---------- Hero entrance ---------- */
