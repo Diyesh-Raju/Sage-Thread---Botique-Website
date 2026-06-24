@@ -152,6 +152,8 @@ export default function SiteScripts() {
       : null;
     const clamp01 = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
     const easeOut = (x) => 1 - Math.pow(1 - x, 3);
+    const easeInOut = (x) =>
+      x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 
     let ticking = false;
     let lastY = -1;
@@ -204,14 +206,15 @@ export default function SiteScripts() {
           introText.style.transform =
             "translate3d(0," + ((1 - t) * 28).toFixed(1) + "px,0)";
         }
-        // 3) the box appears (p: .40 -> .52), then 4) expands (p: .54 -> .82)
+        // 3) the small box appears (p: .38 -> .48), holds briefly, then
+        //    4) expands smoothly to full bleed over ~one scroll (p: .54 -> .84)
         if (introBox) {
-          const appear = clamp01((p - 0.4) / 0.12);
+          const appear = clamp01((p - 0.38) / 0.1);
           introBox.style.opacity = appear.toFixed(3);
-          const e = easeOut(clamp01((p - 0.54) / 0.28));
-          const iy = ((1 - e) * vh * 0.3).toFixed(1);
-          const ix = ((1 - e) * vw * 0.32).toFixed(1);
-          const rad = ((1 - e) * 18).toFixed(1);
+          const e = easeInOut(clamp01((p - 0.54) / 0.3));
+          const iy = ((1 - e) * vh * 0.36).toFixed(1);
+          const ix = ((1 - e) * vw * 0.37).toFixed(1);
+          const rad = ((1 - e) * 16).toFixed(1);
           const clip =
             "inset(" + iy + "px " + ix + "px " + iy + "px " + ix + "px round " + rad + "px)";
           introBox.style.clipPath = clip;

@@ -94,8 +94,8 @@
 .intro__box {
   position: absolute; inset: 0; z-index: 3;
   background: #000; opacity: 0;          /* JS scrubs in */
-  -webkit-clip-path: inset(30vh 32vw round 18px);
-  clip-path: inset(30vh 32vw round 18px); /* JS scrubs -> inset(0) */
+  -webkit-clip-path: inset(36vh 37vw round 16px);
+  clip-path: inset(36vh 37vw round 16px); /* small card; JS scrubs -> inset(0) */
   will-change: clip-path, opacity;
   pointer-events: none;
 }
