@@ -44,7 +44,7 @@ export default function MarblePage() {
             {/* layer 0 — hero photo + headline */}
             <div className="intro__layer intro__hero">
               <div
-                className="intro__heroBg kenburns marble-hero-bg"
+                className="intro__heroBg marble-hero-bg"
                 role="img"
                 aria-label="A family's silhouette cast on travertine marble in a luxury garden — Sage Thread"
               ></div>
@@ -54,6 +54,11 @@ export default function MarblePage() {
                   <br />
                   Lives With You
                 </h1>
+                <p className="intro__heroDesc">
+                  Hand-selected marble and natural stone, crafted into spaces
+                  that carry warmth, character, and quiet permanence — homes
+                  meant to be lived in for generations.
+                </p>
               </div>
             </div>
 
