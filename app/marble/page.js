@@ -46,7 +46,7 @@ export default function MarblePage() {
               <div
                 className="intro__heroBg marble-hero-bg"
                 role="img"
-                aria-label="A family's silhouette cast on travertine marble in a luxury garden — Sage Thread"
+                aria-label="A travertine-walled garden terrace at dusk — fire bowl, lounge seating and marble statuary by the pool — Sage Thread"
               ></div>
               <div className="intro__heroText container">
                 <h1>
