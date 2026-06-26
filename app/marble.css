@@ -241,17 +241,21 @@
   letter-spacing: .02em; color: rgba(255, 255, 255, .82);
 }
 
-/* ANY card the cursor is on lifts + tilts toward the viewer in 3D
-   (the brewery-icon tilt) — leaning to the right like the middle button */
+/* ANY card the cursor is on lifts in 3D. The tilt itself follows the cursor
+   (glass-card effect) and is driven from JS in MarbleCollections.js — the
+   box-shadow lift stays in CSS; the transform is set inline per pointer move. */
 .mci__hit:hover .mci-card,
 .mci__hit:focus-visible .mci-card {
-  transform: translateY(-12px) rotateX(10deg) rotateY(-14deg) scale(1.05);
   box-shadow:
     0 4px 8px rgba(20, 26, 30, .28),
     0 26px 44px rgba(20, 26, 30, .34),
     0 56px 90px rgba(20, 26, 30, .42),
     inset 0 1px 0 rgba(255, 255, 255, .3),
     inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+/* keyboard focus (no pointer) — a gentle static lift so the tilt still reads */
+.mci__hit:focus-visible .mci-card {
+  transform: perspective(900px) translateY(-10px) scale(1.04);
 }
 
 /* flanking circular arrows — sit in the gap between the near + far cards,
@@ -279,6 +283,108 @@
 @media (max-width: 640px) {
   .mci__slot.is-near { opacity: .5; }
   .mci__slot { width: clamp(190px, 64vw, 260px); }
+}
+
+/* ============================================================
+   ABOUT THE HOUSE — service cards flanking a central arched
+   marble-staircase image, animated stat counters + CTA.
+   (21st.dev about-us layout, adapted to plain CSS + lucide.)
+   ============================================================ */
+.mabout { padding-block: clamp(4.5rem, 9vw, 8rem); }
+.mabout__head { text-align: center; max-width: 64ch; margin: 0 auto clamp(2.6rem, 5vw, 4.4rem); }
+.mabout__head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: .02em; margin-top: .5rem;
+}
+.mabout__head .lead { margin: 1.1rem auto 0; color: var(--muted); }
+
+.mabout__showcase {
+  display: grid; align-items: center;
+  gap: clamp(1.2rem, 2.4vw, 2rem); grid-template-columns: 1fr;
+}
+@media (min-width: 940px) {
+  .mabout__showcase { grid-template-columns: 1fr minmax(280px, 30vw) 1fr; }
+}
+
+.mabout__col { display: grid; gap: clamp(1rem, 1.8vw, 1.4rem); }
+
+.mabout__card {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: clamp(1rem, 1.8vw, 1.4rem);
+  box-shadow: 0 10px 30px rgba(20, 26, 30, .05);
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+}
+.mabout__card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 22px 46px rgba(20, 26, 30, .12);
+  border-color: rgba(95, 125, 120, .4);
+}
+.mabout__icon {
+  flex: none; width: 46px; height: 46px; border-radius: 13px;
+  display: grid; place-items: center;
+  background: rgba(95, 125, 120, .12); color: var(--accent);
+}
+.mabout__card h3 { font-family: var(--font-accent); font-size: 1.22rem; font-weight: 600; }
+.mabout__card p { font-family: var(--font-body); font-size: .86rem; color: var(--muted); margin-top: .25rem; line-height: 1.5; }
+/* mirror the left column so cards point inward toward the image */
+@media (min-width: 940px) {
+  .mabout__col--left .mabout__card { flex-direction: row-reverse; text-align: right; }
+}
+
+.mabout__figure { position: relative; order: -1; margin: 0; }
+@media (min-width: 940px) { .mabout__figure { order: 0; } }
+.mabout__figure img {
+  width: 100%; aspect-ratio: 3 / 4; object-fit: cover; display: block;
+  border-radius: clamp(110px, 16vw, 210px) clamp(110px, 16vw, 210px) var(--radius) var(--radius);
+  box-shadow: 0 40px 80px rgba(20, 26, 30, .28);
+}
+
+/* rotating circular badge anchored to the image */
+.mabout__badge {
+  position: absolute; right: clamp(-10px, -1vw, -6px); bottom: clamp(18px, 4vw, 40px);
+  width: clamp(88px, 11vw, 122px); height: clamp(88px, 11vw, 122px);
+  border-radius: 50%; background: var(--accent-2); color: #fff;
+  display: grid; place-items: center;
+  box-shadow: 0 16px 34px rgba(20, 26, 30, .34);
+}
+.mabout__badgeRing {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  animation: maboutSpin 16s linear infinite;
+}
+.mabout__badgeRing text {
+  fill: rgba(255, 255, 255, .92); font-family: var(--font-body);
+  font-size: 7.4px; letter-spacing: 1.6px;
+}
+.mabout__badgeIcon { color: #fff; }
+@keyframes maboutSpin { to { transform: rotate(360deg); } }
+
+/* stat counters */
+.mabout__stats {
+  margin-top: clamp(3rem, 6vw, 5.2rem);
+  display: grid; gap: clamp(.6rem, 2vw, 2rem);
+  grid-template-columns: repeat(2, 1fr);
+}
+@media (min-width: 760px) { .mabout__stats { grid-template-columns: repeat(4, 1fr); } }
+.mabout__stat {
+  display: grid; justify-items: center; gap: .45rem; text-align: center;
+  padding: clamp(1.2rem, 2vw, 1.8rem) .5rem; border-top: 1px solid var(--line);
+}
+.mabout__statIcon { color: var(--accent); }
+.mabout__statNum {
+  font-family: var(--font-display); letter-spacing: .02em; color: var(--text);
+  font-size: clamp(2rem, 4vw, 3rem); line-height: 1;
+}
+.mabout__statLabel {
+  font-family: var(--font-body); font-size: .72rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted);
+}
+
+.mabout__cta { text-align: center; margin-top: clamp(2.6rem, 5vw, 3.8rem); }
+.mabout__cta .arrow { display: inline-flex; vertical-align: middle; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mabout__badgeRing { animation: none; }
 }
 
 /* ----- per-collection detail page (/marble/collection/[slug]) ----- */

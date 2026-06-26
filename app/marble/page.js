@@ -1,6 +1,7 @@
 import "../marble.css";
 import Header from "@/components/Header";
 import MarbleCollections from "@/components/MarbleCollections";
+import MarbleAbout from "@/components/MarbleAbout";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -90,6 +91,9 @@ export default function MarblePage() {
 
         {/* Curated Collections — MCI-style 3D coverflow carousel */}
         <MarbleCollections />
+
+        {/* About the house — service cards + central staircase image + stats */}
+        <MarbleAbout />
 
         <section className="section">
           <div className="container split">

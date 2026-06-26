@@ -39,6 +39,29 @@ export default function MarbleCollections() {
     return d;
   };
 
+  // Glass-card 3D tilt: the card rotates in 3D toward the cursor as it moves
+  // over it, and springs flat on leave. Driven straight on the DOM node so it
+  // tracks the pointer without re-rendering. Only the tilt changes — size,
+  // text, colour and the click-through to the detail page are untouched.
+  const TILT_MAX = 14; // degrees of rotation at the card's edge
+  const tiltMove = (e) => {
+    const card = e.currentTarget.querySelector(".mci-card");
+    if (!card) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5; // -0.5 … 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transition = "transform .08s ease-out";
+    card.style.transform =
+      `perspective(900px) rotateX(${(-py * TILT_MAX * 2).toFixed(2)}deg) ` +
+      `rotateY(${(px * TILT_MAX * 2).toFixed(2)}deg) translateY(-10px) scale(1.05)`;
+  };
+  const tiltReset = (e) => {
+    const card = e.currentTarget.querySelector(".mci-card");
+    if (!card) return;
+    card.style.transition = ""; // fall back to the CSS spring-back
+    card.style.transform = "";
+  };
+
   return (
     <section className="mci" id="curated" ref={sectionRef} data-reveal="fade">
       <div className="container">
@@ -76,6 +99,8 @@ export default function MarbleCollections() {
                     href={`${DETAIL_BASE}/${c.slug}`}
                     tabIndex={interactive ? 0 : -1}
                     aria-label={`Open the ${c.name} collection`}
+                    onMouseMove={interactive ? tiltMove : undefined}
+                    onMouseLeave={interactive ? tiltReset : undefined}
                   >
                     <div className="mci-card">
                       <img
