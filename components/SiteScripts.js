@@ -206,15 +206,26 @@ export default function SiteScripts() {
           introText.style.transform =
             "translate3d(0," + ((1 - t) * 28).toFixed(1) + "px,0)";
         }
-        // 3) the small box appears (p: .38 -> .48), holds briefly, then
-        //    4) expands smoothly to full bleed over ~one scroll (p: .54 -> .84)
+        // 3) the small box rises UP from the bottom of the screen into the
+        //    centre (p: .38 -> .50), holds briefly, then
+        //    4) expands smoothly (p: .54 -> .84) to a large CONTAINED video box
+        //    (matching the Marble Center site — it stops short of full bleed,
+        //    keeping a margin of dark background all around it).
         if (introBox) {
-          const appear = clamp01((p - 0.38) / 0.1);
-          introBox.style.opacity = appear.toFixed(3);
+          // quick fade so it's visible as it clears the bottom edge
+          introBox.style.opacity = clamp01((p - 0.38) / 0.04).toFixed(3);
+          // slide up from below the viewport into its resting position
+          const rise = easeOut(clamp01((p - 0.38) / 0.12));
+          introBox.style.transform =
+            "translate3d(0," + ((1 - rise) * 100).toFixed(2) + "%,0)";
+          // expand from the small card to the contained final size
           const e = easeInOut(clamp01((p - 0.54) / 0.3));
-          const iy = ((1 - e) * vh * 0.36).toFixed(1);
-          const ix = ((1 - e) * vw * 0.37).toFixed(1);
-          const rad = ((1 - e) * 16).toFixed(1);
+          const sy = vh * 0.36, sx = vw * 0.37; // small starting card insets
+          const fy = vh * 0.14, fx = vw * 0.085; // expanded insets — smaller box,
+          // leaving clear space top (below the nav) / bottom / left / right
+          const iy = (sy + (fy - sy) * e).toFixed(1);
+          const ix = (sx + (fx - sx) * e).toFixed(1);
+          const rad = (16 + (10 - 16) * e).toFixed(1);
           const clip =
             "inset(" + iy + "px " + ix + "px " + iy + "px " + ix + "px round " + rad + "px)";
           introBox.style.clipPath = clip;

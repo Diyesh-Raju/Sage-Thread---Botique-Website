@@ -1,5 +1,6 @@
 import "../marble.css";
 import Header from "@/components/Header";
+import MarbleCollections from "@/components/MarbleCollections";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -87,6 +88,9 @@ export default function MarblePage() {
           </div>
         </section>
 
+        {/* Curated Collections — MCI-style 3D coverflow carousel */}
+        <MarbleCollections />
+
         <section className="section">
           <div className="container split">
             <div className="feature__media" data-reveal="left">
@@ -119,111 +123,6 @@ export default function MarblePage() {
                 Sarees, lehengas, anarkalis, and sharara sets — tailored to the
                 millimetre by our Bangalore atelier.
               </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="section section--tight" id="swatches">
-          <div className="container">
-            <div className="sec-head sec-head--row">
-              <div data-reveal>
-                <p className="eyebrow">The collection</p>
-                <h2>Our ethnic edits</h2>
-              </div>
-              <p
-                className="measure-sm"
-                data-reveal
-                style={{ "--d": ".1s", color: "var(--muted)" }}
-              >
-                Six signature ethnic styles, each with its own character — from
-                luminous silk to deep, dramatic brocade.
-              </p>
-            </div>
-            <div className="swatches">
-              <div className="swatch" data-reveal data-tilt>
-                <div
-                  className="swatch__tex"
-                  style={{
-                    backgroundImage: "url('/assets/img/marble-calacatta.svg')",
-                  }}
-                  role="img"
-                  aria-label="Kanjeevaram silk ethnic wear"
-                ></div>
-                <div className="swatch__cap">
-                  <h3>Kanjeevaram Silk</h3>
-                  <small>Gold · Temple border</small>
-                </div>
-              </div>
-              <div className="swatch" data-reveal data-tilt style={{ "--d": ".08s" }}>
-                <div
-                  className="swatch__tex"
-                  style={{
-                    backgroundImage: "url('/assets/img/marble-carrara.svg')",
-                  }}
-                  role="img"
-                  aria-label="Banarasi weave sarees"
-                ></div>
-                <div className="swatch__cap">
-                  <h3>Banarasi Weave</h3>
-                  <small>Silk · Soft zari</small>
-                </div>
-              </div>
-              <div className="swatch" data-reveal data-tilt style={{ "--d": ".16s" }}>
-                <div
-                  className="swatch__tex"
-                  style={{
-                    backgroundImage: "url('/assets/img/marble-statuario.svg')",
-                  }}
-                  role="img"
-                  aria-label="Chikankari ethnic wear"
-                ></div>
-                <div className="swatch__cap">
-                  <h3>Chikankari</h3>
-                  <small>Cotton · Hand embroidery</small>
-                </div>
-              </div>
-              <div className="swatch" data-reveal data-tilt>
-                <div
-                  className="swatch__tex"
-                  style={{
-                    backgroundImage: "url('/assets/img/marble-nero.svg')",
-                  }}
-                  role="img"
-                  aria-label="Velvet lehenga collection"
-                ></div>
-                <div className="swatch__cap">
-                  <h3>Velvet Lehenga</h3>
-                  <small>Black · Gold zardozi</small>
-                </div>
-              </div>
-              <div className="swatch" data-reveal data-tilt style={{ "--d": ".08s" }}>
-                <div
-                  className="swatch__tex"
-                  style={{
-                    backgroundImage: "url('/assets/img/marble-emperador.svg')",
-                  }}
-                  role="img"
-                  aria-label="Bandhani festive wear"
-                ></div>
-                <div className="swatch__cap">
-                  <h3>Bandhani</h3>
-                  <small>Tie-dye · Festive</small>
-                </div>
-              </div>
-              <div className="swatch" data-reveal data-tilt style={{ "--d": ".16s" }}>
-                <div
-                  className="swatch__tex"
-                  style={{
-                    backgroundImage: "url('/assets/img/marble-verde.svg')",
-                  }}
-                  role="img"
-                  aria-label="Indo-western ethnic fusion"
-                ></div>
-                <div className="swatch__cap">
-                  <h3>Indo-Western</h3>
-                  <small>Fusion · Contemporary</small>
-                </div>
-              </div>
             </div>
           </div>
         </section>
@@ -299,28 +198,6 @@ export default function MarblePage() {
                 <source src="/assets/video/marble-clip.mp4" type="video/mp4" />
               </video>
             </div>
-          </div>
-        </section>
-
-        <section className="band section">
-          <div className="band__bg">
-            <img
-              src="/assets/img/marble-context1.jpg"
-              alt="Traditional ethnic fashion styling at Sage Thread Boutique Bengaluru"
-              title="Ethnic Wear Editorial — Sage Thread"
-              data-parallax="0.12"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="container">
-            <blockquote data-reveal>
-              &ldquo;Tradition is not the worship of ashes, but the preservation of
-              fire — and the right ethnic wear carries that flame.&rdquo;
-            </blockquote>
-            <cite data-reveal style={{ "--d": ".15s" }}>
-              — Sage Thread Boutique, Bangalore
-            </cite>
           </div>
         </section>
 

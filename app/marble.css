@@ -54,7 +54,7 @@
 }
 .intro__heroText {
   position: absolute; left: 0; right: 0;
-  top: clamp(6rem, 24vh, 15rem); z-index: 1;
+  top: clamp(11rem, 43vh, 27rem); z-index: 1;
 }
 .intro__heroText h1 {
   color: #fff; letter-spacing: .04em;
@@ -101,13 +101,15 @@
   will-change: opacity, transform;
 }
 
-/* layer 2 — expanding black box (video placeholder) */
+/* layer 2 — black video box: rises from the bottom, then expands to a
+   large CONTAINED size (stops short of full bleed, like the Marble Center site) */
 .intro__box {
   position: absolute; inset: 0; z-index: 3;
   background: #000; opacity: 0;          /* JS scrubs in */
+  transform: translate3d(0, 100%, 0);    /* starts below; JS scrubs -> 0 (rise) */
   -webkit-clip-path: inset(36vh 37vw round 16px);
-  clip-path: inset(36vh 37vw round 16px); /* small card; JS scrubs -> inset(0) */
-  will-change: clip-path, opacity;
+  clip-path: inset(36vh 37vw round 16px); /* small card; JS scrubs -> contained */
+  will-change: transform, clip-path, opacity;
   pointer-events: none;
 }
 
@@ -124,6 +126,7 @@
   .intro__marbleText h2 { opacity: 1; transform: none; }
   .intro__box {
     position: relative; opacity: 1; aspect-ratio: 16 / 9;
+    transform: none;
     -webkit-clip-path: inset(0 round 0) !important;
     clip-path: inset(0 round 0) !important;
   }
@@ -131,6 +134,209 @@
   .intro__heroDesc { opacity: 1; transform: none; animation: none; }
   .intro .scroll-cue { display: none; }
 }
+
+/* ============================================================
+   CURATED COLLECTIONS — MCI-style coverflow carousel of 3D cards
+   (sits right after the pinned intro / video box). The centre card
+   is featured; neighbours sit smaller + dimmed; a circular arrow on
+   each flank steps the ring. Cards are glossy, lifted 3D tiles.
+   ============================================================ */
+.mci { padding-block: clamp(4.5rem, 9vw, 8rem); overflow: hidden; scroll-margin-top: 80px; }
+.mci__title {
+  text-align: center;
+  font-family: var(--font-accent);
+  font-style: italic; font-weight: 600;
+  font-size: clamp(2rem, 5vw, 3.6rem);
+  letter-spacing: .01em; color: var(--text);
+  margin-bottom: clamp(2.4rem, 5vw, 4rem);
+}
+
+/* the stage holds the perspective track + the two flanking arrows, which sit
+   absolutely in the GAP between the near cards and the peeking far cards */
+.mci__stage { position: relative; }
+.mci__track {
+  position: relative;
+  height: clamp(360px, 56vw, 520px);
+  perspective: 1600px;
+}
+
+/* each card slot is absolutely centred, then pushed out by its distance --d
+   from the active card. Spacing is generous so there is clear space between
+   every box; |d|=1 are the near cards, |d|=2 the far cards peeking at the edges. */
+.mci__slot {
+  position: absolute; top: 50%; left: 50%;
+  width: clamp(200px, 24vw, 300px);
+  aspect-ratio: 3 / 4;
+  --gap: 112%;   /* centre-to-centre spacing → clear blank space between cards */
+  transform: translate(-50%, -50%) translateX(calc(var(--d) * var(--gap))) scale(1);
+  transition: transform .6s var(--ease), opacity .6s var(--ease), filter .6s var(--ease);
+  will-change: transform, opacity;
+}
+.mci__slot.is-center { z-index: 5; opacity: 1; }
+.mci__slot.is-near {
+  z-index: 4; opacity: .96;
+  filter: brightness(.88) saturate(.94);
+  transform: translate(-50%, -50%) translateX(calc(var(--d) * var(--gap))) scale(.78);
+}
+.mci__slot.is-far {
+  z-index: 2; opacity: .42;          /* peeks in at the edge, "little by little" */
+  filter: brightness(.7) saturate(.85);
+  transform: translate(-50%, -50%) translateX(calc(var(--d) * var(--gap))) scale(.6);
+}
+.mci__slot.is-hidden {
+  z-index: 1; opacity: 0; pointer-events: none;
+  transform: translate(-50%, -50%) translateX(calc(var(--d) * var(--gap))) scale(.5);
+}
+
+.mci__hit {
+  display: block; width: 100%; height: 100%;
+  padding: 0; border: 0; background: none; cursor: pointer;
+  border-radius: 20px;
+}
+
+/* the 3D tile itself — rounded, glossy, lifted (brewery-icon style) */
+.mci-card {
+  position: relative; width: 100%; height: 100%;
+  border-radius: 20px; overflow: hidden;
+  background: #1b2124;
+  transform-style: preserve-3d;
+  box-shadow:
+    0 2px 4px rgba(20, 26, 30, .25),
+    0 18px 30px rgba(20, 26, 30, .28),
+    0 40px 70px rgba(20, 26, 30, .34),
+    inset 0 1px 0 rgba(255, 255, 255, .25),
+    inset 0 0 0 1px rgba(255, 255, 255, .06);
+  transition: transform .5s var(--ease), box-shadow .5s var(--ease);
+}
+.mci-card__img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* glossy top-right highlight sweep — the "3D sheen" */
+.mci-card__sheen {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 78% 8%, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 42%),
+    linear-gradient(180deg, rgba(255, 255, 255, .14), rgba(0, 0, 0, 0) 30%);
+  mix-blend-mode: screen;
+}
+.mci-card__cap {
+  position: absolute; inset: auto 0 0 0; z-index: 3;
+  padding: clamp(1.1rem, 2.4vw, 1.8rem);
+  text-align: left; color: #fff;
+  background: linear-gradient(0deg, rgba(15, 19, 22, .72), rgba(15, 19, 22, 0));
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .5s var(--ease), transform .5s var(--ease);
+}
+.mci__slot.is-center .mci-card__cap { opacity: 1; transform: none; }
+.mci-card__cap h3 {
+  font-family: var(--font-accent);
+  font-weight: 600; font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.1;
+}
+.mci-card__cap small {
+  display: block; margin-top: .35rem;
+  font-family: var(--font-body); font-weight: 300;
+  font-size: clamp(.78rem, 1.4vw, .92rem);
+  letter-spacing: .02em; color: rgba(255, 255, 255, .82);
+}
+
+/* ANY card the cursor is on lifts + tilts toward the viewer in 3D
+   (the brewery-icon tilt) — leaning to the right like the middle button */
+.mci__hit:hover .mci-card,
+.mci__hit:focus-visible .mci-card {
+  transform: translateY(-12px) rotateX(10deg) rotateY(-14deg) scale(1.05);
+  box-shadow:
+    0 4px 8px rgba(20, 26, 30, .28),
+    0 26px 44px rgba(20, 26, 30, .34),
+    0 56px 90px rgba(20, 26, 30, .42),
+    inset 0 1px 0 rgba(255, 255, 255, .3),
+    inset 0 0 0 1px rgba(255, 255, 255, .08);
+}
+
+/* flanking circular arrows — sit in the gap between the near + far cards,
+   vertically centred on the row */
+.mci__arrow {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 6;
+  width: clamp(46px, 6vw, 64px); height: clamp(46px, 6vw, 64px);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--surface); color: var(--text);
+  border: 1px solid var(--line); cursor: pointer;
+  box-shadow: 0 10px 24px rgba(20, 26, 30, .12);
+  transition: background .35s var(--ease), color .35s var(--ease),
+    box-shadow .35s var(--ease), scale .35s var(--ease);
+}
+.mci__arrow--prev { left: clamp(.5rem, 13%, 14rem); }
+.mci__arrow--next { right: clamp(.5rem, 13%, 14rem); }
+.mci__arrow:hover {
+  background: var(--accent-2); color: #fff;
+  scale: 1.08;
+  box-shadow: 0 16px 30px rgba(20, 26, 30, .22);
+}
+
+@media (max-width: 640px) {
+  .mci__slot.is-near { opacity: .5; }
+  .mci__slot { width: clamp(190px, 64vw, 260px); }
+}
+
+/* ----- per-collection detail page (/marble/collection/[slug]) ----- */
+.cdetail { padding-block: clamp(7rem, 12vw, 10rem) clamp(4rem, 8vw, 7rem); }
+.cdetail .collection__crumbs {
+  display: flex; align-items: center; gap: .55rem;
+  font-family: var(--font-body); font-size: .82rem; letter-spacing: .04em;
+  text-transform: uppercase; color: var(--muted); margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+}
+.cdetail .collection__crumbs a { color: var(--muted); text-decoration: none; transition: color .35s var(--ease); }
+.cdetail .collection__crumbs a:hover { color: var(--accent); }
+.cdetail .collection__crumbs span[aria-hidden] { opacity: .5; }
+.cdetail__grid {
+  display: grid; gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: 1fr; align-items: start; margin-top: 1.4rem;
+}
+@media (min-width: 880px) {
+  .cdetail__grid { grid-template-columns: 1fr 1fr; }
+  .cdetail__media { position: sticky; top: 7rem; }
+}
+.cdetail__media {
+  border-radius: var(--radius); overflow: hidden;
+  aspect-ratio: 4 / 5; background: #1b2124;
+  box-shadow: 0 30px 60px rgba(20, 26, 30, .22);
+}
+.cdetail__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.cdetail__body h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4rem); letter-spacing: .02em; margin-top: .4rem;
+}
+.cdetail__tagline {
+  font-family: var(--font-accent); font-style: italic;
+  font-size: clamp(1.2rem, 2.4vw, 1.7rem); color: var(--accent);
+  margin: .3rem 0 1.4rem;
+}
+.cdetail__para { margin-top: 1rem; color: var(--muted); }
+.cdetail__traits {
+  margin-top: 2rem; display: grid; gap: 0;
+  border-top: 1px solid var(--line);
+}
+.cdetail__trait {
+  display: grid; grid-template-columns: 10rem 1fr; gap: 1rem;
+  padding: .95rem 0; border-bottom: 1px solid var(--line);
+}
+.cdetail__trait dt {
+  font-family: var(--font-body); font-size: .72rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted); padding-top: .15rem;
+}
+.cdetail__trait dd { font-family: var(--font-accent); font-size: 1.15rem; color: var(--text); }
+.cdetail__cta {
+  margin-top: 2.4rem; display: flex; flex-wrap: wrap;
+  align-items: center; gap: 1.4rem 2rem;
+}
+.cdetail__back {
+  font-family: var(--font-body); font-size: .8rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  transition: color .35s var(--ease);
+}
+.cdetail__back:hover { color: var(--accent); }
 
 /* swatch grid */
 .swatches { display: grid; gap: clamp(1rem,2.4vw,1.6rem); grid-template-columns: repeat(2,1fr); }
