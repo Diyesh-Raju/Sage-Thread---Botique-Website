@@ -2,6 +2,7 @@ import "../marble.css";
 import Header from "@/components/Header";
 import MarbleCollections from "@/components/MarbleCollections";
 import MarbleAbout from "@/components/MarbleAbout";
+import CataloguesSection from "@/components/CataloguesSection";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -100,9 +101,9 @@ export default function MarblePage() {
             <div className="feature__media" data-reveal="left">
               <div className="media" data-img>
                 <img
-                  src="/assets/img/marble-arch.jpg"
-                  alt="Ethnic occasion wear at Sage Thread women's boutique Bangalore"
-                  title="Ethnic Fashion — Sage Thread Boutique"
+                  src="/assets/img/marble-story.jpg"
+                  alt="Backlit onyx marble feature wall in a kitchen at Sage Thread Boutique Bangalore"
+                  title="Natural Stone — Sage Thread Boutique"
                   loading="lazy"
                   decoding="async"
                 />
@@ -119,17 +120,20 @@ export default function MarblePage() {
                 <br />a story
               </h2>
               <p className="lead mt-2 measure">
-                No two ethnic pieces are alike. We hand-select fabrics from
-                weavers in Banaras, Kanchipuram, and Jaipur — so the saree or
-                lehenga you wear carries artistry that exists nowhere else.
+                No two slabs are alike. We hand-select each block of marble and
+                natural stone at the quarry — so the surface that lives in your
+                home carries veining and character found nowhere else.
               </p>
               <p className="mt-2 measure" style={{ color: "var(--muted)" }}>
-                Sarees, lehengas, anarkalis, and sharara sets — tailored to the
-                millimetre by our Bangalore atelier.
+                Calacatta, Statuario, onyx and travertine — cut, honed and
+                finished to the millimetre by our Bangalore atelier.
               </p>
             </div>
           </div>
         </section>
+
+        {/* Catalogues — Roche Bobois-style brochures → page-flip readers */}
+        <CataloguesSection />
 
         <section className="section">
           <div className="container split">

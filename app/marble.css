@@ -194,30 +194,45 @@
   border-radius: 20px;
 }
 
-/* the 3D tile itself — rounded, glossy, lifted (brewery-icon style) */
+/* the card itself, styled to read like a thick, polished 3D slab of marble:
+   chamfered/beveled edges (inset highlights + shadows), a glossy reflection
+   and a deep floating shadow */
 .mci-card {
   position: relative; width: 100%; height: 100%;
-  border-radius: 20px; overflow: hidden;
+  border-radius: 16px; overflow: hidden;
   background: #1b2124;
   transform-style: preserve-3d;
   box-shadow:
-    0 2px 4px rgba(20, 26, 30, .25),
-    0 18px 30px rgba(20, 26, 30, .28),
-    0 40px 70px rgba(20, 26, 30, .34),
-    inset 0 1px 0 rgba(255, 255, 255, .25),
-    inset 0 0 0 1px rgba(255, 255, 255, .06);
+    /* floating depth */
+    0 3px 6px rgba(20, 26, 30, .32),
+    0 22px 36px rgba(20, 26, 30, .3),
+    0 48px 84px rgba(20, 26, 30, .4),
+    /* polished slab bevel — light top/left, shadow bottom/right */
+    inset 0 3px 2px rgba(255, 255, 255, .55),
+    inset 3px 0 4px rgba(255, 255, 255, .22),
+    inset 0 -5px 10px rgba(0, 0, 0, .5),
+    inset -5px 0 10px rgba(0, 0, 0, .32),
+    inset 0 0 0 1px rgba(255, 255, 255, .12);
   transition: transform .5s var(--ease), box-shadow .5s var(--ease);
 }
+/* the marble texture — zoomed in so any white slab border is cropped away
+   and the stone fills the whole card edge to edge */
 .mci-card__img {
   position: absolute; inset: 0;
-  width: 100%; height: 100%; object-fit: cover; display: block;
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  transform: scale(1.16); display: block;
 }
-/* glossy top-right highlight sweep — the "3D sheen" */
+/* per-slab zoom levels — crop wider source borders away */
+.mci-card__img--zoom-xs { transform: scale(1.2); }  /* very slight (Carrara) */
+.mci-card__img--zoom { transform: scale(1.32); }
+.mci-card__img--zoom2 { transform: scale(1.42); }   /* Rainforest Green Gold Bespoke */
+/* glossy polished-stone reflection — a diagonal light sweep + soft top glow */
 .mci-card__sheen {
   position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
-    radial-gradient(120% 80% at 78% 8%, rgba(255, 255, 255, .42), rgba(255, 255, 255, 0) 42%),
-    linear-gradient(180deg, rgba(255, 255, 255, .14), rgba(0, 0, 0, 0) 30%);
+    linear-gradient(122deg, rgba(255, 255, 255, .45) 0%, rgba(255, 255, 255, .08) 20%, rgba(255, 255, 255, 0) 40%),
+    radial-gradient(130% 70% at 28% 2%, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0) 52%),
+    linear-gradient(180deg, rgba(255, 255, 255, .12), rgba(0, 0, 0, 0) 26%);
   mix-blend-mode: screen;
 }
 .mci-card__cap {
@@ -247,11 +262,14 @@
 .mci__hit:hover .mci-card,
 .mci__hit:focus-visible .mci-card {
   box-shadow:
-    0 4px 8px rgba(20, 26, 30, .28),
-    0 26px 44px rgba(20, 26, 30, .34),
-    0 56px 90px rgba(20, 26, 30, .42),
-    inset 0 1px 0 rgba(255, 255, 255, .3),
-    inset 0 0 0 1px rgba(255, 255, 255, .08);
+    0 6px 12px rgba(20, 26, 30, .3),
+    0 30px 50px rgba(20, 26, 30, .36),
+    0 64px 100px rgba(20, 26, 30, .44),
+    inset 0 3px 2px rgba(255, 255, 255, .6),
+    inset 3px 0 4px rgba(255, 255, 255, .26),
+    inset 0 -5px 10px rgba(0, 0, 0, .5),
+    inset -5px 0 10px rgba(0, 0, 0, .32),
+    inset 0 0 0 1px rgba(255, 255, 255, .14);
 }
 /* keyboard focus (no pointer) — a gentle static lift so the tilt still reads */
 .mci__hit:focus-visible .mci-card {
@@ -300,37 +318,27 @@
 
 .mabout__showcase {
   display: grid; align-items: center;
-  gap: clamp(1.2rem, 2.4vw, 2rem); grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 5.5rem); grid-template-columns: 1fr;
 }
 @media (min-width: 940px) {
   .mabout__showcase { grid-template-columns: 1fr minmax(280px, 30vw) 1fr; }
 }
 
-.mabout__col { display: grid; gap: clamp(1rem, 1.8vw, 1.4rem); }
+.mabout__col { display: grid; gap: clamp(2rem, 3.4vw, 3.2rem); }
 
+/* box-less items — icon tile + heading + description floating on the section
+   background (matching the 21st.dev template), not wrapped in a card */
 .mabout__card {
   display: flex; gap: 1rem; align-items: flex-start;
-  background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); padding: clamp(1rem, 1.8vw, 1.4rem);
-  box-shadow: 0 10px 30px rgba(20, 26, 30, .05);
-  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
-}
-.mabout__card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 22px 46px rgba(20, 26, 30, .12);
-  border-color: rgba(95, 125, 120, .4);
+  background: none; border: 0; border-radius: 0; padding: 0; box-shadow: none;
 }
 .mabout__icon {
   flex: none; width: 46px; height: 46px; border-radius: 13px;
   display: grid; place-items: center;
   background: rgba(95, 125, 120, .12); color: var(--accent);
 }
-.mabout__card h3 { font-family: var(--font-accent); font-size: 1.22rem; font-weight: 600; }
-.mabout__card p { font-family: var(--font-body); font-size: .86rem; color: var(--muted); margin-top: .25rem; line-height: 1.5; }
-/* mirror the left column so cards point inward toward the image */
-@media (min-width: 940px) {
-  .mabout__col--left .mabout__card { flex-direction: row-reverse; text-align: right; }
-}
+.mabout__card h3 { font-family: var(--font-accent); font-size: clamp(1.3rem, 1.7vw, 1.5rem); font-weight: 600; }
+.mabout__card p { font-family: var(--font-body); font-size: clamp(.92rem, 1.1vw, 1rem); color: var(--muted); margin-top: .35rem; line-height: 1.55; }
 
 .mabout__figure { position: relative; order: -1; margin: 0; }
 @media (min-width: 940px) { .mabout__figure { order: 0; } }
@@ -385,6 +393,227 @@
 
 @media (prefers-reduced-motion: reduce) {
   .mabout__badgeRing { animation: none; }
+}
+
+/* ============================================================
+   CATALOGUES — Roche Bobois-style brochures: a text block paired
+   with an angled 3D book cover that tilts upright on hover. Each
+   book opens a page-by-page flipbook at /marble/catalogue/[slug].
+   ============================================================ */
+.cat { padding-block: clamp(4.5rem, 9vw, 8rem); scroll-margin-top: 80px; }
+.cat__head { display: flex; align-items: center; gap: 1.4rem; margin-bottom: clamp(2.4rem, 5vw, 4rem); }
+.cat__rule { flex: none; width: clamp(2rem, 6vw, 5rem); height: 1px; background: var(--line); }
+.cat__head h2 {
+  font-family: var(--font-display); letter-spacing: .12em; text-transform: uppercase;
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem); color: var(--text);
+}
+
+.cat__list { display: grid; gap: clamp(3.5rem, 8vw, 7rem); }
+.cat__row {
+  display: grid; align-items: center; gap: clamp(1.5rem, 5vw, 5rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .cat__row { grid-template-columns: 1fr 1fr; }
+  .cat__row--rev .cat__text { order: 2; }
+  .cat__row--rev .cat__bookLink { order: 1; }
+}
+.cat__text h3 {
+  font-family: var(--font-accent); font-weight: 600;
+  font-size: clamp(1.6rem, 3vw, 2.4rem); margin-top: .3rem;
+}
+.cat__desc { margin-top: 1rem; color: var(--muted); max-width: 46ch; line-height: 1.65; }
+.cat__discover {
+  display: inline-flex; align-items: center; gap: .8rem; margin-top: 1.8rem;
+  font-family: var(--font-body); font-size: .82rem; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--text);
+}
+.cat__discoverIcon {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid var(--line); color: var(--accent);
+  transition: background .4s var(--ease), color .4s var(--ease), transform .4s var(--ease);
+}
+.cat__discover:hover .cat__discoverIcon { background: var(--accent-2); color: #fff; transform: translateX(3px); }
+
+/* two books stacked on a diagonal (Roche Bobois "bubble" placement) — both
+   layers carry the same cover image, tilted in-plane with a little perspective */
+.cat__bookLink { display: block; perspective: 1800px; }
+.cat__book {
+  position: relative; width: clamp(210px, 27vw, 320px);
+  aspect-ratio: 3 / 4; margin-inline: auto;
+}
+.cat__row:not(.cat__row--rev) .cat__book { margin-left: clamp(1rem, 6vw, 5rem); }
+.cat__row--rev .cat__book { margin-right: clamp(1rem, 6vw, 5rem); }
+
+.cat__layer {
+  position: absolute; inset: 0; border-radius: 3px 6px 6px 3px; overflow: hidden;
+  transition: transform .8s var(--ease), box-shadow .8s var(--ease);
+}
+.cat__layer img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* the second book peeks out below-right */
+.cat__layer--behind {
+  z-index: 1;
+  transform: rotate(-26deg) translate(15%, 17%) scale(.99);
+  box-shadow: 0 26px 44px rgba(20, 26, 30, .26);
+  filter: brightness(.92);
+}
+/* the front book, lifted up-left */
+.cat__layer--front {
+  z-index: 2;
+  transform: perspective(1600px) rotate(-26deg) rotateX(6deg) translate(-4%, -6%);
+  box-shadow: 0 40px 66px rgba(20, 26, 30, .34);
+}
+.cat__bookTitle {
+  position: absolute; inset: auto 0 0 0; z-index: 2;
+  padding: clamp(.8rem, 1.6vw, 1.2rem);
+  font-family: var(--font-accent); font-weight: 600; color: #fff;
+  font-size: clamp(1rem, 1.7vw, 1.35rem); line-height: 1.1;
+  background: linear-gradient(0deg, rgba(15, 19, 22, .68), rgba(15, 19, 22, 0));
+  text-shadow: 0 1px 14px rgba(0, 0, 0, .4);
+}
+/* glossy diagonal sheen across the front cover */
+.cat__bookSheen {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, .32) 0%, rgba(255, 255, 255, 0) 38%);
+}
+/* hover: books straighten toward upright + lift apart */
+.cat__bookLink:hover .cat__layer--front {
+  transform: perspective(1600px) rotate(-12deg) rotateX(4deg) translate(-8%, -12%) scale(1.02);
+  box-shadow: 0 56px 90px rgba(20, 26, 30, .42);
+}
+.cat__bookLink:hover .cat__layer--behind {
+  transform: rotate(-12deg) translate(20%, 14%) scale(.99);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cat__layer { transition: none; }
+}
+
+/* glossy "Download" pill button (no-op for now) */
+.dl-btn__wrap { display: flex; justify-content: center; margin-top: clamp(1.6rem, 3.4vw, 2.6rem); }
+.dl-btn {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; gap: .6rem;
+  padding: 1rem 2.4rem; border: 0; border-radius: 999px; cursor: pointer;
+  font-family: var(--font-body); font-size: 1.02rem; font-weight: 500; letter-spacing: .03em;
+  color: #cfe9f8;
+  background:
+    radial-gradient(130% 130% at 50% -10%, #245774 0%, #123a52 42%, #08202f 100%);
+  box-shadow:
+    0 20px 34px rgba(6, 18, 28, .5),
+    0 2px 4px rgba(6, 18, 28, .4),
+    inset 0 1.5px 1px rgba(255, 255, 255, .4),
+    inset 0 -12px 22px rgba(0, 0, 0, .55);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, .55);
+  transition: transform .3s var(--ease), box-shadow .3s var(--ease), filter .3s var(--ease);
+}
+.dl-btn::before {
+  content: ""; position: absolute; left: 7%; right: 7%; top: 8%; height: 40%; z-index: -1;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0));
+  filter: blur(.4px);
+}
+.dl-btn svg { color: #d9f0fb; }
+.dl-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+  box-shadow:
+    0 26px 42px rgba(6, 18, 28, .55),
+    0 2px 4px rgba(6, 18, 28, .4),
+    inset 0 1.5px 1px rgba(255, 255, 255, .5),
+    inset 0 -12px 22px rgba(0, 0, 0, .55);
+}
+.dl-btn:active { transform: translateY(0); }
+
+/* ============================================================
+   FLIPBOOK READER (/marble/catalogue/[slug])
+   ============================================================ */
+.catalogue { padding: clamp(96px, 12vh, 140px) 0 clamp(60px, 9vh, 110px); }
+.catalogue__head { margin: 1rem 0 clamp(1.6rem, 3vw, 2.6rem); }
+.catalogue__head h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: .02em; }
+
+.fb { width: 100%; }
+.fb-stage {
+  width: 100%; display: flex; justify-content: center;
+  padding: clamp(.5rem, 2vw, 1.5rem);
+}
+.fb-book {
+  width: 100%; max-width: 1120px;
+  transition: transform .6s var(--ease);
+}
+/* before opening, the closed cover is nudged to sit centred in the stage;
+   on the first page turn it slides back to the spread position */
+.fb-book.is-closed { transform: translateX(-25%); }
+@media (max-width: 800px) { .fb-book.is-closed { transform: none; } }
+
+/* page faces (built imperatively in Flipbook.js) */
+.fbpage {
+  background: #f7f4ee; color: var(--text); overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(20, 26, 30, .05);
+}
+.fbpage__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.fbpage--cover, .fbpage--back { background: #1b2124; color: #fff; }
+.fbpage--cover::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15, 19, 22, .15), rgba(15, 19, 22, .78));
+}
+.fbpage__coverwrap, .fbpage__backwrap {
+  position: absolute; inset: 0; z-index: 2;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(1.4rem, 4%, 2.4rem); gap: .5rem;
+}
+.fbpage__backwrap { justify-content: center; align-items: flex-start; text-align: left; }
+.fbpage__covertitle {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 4.5vw, 2.6rem);
+  letter-spacing: .02em; line-height: 1.05;
+}
+.fbpage__brand {
+  margin-top: .4rem; font-family: var(--font-body); font-size: .7rem;
+  letter-spacing: .22em; text-transform: uppercase; color: rgba(255, 255, 255, .72);
+}
+.fbpage__eyebrow {
+  font-family: var(--font-body); font-size: .66rem; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--accent);
+}
+.fbpage__eyebrow--light { color: rgba(255, 255, 255, .8); }
+.fbpage__img { position: absolute; top: 0; left: 0; right: 0; height: 60%; background-size: cover; background-position: center; }
+.fbpage__cap {
+  position: absolute; left: 0; right: 0; top: 60%; bottom: 0;
+  display: flex; flex-direction: column; justify-content: center; gap: .4rem;
+  padding: clamp(1rem, 5%, 2rem);
+}
+.fbpage__title { font-family: var(--font-accent); font-weight: 600; font-size: clamp(1.2rem, 3.4vw, 1.7rem); }
+.fbpage__text { font-family: var(--font-body); font-size: clamp(.82rem, 2.1vw, .96rem); color: var(--muted); line-height: 1.55; }
+.fbpage__text--light { color: rgba(255, 255, 255, .82); max-width: 34ch; margin-top: .6rem; }
+.fbpage__no {
+  position: absolute; bottom: clamp(.5rem, 2%, 1rem); right: clamp(.7rem, 3%, 1.2rem);
+  font-family: var(--font-display); font-size: .8rem; color: var(--muted);
+}
+.fbpage__btn {
+  align-self: flex-start; margin-top: 1.4rem;
+  display: inline-block; padding: .8rem 1.4rem; border-radius: 999px;
+  background: #fff; color: #1b2124; font-family: var(--font-body);
+  font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+}
+
+.fb-controls {
+  display: flex; align-items: center; justify-content: center; gap: 1.4rem;
+  margin-top: clamp(1.4rem, 3vw, 2.4rem);
+}
+.fb-arrow {
+  width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--surface); color: var(--text); border: 1px solid var(--line);
+  cursor: pointer; box-shadow: 0 10px 24px rgba(20, 26, 30, .1);
+  transition: background .35s var(--ease), color .35s var(--ease), scale .35s var(--ease);
+}
+.fb-arrow:hover { background: var(--accent-2); color: #fff; scale: 1.06; }
+.fb-count { font-family: var(--font-display); font-size: 1rem; color: var(--text); min-width: 4.5rem; text-align: center; }
+.fb-count i { color: var(--muted); font-style: normal; margin: 0 .2rem; }
+.fb-hint {
+  margin-top: 1rem; text-align: center;
+  font-family: var(--font-body); font-size: .74rem; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
 }
 
 /* ----- per-collection detail page (/marble/collection/[slug]) ----- */

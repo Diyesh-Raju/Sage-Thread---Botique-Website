@@ -14,6 +14,16 @@ import { MARBLE_COLLECTIONS } from "./marbleCollectionsData";
 
 const DETAIL_BASE = "/marble/collection";
 
+// per-slab zoom: some source images have a wider white border, so they need
+// extra zoom to crop it away. Maps slug -> modifier class suffix.
+const ZOOM_LEVEL = {
+  makrana: "zoom",
+  thassos: "zoom",
+  "royal-vendome": "zoom",
+  "rainforest-green-gold-bespoke": "zoom2", // a bit more
+  carrara: "zoom-xs", // very slight
+};
+
 export default function MarbleCollections() {
   const [i, setI] = useState(0);
   const sectionRef = useRef(null);
@@ -104,7 +114,7 @@ export default function MarbleCollections() {
                   >
                     <div className="mci-card">
                       <img
-                        className="mci-card__img"
+                        className={`mci-card__img${ZOOM_LEVEL[c.slug] ? ` mci-card__img--${ZOOM_LEVEL[c.slug]}` : ""}`}
                         src={c.img}
                         alt={`${c.name} — curated collection at Sage Thread Boutique`}
                         loading="lazy"
