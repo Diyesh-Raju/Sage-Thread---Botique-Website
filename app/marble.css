@@ -464,13 +464,21 @@
   transform: perspective(1600px) rotate(-26deg) rotateX(6deg) translate(-4%, -6%);
   box-shadow: 0 40px 66px rgba(20, 26, 30, .34);
 }
-.cat__bookTitle {
-  position: absolute; inset: auto 0 0 0; z-index: 2;
-  padding: clamp(.8rem, 1.6vw, 1.2rem);
-  font-family: var(--font-accent); font-weight: 600; color: #fff;
-  font-size: clamp(1rem, 1.7vw, 1.35rem); line-height: 1.1;
-  background: linear-gradient(0deg, rgba(15, 19, 22, .68), rgba(15, 19, 22, 0));
-  text-shadow: 0 1px 14px rgba(0, 0, 0, .4);
+/* small caption tucked into the bottom-left corner of the cover */
+.cat__bookCaption {
+  position: absolute; left: 0; bottom: 0; z-index: 2;
+  display: flex; flex-direction: column; gap: .18em;
+  padding: clamp(.7rem, 1.4vw, 1rem);
+  max-width: 82%; color: #fff; text-shadow: 0 1px 8px rgba(0, 0, 0, .55);
+}
+.cat__bookName {
+  font-family: var(--font-accent); font-weight: 600;
+  font-size: clamp(.66rem, 1.05vw, .82rem); line-height: 1.15;
+  letter-spacing: .01em;
+}
+.cat__bookQuote {
+  font-size: clamp(.5rem, .8vw, .62rem); line-height: 1.25;
+  font-style: italic; letter-spacing: .015em; opacity: .9;
 }
 /* glossy diagonal sheen across the front cover */
 .cat__bookSheen {

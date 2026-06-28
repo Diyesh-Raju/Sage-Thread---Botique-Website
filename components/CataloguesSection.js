@@ -55,7 +55,12 @@ export default function CataloguesSection() {
                         loading="lazy"
                         decoding="async"
                       />
-                      <span className="cat__bookTitle">{c.title}</span>
+                      <span className="cat__bookCaption">
+                        <span className="cat__bookName">{c.title}</span>
+                        {c.quote ? (
+                          <span className="cat__bookQuote">{c.quote}</span>
+                        ) : null}
+                      </span>
                       <span className="cat__bookSheen" aria-hidden="true" />
                     </span>
                   </div>
