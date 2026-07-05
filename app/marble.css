@@ -445,7 +445,8 @@
 .cat__row:not(.cat__row--rev) .cat__book { margin-left: clamp(1rem, 6vw, 5rem); }
 .cat__row--rev .cat__book { margin-right: clamp(1rem, 6vw, 5rem); }
 .cat__tap {
-  display: block; margin-top: 1.4rem; text-align: center;
+  position: relative; z-index: 4;
+  display: block; margin-top: clamp(4.5rem, 9vw, 7rem); text-align: center;
   font-family: var(--font-body); font-size: .74rem; letter-spacing: .18em;
   text-transform: uppercase; color: var(--muted);
 }
