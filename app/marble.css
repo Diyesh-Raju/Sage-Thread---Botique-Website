@@ -92,7 +92,7 @@
 .intro__marbleText h2 {
   font-family: var(--font-accent);
   font-weight: 500; line-height: 1.36;
-  font-size: clamp(1.5rem, 3.7vw, 3.2rem);
+  font-size: clamp(1.9rem, 4.7vw, 4.1rem);
   letter-spacing: .005em; color: #2a2018;
   max-width: 92vw;
   text-wrap: balance;
@@ -125,7 +125,8 @@
   .intro__marble { transform: none; height: 100vh; height: 100svh; }
   .intro__marbleText h2 { opacity: 1; transform: none; }
   .intro__box {
-    position: relative; opacity: 1; aspect-ratio: 16 / 9;
+    position: relative; opacity: 1; aspect-ratio: 4 / 5;
+    max-width: 520px; margin-inline: auto;
     transform: none;
     -webkit-clip-path: inset(0 round 0) !important;
     clip-path: inset(0 round 0) !important;

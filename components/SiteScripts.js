@@ -221,8 +221,8 @@ export default function SiteScripts() {
           // expand from the small card to the contained final size
           const e = easeInOut(clamp01((p - 0.54) / 0.3));
           const sy = vh * 0.36, sx = vw * 0.37; // small starting card insets
-          const fy = vh * 0.14, fx = vw * 0.085; // expanded insets — smaller box,
-          // leaving clear space top (below the nav) / bottom / left / right
+          const fy = vh * 0.05, fx = vw * 0.31; // expanded insets — compact PORTRAIT
+          // box (taller than wide), centred with generous margins left/right
           const iy = (sy + (fy - sy) * e).toFixed(1);
           const ix = (sx + (fx - sx) * e).toFixed(1);
           const rad = (16 + (10 - 16) * e).toFixed(1);
