@@ -249,9 +249,9 @@
 }
 .mci__slot.is-center .mci-card__cap { opacity: 1; transform: none; }
 .mci-card__cap h3 {
-  font-family: var(--font-accent);
-  font-weight: 600; font-size: clamp(1.5rem, 3vw, 2.2rem);
-  line-height: 1.1;
+  font-family: "Lavishly Yours", var(--font-accent);
+  font-weight: 400; font-size: clamp(2.1rem, 4.2vw, 3.2rem);
+  line-height: 1.15;
 }
 .mci-card__cap small {
   display: block; margin-top: .35rem;
