@@ -148,9 +148,9 @@
 .mci { padding-block: clamp(4.5rem, 9vw, 8rem); overflow: hidden; scroll-margin-top: 80px; }
 .mci__title {
   text-align: center;
-  font-family: var(--font-accent);
-  font-style: italic; font-weight: 600;
-  font-size: clamp(2rem, 5vw, 3.6rem);
+  font-family: "Lavishly Yours", var(--font-accent);
+  font-style: normal; font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
   letter-spacing: .01em; color: var(--text);
   margin-bottom: clamp(2.4rem, 5vw, 4rem);
 }
@@ -249,9 +249,9 @@
 }
 .mci__slot.is-center .mci-card__cap { opacity: 1; transform: none; }
 .mci-card__cap h3 {
-  font-family: "Lavishly Yours", var(--font-accent);
-  font-weight: 400; font-size: clamp(2.1rem, 4.2vw, 3.2rem);
-  line-height: 1.15;
+  font-family: var(--font-accent);
+  font-weight: 600; font-size: clamp(1.5rem, 3vw, 2.2rem);
+  line-height: 1.1;
 }
 .mci-card__cap small {
   display: block; margin-top: .35rem;
