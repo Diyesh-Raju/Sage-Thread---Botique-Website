@@ -138,46 +138,52 @@ export default function MarblePage() {
         <section className="section">
           <div className="container split">
             <div data-reveal="left">
-              <p className="eyebrow">From loom to boutique</p>
+              <p className="eyebrow">The Sage Thread promise</p>
               <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.4rem)" }}>
-                Cut, draped,
+                Exquisite Stone
                 <br />
-                perfected
+                Legacy
               </h2>
               <p className="lead mt-2 measure">
-                We follow each ethnic garment from the weaver&apos;s loom to your
-                fitting — cut to your measurements, the borders finished, the
-                blouse tailored to your preferred style.
+                A commitment that runs from the quarry to your home — genuine
+                stone, hand-managed craftsmanship and finishes built to last a
+                lifetime.
               </p>
               <div className="finishes mt-2">
                 <div className="finish" data-reveal>
                   <div className="finish__row">
-                    <h3>Ready-to-Wear</h3>
+                    <h3>Guaranteed Lifetime Authenticity</h3>
                     <span className="idx">01</span>
                   </div>
                   <p style={{ color: "var(--muted)" }}>
-                    Curated ethnic pieces in standard sizes, ready for fitting at
-                    our Bangalore boutique.
+                    We trace every marble slab from quarry to installation. Each
+                    piece comes with certified origin documentation and quality
+                    assurance, ensuring you&apos;re investing in genuine, premium
+                    stone — not imitations. No hidden sourcing. No compromises.
                   </p>
                 </div>
                 <div className="finish" data-reveal style={{ "--d": ".06s" }}>
                   <div className="finish__row">
-                    <h3>Made-to-Order</h3>
+                    <h3>White-Glove Concierge Service</h3>
                     <span className="idx">02</span>
                   </div>
                   <p style={{ color: "var(--muted)" }}>
-                    Commission a custom ethnic outfit in your choice of fabric and
-                    embellishment.
+                    From your first vision to the final polish, our dedicated
+                    concierge team manages everything. No delays. No communication
+                    gaps. We deliver stunning marble spaces faster than anyone
+                    else — without sacrificing quality.
                   </p>
                 </div>
                 <div className="finish" data-reveal style={{ "--d": ".12s" }}>
                   <div className="finish__row">
-                    <h3>Bridal Edit</h3>
+                    <h3>Industry-Leading Durability</h3>
                     <span className="idx">03</span>
                   </div>
                   <p style={{ color: "var(--muted)" }}>
-                    Complete bridal and wedding-guest styling with our Bangalore
-                    atelier team.
+                    Every slab receives our proprietary nano-seal treatment,
+                    making marble 10x more resistant to stains and etching than
+                    standard marble. We back this with a performance guarantee —
+                    or we refinish it free.
                   </p>
                 </div>
               </div>
@@ -192,19 +198,14 @@ export default function MarblePage() {
                 overflow: "hidden",
               }}
             >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster="/assets/img/marble-clip-poster.jpg"
-                title="Ethnic wear craftsmanship at Sage Thread Boutique Bangalore"
+              <img
+                src="/assets/img/marble-legacy.png"
+                alt="Carved stone colonnade over polished marble flooring with a floral rangoli at a Sage Thread space in Bangalore"
+                title="Exquisite Stone Legacy — Sage Thread Boutique"
+                loading="lazy"
+                decoding="async"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              >
-                <source src="/assets/video/marble-clip.webm" type="video/webm" />
-                <source src="/assets/video/marble-clip.mp4" type="video/mp4" />
-              </video>
+              />
             </div>
           </div>
         </section>
