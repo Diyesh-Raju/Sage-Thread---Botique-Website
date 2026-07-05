@@ -125,8 +125,7 @@
   .intro__marble { transform: none; height: 100vh; height: 100svh; }
   .intro__marbleText h2 { opacity: 1; transform: none; }
   .intro__box {
-    position: relative; opacity: 1; aspect-ratio: 4 / 5;
-    max-width: 520px; margin-inline: auto;
+    position: relative; opacity: 1; aspect-ratio: 16 / 9;
     transform: none;
     -webkit-clip-path: inset(0 round 0) !important;
     clip-path: inset(0 round 0) !important;
