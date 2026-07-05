@@ -141,7 +141,7 @@ export default function Flipbook({ catalogue }) {
         </button>
       </div>
 
-      <p className="fb-hint">Drag a corner or use the arrows to turn the page</p>
+      <p className="fb-hint">Use arrows to discover</p>
     </div>
   );
 }

@@ -71,6 +71,7 @@ export default async function CataloguePage({ params }) {
           <header className="catalogue__head">
             <p className="eyebrow">{c.eyebrow}</p>
             <h1>{c.title}</h1>
+            <p className="catalogue__dragHint">Use mouse to drag a corner of the book</p>
           </header>
         </div>
 

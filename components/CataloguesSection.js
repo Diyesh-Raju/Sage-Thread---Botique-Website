@@ -64,6 +64,7 @@ export default function CataloguesSection() {
                       <span className="cat__bookSheen" aria-hidden="true" />
                     </span>
                   </div>
+                  <span className="cat__tap">Tap to explore</span>
                 </Link>
               </article>
             );

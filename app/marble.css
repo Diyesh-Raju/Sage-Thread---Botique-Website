@@ -400,7 +400,7 @@
    with an angled 3D book cover that tilts upright on hover. Each
    book opens a page-by-page flipbook at /marble/catalogue/[slug].
    ============================================================ */
-.cat { padding-block: clamp(4.5rem, 9vw, 8rem); scroll-margin-top: 80px; }
+.cat { padding-block: clamp(4.5rem, 9vw, 8rem) clamp(7rem, 14vw, 13rem); scroll-margin-top: 80px; }
 .cat__head { display: flex; align-items: center; gap: 1.4rem; margin-bottom: clamp(2.4rem, 5vw, 4rem); }
 .cat__rule { flex: none; width: clamp(2rem, 6vw, 5rem); height: 1px; background: var(--line); }
 .cat__head h2 {
@@ -408,7 +408,7 @@
   font-size: clamp(1.2rem, 2.2vw, 1.7rem); color: var(--text);
 }
 
-.cat__list { display: grid; gap: clamp(3.5rem, 8vw, 7rem); }
+.cat__list { display: grid; gap: clamp(6rem, 13vw, 12rem); }
 .cat__row {
   display: grid; align-items: center; gap: clamp(1.5rem, 5vw, 5rem);
   grid-template-columns: 1fr;
@@ -444,6 +444,11 @@
 }
 .cat__row:not(.cat__row--rev) .cat__book { margin-left: clamp(1rem, 6vw, 5rem); }
 .cat__row--rev .cat__book { margin-right: clamp(1rem, 6vw, 5rem); }
+.cat__tap {
+  display: block; margin-top: 1.4rem; text-align: center;
+  font-family: var(--font-body); font-size: .74rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
 
 .cat__layer {
   position: absolute; inset: 0; border-radius: 3px 6px 6px 3px; overflow: hidden;
@@ -540,6 +545,11 @@
 .catalogue { padding: clamp(96px, 12vh, 140px) 0 clamp(60px, 9vh, 110px); }
 .catalogue__head { margin: 1rem 0 clamp(1.6rem, 3vw, 2.6rem); }
 .catalogue__head h1 { font-size: clamp(2rem, 4.6vw, 3.4rem); letter-spacing: .02em; }
+.catalogue__dragHint {
+  margin-top: .9rem;
+  font-family: var(--font-body); font-size: .8rem; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted);
+}
 
 .fb { width: 100%; }
 .fb-stage {
