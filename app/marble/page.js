@@ -83,8 +83,19 @@ export default function MarblePage() {
               </div>
             </div>
 
-            {/* layer 2 — expanding black box (video placeholder) */}
-            <div className="intro__box" data-intro-box aria-hidden="true"></div>
+            {/* layer 2 — expanding black box (marble intro video) */}
+            <div className="intro__box" data-intro-box aria-hidden="true">
+              <video
+                className="intro__boxVideo"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              >
+                <source src="/assets/video/marble-intro.mp4" type="video/mp4" />
+              </video>
+            </div>
 
             <div className="scroll-cue">Scroll</div>
           </div>
