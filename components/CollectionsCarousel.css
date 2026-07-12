@@ -3,9 +3,12 @@
    Scoped to .cc; inherits the fashion palette tokens.
    ============================================================ */
 .cc {
+  /* one knob controls card size; stage height is derived from it so the
+     featured card stays ~square (Zoya proportions) */
+  --cc-card-w: clamp(300px, 32vw, 460px);
   display: grid;
-  grid-template-columns: minmax(190px, 260px) 1fr;
-  gap: clamp(1.5rem, 4vw, 4rem);
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  gap: clamp(1.5rem, 5vw, 6rem);
   align-items: center;
 }
 
@@ -30,14 +33,14 @@
 /* ---- the stage: cards are stacked absolutely and placed by slot class ---- */
 .cc-stage {
   position: relative;
-  height: clamp(420px, 52vw, 640px);
+  height: calc(var(--cc-card-w) * 1.05);
   overflow: hidden;
 }
 .cc-card {
   position: absolute;
   top: 0;
   left: 0;
-  width: clamp(260px, 40%, 460px);
+  width: var(--cc-card-w);
   height: 100%;
   border-radius: 6px;
   overflow: hidden;
@@ -97,31 +100,31 @@
 
 /* ---- slots ------------------------------------------------------------- */
 .cc-card.is-featured {
-  transform: translate3d(0, 0, 0) scale(1);
+  transform: translate3d(14%, 0, 0) scale(1);
   opacity: 1;
   z-index: 30;
 }
 .cc-card.is-featured .cc-card__explore { opacity: 1; transform: none; }
 
 .cc-card.is-peek1 {
-  transform: translate3d(72%, 6%, 0) scale(.84);
+  transform: translate3d(90%, 6%, 0) scale(.84);
   opacity: 1;
   z-index: 20;
 }
 .cc-card.is-peek2 {
-  transform: translate3d(132%, 12%, 0) scale(.7);
+  transform: translate3d(152%, 12%, 0) scale(.7);
   opacity: 1;
   z-index: 10;
 }
 /* the outgoing featured — slides left and dissolves BEHIND the stack */
 .cc-card.is-exit {
-  transform: translate3d(-42%, -2%, 0) scale(.92);
+  transform: translate3d(-32%, -2%, 0) scale(.92);
   opacity: 0;
   z-index: 5;
 }
 /* parked off-stage right, waiting to rise into the peek slots */
 .cc-card.is-hidden {
-  transform: translate3d(150%, 14%, 0) scale(.66);
+  transform: translate3d(172%, 14%, 0) scale(.66);
   opacity: 0;
   z-index: 1;
 }
@@ -166,19 +169,19 @@
 
 /* ---- responsive -------------------------------------------------------- */
 @media (max-width: 900px) {
-  .cc { grid-template-columns: 1fr; gap: 1.6rem; }
+  .cc { grid-template-columns: 1fr; gap: 1.6rem; --cc-card-w: clamp(260px, 58vw, 380px); }
   .cc-head { text-align: center; }
   .cc-sub { margin-inline: auto; }
   .cc-nav { grid-column: 1; }
-  .cc-card { width: clamp(240px, 62%, 380px); }
-  .cc-card.is-peek1 { transform: translate3d(66%, 6%, 0) scale(.82); }
-  /* second peek would crowd small screens — drop it out of view */
+  /* centre the featured card and tuck the peeks away on one column */
+  .cc-card { left: 50%; margin-left: calc(var(--cc-card-w) / -2); }
+  .cc-card.is-featured { transform: translate3d(0, 0, 0) scale(1); }
+  .cc-card.is-peek1 { transform: translate3d(70%, 6%, 0) scale(.82); opacity: 0; }
   .cc-card.is-peek2 { transform: translate3d(150%, 12%, 0) scale(.7); opacity: 0; }
+  .cc-card.is-exit { transform: translate3d(-40%, -2%, 0) scale(.92); }
 }
 @media (max-width: 560px) {
-  .cc-stage { height: clamp(400px, 116vw, 560px); }
-  .cc-card { width: min(86%, 340px); }
-  .cc-card.is-peek1 { transform: translate3d(150%, 6%, 0) scale(.8); opacity: 0; }
+  .cc { --cc-card-w: min(86vw, 340px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
