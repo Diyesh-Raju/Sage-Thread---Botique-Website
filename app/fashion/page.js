@@ -1,5 +1,6 @@
 import "../fashion.css";
 import Header from "@/components/Header";
+import CollectionsCarousel from "@/components/CollectionsCarousel";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -10,6 +11,15 @@ import { PAGE_SEO } from "@/lib/metadata";
 export const metadata = PAGE_SEO.fashion;
 
 export const viewport = { themeColor: "#160f15" };
+
+const collectionItems = [
+  { name: "Jewelry", img: "/assets/img/collection-jewelry.jpg", alt: "Emerald and diamond statement ring — fine jewellery at Sage Thread Boutique Bangalore" },
+  { name: "Modern Aesthetic", img: "/assets/img/collection-modern.jpg", alt: "Modern minimalist summer dress — contemporary women's fashion at Sage Thread Bengaluru" },
+  { name: "High Jewelry", img: "/assets/img/collection-high-jewelry.jpg", alt: "Ornate gold and polki high jewellery necklace at Sage Thread Boutique Bangalore" },
+  { name: "Traditional Fashion", img: "/assets/img/collection-traditional.jpg", alt: "Gold tissue lehenga with rose dupatta — traditional Indian wear at Sage Thread Bangalore" },
+  { name: "Timeless Pieces", img: "/assets/img/collection-timeless.jpg", alt: "Printed halter top with wide-leg trousers — timeless boutique clothing at Sage Thread" },
+  { name: "Men's Fashion", img: "/assets/img/collection-mens.jpg", alt: "Ribbed knit polo and tailored trousers — men's fashion at Sage Thread Boutique Bangalore" },
+];
 
 export default function FashionPage() {
   const year = new Date().getFullYear();
@@ -31,31 +41,37 @@ export default function FashionPage() {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Italiana&family=Montserrat:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Italiana&family=Montserrat:wght@300;400;500&family=Pinyon+Script&display=swap"
         rel="stylesheet"
       />
-      <link rel="preload" as="image" href="/assets/img/fashion-hero.jpg" />
+      <link rel="preload" as="image" href="/assets/img/fashion-hero-beach.jpg" />
 
       <Header />
 
       <main>
-        <section className="hero">
+        <section className="hero hero--fashion">
           <div className="hero__media">
             <img
-              className="kenburns"
-              src="/assets/img/fashion-hero.jpg"
+              src="/assets/img/fashion-hero-beach.jpg"
               alt="Designer women's fashion at Sage Thread Boutique Bangalore"
               title="Designer Wear — Sage Thread Bangalore"
             />
+            {/* progressive right-side blur — two stacked, masked copies ramp
+                the blur from mid-frame to a soft dream at the right edge */}
+            <div className="hero__blur" aria-hidden="true">
+              <img src="/assets/img/fashion-hero-beach.jpg" alt="" />
+            </div>
+            <div className="hero__blur hero__blur--2" aria-hidden="true">
+              <img src="/assets/img/fashion-hero-beach.jpg" alt="" />
+            </div>
           </div>
-          <div className="hero__inner container">
+          <div className="hero__inner hero__inner--right container">
             <p className="eyebrow" data-stagger style={{ "--sd": ".1s" }}>
               Women&apos;s Fashion · Bangalore
             </p>
-            <h1 className="hero__title" data-stagger style={{ "--sd": ".22s" }}>
-              Designer wear
-              <br />
-              <span className="script">for her</span>
+            <h1 className="hero__title fashion-hero__title" data-stagger style={{ "--sd": ".22s" }}>
+              <span className="fashion-hero__script">Fashion,</span>
+              <span className="fashion-hero__line">The Canvas of Your Soul</span>
             </h1>
             <p className="hero__sub" data-stagger style={{ "--sd": ".42s" }}>
               Sculptural tailoring and fluid fabric — a wardrobe edited for the
@@ -68,6 +84,12 @@ export default function FashionPage() {
             </div>
           </div>
           <div className="scroll-cue">Scroll</div>
+        </section>
+
+        <section className="section collections-section" data-reveal>
+          <div className="container">
+            <CollectionsCarousel items={collectionItems} />
+          </div>
         </section>
 
         <section className="section editorial">
