@@ -44,7 +44,9 @@
    from two stacked, masked copies of the hero so it *ramps* in
    strength toward the right edge rather than a hard split.
    ============================================================ */
-.hero--fashion { align-items: center; color: var(--text); }
+/* stretch so the right column fills the hero height — lets us centre the
+   headline and pin the CTA to the bottom */
+.hero--fashion { align-items: stretch; color: var(--text); }
 
 /* subject stays sharp — the media fills the viewport (full-bleed) with a
    slight zoom-in; all layers scale together so the blur stays aligned.
@@ -84,18 +86,21 @@
     rgba(255,250,251,.5) 100%);
 }
 
-/* headline block pushed into the blurred right zone */
+/* headline block pushed into the blurred right zone; full height so the
+   title sits in the middle and the CTA drops to the bottom */
 .hero--fashion .hero__inner--right {
   display: flex; flex-direction: column; align-items: flex-start;
   padding-left: 54%;
+  padding-top: clamp(6rem, 14vh, 10rem);
+  padding-bottom: clamp(2.6rem, 7vh, 5.5rem);
 }
-.hero--fashion .eyebrow { color: var(--accent); }
-.hero--fashion .hero__sub { color: rgba(29,20,25,.66); max-width: 34ch; }
 
 .fashion-hero__title {
   display: flex; flex-direction: column; line-height: .95;
   color: var(--accent-2);
+  margin-block: auto;   /* centres the headline in the blurred column */
 }
+.fashion-hero__cta { margin-top: 0; }   /* stays at the bottom */
 .fashion-hero__script {
   font-family: "Pinyon Script", cursive; font-weight: 400; font-style: normal;
   color: var(--accent);
@@ -116,7 +121,10 @@
    type over a lighter, full-width wash for legibility */
 @media (max-width: 820px) {
   .hero--fashion { align-items: flex-end; }
-  .hero--fashion .hero__inner--right { padding-left: 0; align-items: flex-start; }
+  .hero--fashion .hero__inner--right { padding-left: 0; padding-top: 0; align-items: flex-start; }
+  /* stack normally on phones — no full-height centring */
+  .fashion-hero__title { margin-block: 0; }
+  .fashion-hero__cta { margin-top: 1.6rem; }
   /* landscape frame → portrait: shift the crop left so the model
      stays in shot, and ramp the blur up from the lower text zone */
   .hero--fashion .hero__media img { object-position: 26% center; }

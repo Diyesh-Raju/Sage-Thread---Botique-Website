@@ -66,18 +66,11 @@ export default function FashionPage() {
             </div>
           </div>
           <div className="hero__inner hero__inner--right container">
-            <p className="eyebrow" data-stagger style={{ "--sd": ".1s" }}>
-              Women&apos;s Fashion · Bangalore
-            </p>
             <h1 className="hero__title fashion-hero__title" data-stagger style={{ "--sd": ".22s" }}>
               <span className="fashion-hero__script">Fashion,</span>
               <span className="fashion-hero__line">The Canvas of Your Soul</span>
             </h1>
-            <p className="hero__sub" data-stagger style={{ "--sd": ".42s" }}>
-              Sculptural tailoring and fluid fabric — a wardrobe edited for the
-              Bangalore woman who wears confidence, not just trends.
-            </p>
-            <div className="mt-2" data-stagger style={{ "--sd": ".58s" }}>
+            <div className="fashion-hero__cta" data-stagger style={{ "--sd": ".42s" }}>
               <a href="#lookbook" className="btn btn--solid">
                 Explore Our Collection <span className="arrow">→</span>
               </a>
