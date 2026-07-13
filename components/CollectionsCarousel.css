@@ -102,7 +102,7 @@
 
 /* ---- slots ------------------------------------------------------------- */
 .cc-card.is-featured {
-  transform: translate3d(16%, 0, 0) scale(1);
+  transform: translate3d(28%, 0, 0) scale(1);
   opacity: 1;
   z-index: 30;
 }
@@ -110,12 +110,12 @@
 
 /* three cards read on screen: featured + two peeks stepping to the right */
 .cc-card.is-peek1 {
-  transform: translate3d(90%, 6%, 0) scale(.82);
+  transform: translate3d(102%, 6%, 0) scale(.82);
   opacity: 1;
   z-index: 20;
 }
 .cc-card.is-peek2 {
-  transform: translate3d(154%, 12%, 0) scale(.66);
+  transform: translate3d(166%, 12%, 0) scale(.66);
   opacity: 1;
   z-index: 10;
 }

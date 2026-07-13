@@ -44,14 +44,19 @@
    from two stacked, masked copies of the hero so it *ramps* in
    strength toward the right edge rather than a hard split.
    ============================================================ */
-.hero--fashion { align-items: center; color: var(--text); }
+.hero--fashion {
+  align-items: center; color: var(--text);
+  /* warm wash behind the media so the slight zoom-out frame blends */
+  background: linear-gradient(180deg, #f3e7d8, #ecdccb);
+}
 
-/* subject stays sharp — the media is shown at native scale (no zoom/drift)
-   so the source resolution isn't magnified and softened.
-   NB: z-index on the positioned media makes it a stacking context, so it
-   must leave the shared z-index:-2 (which would sink it behind the page
+/* subject stays sharp — the media is shown at native scale (no drift). A
+   gentle scale-down zooms the frame out a touch (all layers scale together
+   so the blur stays aligned).
+   NB: transform/z-index on the positioned media makes it a stacking context,
+   so it must leave the shared z-index:-2 (which would sink it behind the page
    background) — pin it at 0 and lift the copy above it. */
-.hero--fashion .hero__media { z-index: 0; }
+.hero--fashion .hero__media { z-index: 0; transform: scale(.92); }
 .hero--fashion .hero__inner--right { position: relative; z-index: 1; }
 .hero--fashion .scroll-cue { z-index: 2; }
 .hero--fashion .hero__media > img { z-index: 1; }
