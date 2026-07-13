@@ -46,15 +46,14 @@
    ============================================================ */
 .hero--fashion { align-items: center; color: var(--text); }
 
-/* subject stays sharp; keep a gentle, unified drift on the whole
-   media block so every blur layer moves together (no shimmer).
-   NB: transforming the media makes it a stacking context, so it must
-   leave the shared z-index:-2 (which would sink it behind the page
+/* subject stays sharp — the media is shown at native scale (no zoom/drift)
+   so the source resolution isn't magnified and softened.
+   NB: z-index on the positioned media makes it a stacking context, so it
+   must leave the shared z-index:-2 (which would sink it behind the page
    background) — pin it at 0 and lift the copy above it. */
-.hero--fashion .hero__media { z-index: 0; animation: fash-kb 26s var(--ease) infinite alternate; }
+.hero--fashion .hero__media { z-index: 0; }
 .hero--fashion .hero__inner--right { position: relative; z-index: 1; }
 .hero--fashion .scroll-cue { z-index: 2; }
-@keyframes fash-kb { from { transform: scale(1.03); } to { transform: scale(1.12); } }
 .hero--fashion .hero__media > img { z-index: 1; }
 
 .hero--fashion .hero__blur {
@@ -136,8 +135,4 @@
   .fashion-hero__line { letter-spacing: .2em; }
   /* scroll cue would collide with the bottom-anchored CTA on phones */
   .hero--fashion .scroll-cue { display: none; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero--fashion .hero__media { animation: none; }
 }
