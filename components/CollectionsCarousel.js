@@ -76,7 +76,13 @@ export default function CollectionsCarousel({ items, interval = 4200 }) {
               aria-hidden={rel > 2}
               tabIndex={rel === 0 ? 0 : -1}
             >
-              <img src={it.img} alt={it.alt} loading="lazy" decoding="async" />
+              <img
+                src={it.img}
+                alt={it.alt}
+                loading="lazy"
+                decoding="async"
+                style={it.pos ? { objectPosition: it.pos } : undefined}
+              />
               <span className="cc-card__scrim" aria-hidden="true" />
               <span className="cc-card__cap">
                 <span className="cc-card__name">{it.name}</span>

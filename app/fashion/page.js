@@ -14,10 +14,10 @@ export const viewport = { themeColor: "#160f15" };
 
 const collectionItems = [
   { name: "Jewelry", img: "/assets/img/collection-jewelry.jpg", alt: "Emerald and diamond statement ring — fine jewellery at Sage Thread Boutique Bangalore" },
-  { name: "Modern Aesthetic", img: "/assets/img/collection-modern.jpg", alt: "Modern minimalist summer dress — contemporary women's fashion at Sage Thread Bengaluru" },
+  { name: "Modern Aesthetic", img: "/assets/img/collection-modern.jpg", pos: "top", alt: "Modern minimalist summer dress — contemporary women's fashion at Sage Thread Bengaluru" },
   { name: "High Jewelry", img: "/assets/img/collection-high-jewelry.jpg", alt: "Ornate gold and polki high jewellery necklace at Sage Thread Boutique Bangalore" },
-  { name: "Traditional Fashion", img: "/assets/img/collection-traditional.jpg", alt: "Gold tissue lehenga with rose dupatta — traditional Indian wear at Sage Thread Bangalore" },
-  { name: "Timeless Pieces", img: "/assets/img/collection-timeless.jpg", alt: "Printed halter top with wide-leg trousers — timeless boutique clothing at Sage Thread" },
+  { name: "Traditional Fashion", img: "/assets/img/collection-traditional.jpg", pos: "top", alt: "Gold tissue lehenga with rose dupatta — traditional Indian wear at Sage Thread Bangalore" },
+  { name: "Timeless Pieces", img: "/assets/img/collection-timeless.jpg", pos: "top", alt: "Printed halter top with wide-leg trousers — timeless boutique clothing at Sage Thread" },
   { name: "Men's Fashion", img: "/assets/img/collection-mens.jpg", alt: "Ribbed knit polo and tailored trousers — men's fashion at Sage Thread Boutique Bangalore" },
 ];
 
