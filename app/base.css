@@ -192,6 +192,10 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
 .hero {
   position: relative; min-height: 100vh; min-height: 100svh;
   display: flex; align-items: flex-end; overflow: hidden; color: #fff;
+  /* Own stacking context so the z-index:-2 background media paints ABOVE the
+     opaque .page--<x> wrapper background (which is a later-painted in-flow
+     block). Without this the hero image sinks behind the page colour. */
+  isolation: isolate;
 }
 .hero__media { position: absolute; inset: 0; z-index: -2; }
 .hero__media img, .hero__media video {
