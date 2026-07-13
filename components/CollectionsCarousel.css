@@ -7,12 +7,13 @@
      featured card stays ~square (Zoya proportions) */
   --cc-card-w: clamp(240px, 25vw, 380px);
   display: grid;
-  grid-template-columns: minmax(150px, 220px) 1fr;
-  gap: clamp(1.2rem, 3vw, 3rem);
+  grid-template-columns: minmax(140px, 190px) 1fr;
+  gap: clamp(1.4rem, 4vw, 4.5rem);
   align-items: center;
 }
 
-.cc-head { align-self: center; }
+/* pull the heading block a touch further toward the left edge */
+.cc-head { align-self: center; margin-left: calc(var(--pad) * -0.5); }
 .cc-head .eyebrow { margin-bottom: .8rem; font-size: .66rem; }
 .cc-head .eyebrow { color: var(--accent); }
 .cc-title {
@@ -101,7 +102,7 @@
 
 /* ---- slots ------------------------------------------------------------- */
 .cc-card.is-featured {
-  transform: translate3d(4%, 0, 0) scale(1);
+  transform: translate3d(16%, 0, 0) scale(1);
   opacity: 1;
   z-index: 30;
 }
@@ -109,12 +110,12 @@
 
 /* three cards read on screen: featured + two peeks stepping to the right */
 .cc-card.is-peek1 {
-  transform: translate3d(78%, 6%, 0) scale(.82);
+  transform: translate3d(90%, 6%, 0) scale(.82);
   opacity: 1;
   z-index: 20;
 }
 .cc-card.is-peek2 {
-  transform: translate3d(142%, 12%, 0) scale(.66);
+  transform: translate3d(154%, 12%, 0) scale(.66);
   opacity: 1;
   z-index: 10;
 }
@@ -172,7 +173,7 @@
 /* ---- responsive -------------------------------------------------------- */
 @media (max-width: 900px) {
   .cc { grid-template-columns: 1fr; gap: 1.6rem; --cc-card-w: clamp(260px, 58vw, 380px); }
-  .cc-head { text-align: center; }
+  .cc-head { text-align: center; margin-left: 0; }
   .cc-sub { margin-inline: auto; }
   .cc-nav { grid-column: 1; }
   /* centre the featured card and tuck the peeks away on one column */
