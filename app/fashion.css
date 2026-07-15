@@ -87,9 +87,10 @@
 }
 
 /* headline block pushed into the blurred right zone; full height so the
-   title sits in the middle and the CTA drops to the bottom */
+   title sits in the middle and the CTA drops to the bottom. items are
+   centred so the headline and the CTA share one axis, centred in the blur */
 .hero--fashion .hero__inner--right {
-  display: flex; flex-direction: column; align-items: flex-start;
+  display: flex; flex-direction: column; align-items: center;
   padding-left: 54%;
   padding-top: clamp(6rem, 14vh, 10rem);
   padding-bottom: clamp(2.6rem, 7vh, 5.5rem);
@@ -99,6 +100,7 @@
   display: flex; flex-direction: column; line-height: .95;
   color: var(--accent-2);
   margin-block: auto;   /* centres the headline in the blurred column */
+  text-align: center;   /* lines centre under one another */
 }
 .fashion-hero__cta { margin-top: 0; }   /* stays at the bottom */
 .fashion-hero__script {
@@ -123,7 +125,7 @@
   .hero--fashion { align-items: flex-end; }
   .hero--fashion .hero__inner--right { padding-left: 0; padding-top: 0; align-items: flex-start; }
   /* stack normally on phones — no full-height centring */
-  .fashion-hero__title { margin-block: 0; }
+  .fashion-hero__title { margin-block: 0; text-align: left; }
   .fashion-hero__cta { margin-top: 1.6rem; }
   /* landscape frame → portrait: shift the crop left so the model
      stays in shot, and ramp the blur up from the lower text zone */
