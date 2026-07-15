@@ -36,7 +36,11 @@
 .cc-stage {
   position: relative;
   height: calc(var(--cc-card-w) * 1.05);
-  overflow: hidden;
+  /* let the peek cards bleed off to the right so the 3rd card reads fully,
+     but still clip the exiting card at the left edge (clip-path insets:
+     top right bottom left — negatives extend the visible region) */
+  overflow: visible;
+  clip-path: inset(-8% -45% -10% 0);
 }
 .cc-card {
   position: absolute;
