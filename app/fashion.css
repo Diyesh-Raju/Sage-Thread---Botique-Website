@@ -91,7 +91,7 @@
    centred so the headline and the CTA share one axis, centred in the blur */
 .hero--fashion .hero__inner--right {
   display: flex; flex-direction: column; align-items: center;
-  padding-left: 54%;
+  padding-left: 62%;
   padding-top: clamp(6rem, 14vh, 10rem);
   padding-bottom: clamp(2.6rem, 7vh, 5.5rem);
 }
@@ -103,6 +103,8 @@
   text-align: center;   /* lines centre under one another */
 }
 .fashion-hero__cta { margin-top: 0; }   /* stays at the bottom */
+/* keep the CTA label on one line even though the centred column is narrow */
+.fashion-hero__cta .btn { white-space: nowrap; }
 .fashion-hero__script {
   font-family: "Pinyon Script", cursive; font-weight: 400; font-style: normal;
   color: var(--accent);

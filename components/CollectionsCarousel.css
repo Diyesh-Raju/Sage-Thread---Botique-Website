@@ -102,7 +102,7 @@
 
 /* ---- slots ------------------------------------------------------------- */
 .cc-card.is-featured {
-  transform: translate3d(52%, 0, 0) scale(1);
+  transform: translate3d(74%, 0, 0) scale(1);
   opacity: 1;
   z-index: 30;
 }
@@ -110,12 +110,12 @@
 
 /* three cards read on screen: featured + two peeks stepping to the right */
 .cc-card.is-peek1 {
-  transform: translate3d(126%, 6%, 0) scale(.82);
+  transform: translate3d(148%, 6%, 0) scale(.82);
   opacity: 1;
   z-index: 20;
 }
 .cc-card.is-peek2 {
-  transform: translate3d(190%, 12%, 0) scale(.66);
+  transform: translate3d(212%, 12%, 0) scale(.66);
   opacity: 1;
   z-index: 10;
 }
@@ -127,7 +127,7 @@
 }
 /* parked off-stage right, waiting to rise into the peek slots */
 .cc-card.is-hidden {
-  transform: translate3d(192%, 14%, 0) scale(.6);
+  transform: translate3d(214%, 14%, 0) scale(.6);
   opacity: 0;
   z-index: 1;
 }
