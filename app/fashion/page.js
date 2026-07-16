@@ -1,6 +1,8 @@
 import "../fashion.css";
 import Header from "@/components/Header";
 import CollectionsCarousel from "@/components/CollectionsCarousel";
+import TheLook from "@/components/TheLook";
+import LookStack from "@/components/LookStack";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -19,6 +21,17 @@ const collectionItems = [
   { name: "Traditional Fashion", img: "/assets/img/collection-traditional.jpg", pos: "top", alt: "Gold tissue lehenga with rose dupatta — traditional Indian wear at Sage Thread Bangalore" },
   { name: "Timeless Pieces", img: "/assets/img/collection-timeless.jpg", pos: "top", alt: "Printed halter top with wide-leg trousers — timeless boutique clothing at Sage Thread" },
   { name: "Men's Fashion", img: "/assets/img/collection-mens.jpg", alt: "Ribbed knit polo and tailored trousers — men's fashion at Sage Thread Boutique Bangalore" },
+];
+
+// "The Look" — the finished outfit and every piece that builds it
+const lookOutfit = {
+  img: "/assets/img/fashion-4.jpg",
+  alt: "Complete monochrome tracksuit look styled at Sage Thread Boutique Bangalore",
+};
+const lookPieces = [
+  { name: "Cropped Hoodie", material: "Cotton Fleece", img: "/assets/img/look-piece-hoodie.jpg", alt: "Cropped drawstring hoodie — Sage Thread Boutique" },
+  { name: "Tapered Joggers", material: "Cotton Fleece", img: "/assets/img/look-piece-joggers.jpg", alt: "High-rise tapered joggers — Sage Thread Boutique" },
+  { name: "Heeled Ankle Boots", material: "Leather", img: "/assets/img/look-piece-boots.jpg", alt: "Pointed heeled ankle boots — Sage Thread Boutique" },
 ];
 
 export default function FashionPage() {
@@ -98,51 +111,9 @@ export default function FashionPage() {
           />
         </section>
 
-        <section className="section editorial">
-          <div className="container split">
-            <div data-reveal>
-              <p className="eyebrow">Boutique clothing</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.6rem)" }}>
-                Fewer pieces,
-                <br />
-                worn beautifully
-              </h2>
-              <p className="lead mt-2 measure">
-                At Sage Thread Boutique, we don&apos;t chase fast fashion. Each
-                designer piece is chosen for cut, cloth, and the way it flatters
-                — built to outlive the season and become your signature look in
-                Bengaluru and beyond.
-              </p>
-              <a
-                href="#lookbook"
-                className="btn btn--ghost mt-3"
-                style={{ color: "#fff" }}
-              >
-                Discover Your Perfect Look <span className="arrow">→</span>
-              </a>
-            </div>
-            <div className="intro-figs" data-reveal="right">
-              <div className="media" data-img>
-                <img
-                  src="/assets/img/fashion-5.jpg"
-                  alt="Tailored designer coat detail at Sage Thread women's boutique Bangalore"
-                  title="Designer Tailoring — Sage Thread"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-              <div className="media" data-img style={{ "--d": ".15s" }}>
-                <img
-                  src="/assets/img/fashion-6.jpg"
-                  alt="Contemporary women's fashion styling at Sage Thread Bengaluru"
-                  title="Contemporary Fashion — Sage Thread Bangalore"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            </div>
-          </div>
-        </section>
+        <TheLook look={lookOutfit} pieces={lookPieces} />
+
+        <LookStack />
 
         <section className="section section--tight" id="lookbook">
           <div className="container">
