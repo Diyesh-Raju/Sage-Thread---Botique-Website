@@ -85,6 +85,19 @@ export default function FashionPage() {
           </div>
         </section>
 
+        {/* full-bleed reel — fills the viewport and loops silently forever */}
+        <section className="fashion-reel" aria-label="Sage Thread collection film">
+          <video
+            className="fashion-reel__video"
+            src="/assets/video/collections-reel.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          />
+        </section>
+
         <section className="section editorial">
           <div className="container split">
             <div data-reveal>
