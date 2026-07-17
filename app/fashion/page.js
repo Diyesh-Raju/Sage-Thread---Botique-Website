@@ -25,13 +25,13 @@ const collectionItems = [
 
 // "The Look" — the finished outfit and every piece that builds it
 const lookOutfit = {
-  img: "/assets/img/fashion-4.jpg",
-  alt: "Complete monochrome tracksuit look styled at Sage Thread Boutique Bangalore",
+  img: "/assets/img/the-look-main.jpg",
+  alt: "Navy linen shirt with white trousers and suede loafers — men's look styled at Sage Thread Boutique Bangalore",
 };
 const lookPieces = [
-  { name: "Cropped Hoodie", material: "Cotton Fleece", img: "/assets/img/look-piece-hoodie.jpg", alt: "Cropped drawstring hoodie — Sage Thread Boutique" },
-  { name: "Tapered Joggers", material: "Cotton Fleece", img: "/assets/img/look-piece-joggers.jpg", alt: "High-rise tapered joggers — Sage Thread Boutique" },
-  { name: "Heeled Ankle Boots", material: "Leather", img: "/assets/img/look-piece-boots.jpg", alt: "Pointed heeled ankle boots — Sage Thread Boutique" },
+  { name: "Navy Shirt", material: "Cotton", img: "/assets/img/look-piece-shirt.jpg", alt: "Navy blue slim-fit shirt — Sage Thread Boutique" },
+  { name: "White Linen Trousers", material: "Linen", img: "/assets/img/look-piece-trousers.jpg", alt: "White drawstring linen trousers — Sage Thread Boutique" },
+  { name: "Suede Loafers", material: "Suede", img: "/assets/img/look-piece-loafers.jpg", alt: "Beige suede penny loafers — Sage Thread Boutique" },
 ];
 
 export default function FashionPage() {
