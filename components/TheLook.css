@@ -81,9 +81,16 @@
   height: 100%;
   overflow: hidden;
   background: #f7f7f7;   /* matches the product cutouts' backdrop */
+  border-radius: 3px;
   transform-origin: center;
   will-change: transform, opacity;
   transition: transform .6s cubic-bezier(.22, .61, .36, 1), opacity .5s ease;
+  /* float the tile off the near-white panel + a hairline frame so pale
+     products (white trousers) don't blend into the background */
+  box-shadow:
+    0 30px 55px -26px rgba(24, 12, 20, .45),
+    0 6px 16px -8px rgba(24, 12, 20, .22),
+    inset 0 0 0 1px rgba(24, 12, 20, .06);
 }
 .the-look__card img {
   width: 100%;
