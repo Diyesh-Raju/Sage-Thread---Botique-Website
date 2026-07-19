@@ -2,7 +2,7 @@ import "../fashion.css";
 import Header from "@/components/Header";
 import CollectionsCarousel from "@/components/CollectionsCarousel";
 import TheLook from "@/components/TheLook";
-import LookStack from "@/components/LookStack";
+import FashionParallax from "@/components/FashionParallax";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -113,7 +113,35 @@ export default function FashionPage() {
 
         <TheLook look={lookOutfit} pieces={lookPieces} />
 
-        <LookStack />
+        {/* Shop by gender — two oval portraits with script labels */}
+        <section className="genders" aria-label="Shop by men or women">
+          <div className="container genders__grid">
+            <a className="gender gender--men" href="/contact" data-reveal>
+              <div className="gender__frame">
+                <img
+                  src="/assets/img/gender-men.jpg"
+                  alt="Man in a black shirt and sunglasses — men's fashion at Sage Thread Boutique Bangalore"
+                  title="Men — Sage Thread"
+                  loading="lazy"
+                />
+              </div>
+              <span className="gender__label">Men</span>
+            </a>
+            <a className="gender" href="/contact" data-reveal style={{ "--d": ".12s" }}>
+              <div className="gender__frame">
+                <img
+                  src="/assets/img/gender-women.jpg"
+                  alt="Woman in a cream trench coat and black dress — women's fashion at Sage Thread Boutique Bangalore"
+                  title="Women — Sage Thread"
+                  loading="lazy"
+                />
+              </div>
+              <span className="gender__label">Women</span>
+            </a>
+          </div>
+        </section>
+
+        <FashionParallax />
 
         <section className="section section--tight" id="lookbook">
           <div className="container">
