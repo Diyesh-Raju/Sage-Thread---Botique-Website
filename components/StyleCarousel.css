@@ -1,0 +1,94 @@
+/* ── Shop by style carousel ─────────────────────────────────────
+   Full-bleed stage: giant ghost word behind, cut-out models in front,
+   copy bottom-left and a "discover" link bottom-right. Colours come
+   from the component (they change per slide), everything else here. */
+
+.stylecar { position: relative; width: 100%; overflow: hidden; }
+.stylecar__stage { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+
+.stylecar__grain {
+  position: absolute; inset: 0; z-index: 50;
+  pointer-events: none;
+  background-repeat: repeat; background-size: 200px 200px;
+  opacity: .4;
+}
+
+.stylecar__ghost {
+  position: absolute; left: 0; right: 0; top: 16%;
+  z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none; user-select: none; white-space: nowrap;
+  font-family: "Anton", "Montserrat", sans-serif; font-weight: 400;
+  font-size: clamp(46px, 12.5vw, 220px); line-height: 1;
+  letter-spacing: -.02em; text-transform: uppercase;
+  color: currentColor;
+}
+
+.stylecar__brand {
+  position: absolute; top: 1.5rem; left: 1rem; z-index: 60;
+  font-family: var(--font-accent); font-size: .72rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: currentColor; opacity: .9;
+}
+
+.stylecar__track { position: absolute; inset: 0; z-index: 3; }
+.stylecar__figure {
+  position: absolute;
+  aspect-ratio: .6 / 1;
+  will-change: transform, filter, opacity;
+}
+.stylecar__figure img {
+  width: 100%; height: 100%;
+  object-fit: contain; object-position: bottom center;
+  -webkit-user-drag: none;
+}
+
+.stylecar__copy {
+  position: absolute; bottom: 1.5rem; left: 1rem; z-index: 60;
+  max-width: 320px;
+}
+.stylecar__title {
+  margin-bottom: .5rem;
+  font-family: var(--font-accent); font-weight: 700;
+  font-size: 1rem; letter-spacing: .16em; text-transform: uppercase;
+  opacity: .95;
+}
+.stylecar__blurb { display: none; }
+.stylecar__nav { display: flex; gap: .75rem; }
+.stylecar__nav button {
+  display: grid; place-items: center;
+  width: 3rem; height: 3rem;
+  border: 2px solid currentColor; border-radius: 50%;
+  background: transparent; color: currentColor; cursor: pointer;
+  transition: transform 150ms, background-color 150ms;
+}
+.stylecar__nav button:hover { transform: scale(1.08); background: rgba(255,255,255,.12); }
+
+.stylecar__cta {
+  position: absolute; bottom: 1.5rem; right: 1rem; z-index: 60;
+  display: flex; align-items: center; gap: .4rem;
+  font-family: "Anton", "Montserrat", sans-serif; font-weight: 400;
+  font-size: clamp(20px, 4vw, 56px); line-height: 1;
+  letter-spacing: -.02em; text-transform: uppercase;
+  color: currentColor; text-decoration: none; opacity: .95;
+  transition: opacity 200ms;
+}
+.stylecar__cta:hover { opacity: 1; }
+.stylecar__cta svg { width: 1.25rem; height: 1.25rem; }
+
+@media (min-width: 640px) {
+  .stylecar__brand { left: 2rem; }
+  .stylecar__copy { bottom: 5rem; left: 6rem; }
+  .stylecar__title { font-size: 1.375rem; margin-bottom: .75rem; }
+  .stylecar__blurb {
+    display: block; margin-bottom: 1.25rem;
+    font-size: .875rem; line-height: 1.6; opacity: .85;
+  }
+  .stylecar__nav button { width: 4rem; height: 4rem; }
+  .stylecar__cta { bottom: 5rem; right: 2.5rem; }
+  .stylecar__cta svg { width: 2rem; height: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stylecar, .stylecar__figure { transition: none !important; }
+}
