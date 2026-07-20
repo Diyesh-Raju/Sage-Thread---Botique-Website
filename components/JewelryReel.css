@@ -1,0 +1,70 @@
+/* ---------- Jewellery reel (black band + glowing bubble box) ---------- */
+.jewel-reel {
+  position: relative;
+  /* transparent so the normal page background shows through at rest; the
+     black comes from the fixed backdrop below while the box is in view */
+  background: transparent;
+  padding-block: clamp(4.5rem, 9vw, 8.5rem);
+}
+
+/* full-viewport black that fades in while the box is centred, so the entire
+   page (above and below the box) goes black — not just this section band.
+   Sits above every other section but below the navbar and the box+caption. */
+.jewel-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: #0a0708;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.7s var(--ease);
+}
+body.jewel-view .jewel-backdrop { opacity: 1; }
+
+.jewel-reel__inner {
+  position: relative;
+  z-index: 41; /* box + caption stay above the black backdrop */
+  max-width: 1480px;
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+/* the "bubbly" box — soft rose glow layered around a rounded frame */
+.jewel-reel__frame {
+  position: relative;
+  aspect-ratio: 2.2 / 1;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 0 0 1.5px rgba(232, 180, 184, 0.85),
+    0 0 24px 2px rgba(230, 138, 170, 0.55),
+    0 0 70px 10px rgba(230, 138, 170, 0.32),
+    0 0 130px 24px rgba(230, 138, 170, 0.18);
+}
+
+.jewel-reel__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* centred description beneath the box */
+.jewel-reel__copy {
+  margin: clamp(2.2rem, 4vw, 3.4rem) auto 0;
+  max-width: 60ch;
+  text-align: center;
+  /* muted dark on the light background, easing to light on black in view */
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.95rem + 0.4vw, 1.35rem);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  transition: color 0.7s var(--ease);
+}
+body.jewel-view .jewel-reel__copy { color: rgba(255, 255, 255, 0.6); }
+
+@media (max-width: 720px) {
+  .jewel-reel__frame { aspect-ratio: 4 / 3; border-radius: 20px; }
+}

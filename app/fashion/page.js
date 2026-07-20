@@ -4,6 +4,7 @@ import CollectionsCarousel from "@/components/CollectionsCarousel";
 import TheLook from "@/components/TheLook";
 import FashionParallax from "@/components/FashionParallax";
 import StyleCarousel from "@/components/StyleCarousel";
+import JewelryReel from "@/components/JewelryReel";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -85,7 +86,7 @@ export default function FashionPage() {
               <span className="fashion-hero__line">The Canvas of Your Soul</span>
             </h1>
             <div className="fashion-hero__cta" data-stagger style={{ "--sd": ".42s" }}>
-              <a href="#lookbook" className="btn btn--solid">
+              <a href="#collections" className="btn btn--solid">
                 Explore Our Collection <span className="arrow">→</span>
               </a>
             </div>
@@ -93,7 +94,7 @@ export default function FashionPage() {
           <div className="scroll-cue">Scroll</div>
         </section>
 
-        <section className="section collections-section" data-reveal>
+        <section className="section collections-section" id="collections" data-reveal>
           <div className="container">
             <CollectionsCarousel items={collectionItems} />
           </div>
@@ -146,110 +147,7 @@ export default function FashionPage() {
 
         <StyleCarousel />
 
-        <section className="section section--tight" id="lookbook">
-          <div className="container">
-            <div className="sec-head sec-head--row">
-              <div data-reveal>
-                <p className="eyebrow">Lookbook</p>
-                <h2>Custom styling &amp; designer edits</h2>
-              </div>
-              <p
-                className="measure-sm"
-                data-reveal
-                style={{ "--d": ".1s", color: "var(--muted)" }}
-              >
-                A seasonal study in texture, drape, and tone — curated for women
-                who shop at Bangalore&apos;s finest fashion boutiques.
-              </p>
-            </div>
-            <div className="lookbook">
-              <a className="tile" data-reveal href="/contact">
-                <img
-                  src="/assets/img/fashion-1.jpg"
-                  alt="City tailoring — designer women's wear at Sage Thread Boutique Bangalore"
-                  title="City Tailoring — Sage Thread"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="plus">→</span>
-                <div className="tile__cap">
-                  <p className="meta">Look 01</p>
-                  <h3>City Tailoring</h3>
-                </div>
-              </a>
-              <a className="tile" data-reveal style={{ "--d": ".08s" }} href="/contact">
-                <img
-                  src="/assets/img/fashion-2.jpg"
-                  alt="Golden hour portrait — boutique fashion for women in Bengaluru"
-                  title="Golden Hour Edit — Sage Thread"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="plus">→</span>
-                <div className="tile__cap">
-                  <p className="meta">Look 02</p>
-                  <h3>Golden Hour</h3>
-                </div>
-              </a>
-              <a className="tile" data-reveal style={{ "--d": ".16s" }} href="/contact">
-                <img
-                  src="/assets/img/fashion-3.jpg"
-                  alt="Bold designer dress — luxury women's fashion Bangalore"
-                  title="Rouge Collection — Sage Thread Boutique"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="plus">→</span>
-                <div className="tile__cap">
-                  <p className="meta">Look 03</p>
-                  <h3>Rouge</h3>
-                </div>
-              </a>
-              <a className="tile" data-reveal style={{ "--d": ".08s" }} href="/contact">
-                <img
-                  src="/assets/img/fashion-4.jpg"
-                  alt="Saffron occasion wear — designer boutique clothing Bangalore"
-                  title="Saffron Edit — Sage Thread"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="plus">→</span>
-                <div className="tile__cap">
-                  <p className="meta">Look 04</p>
-                  <h3>Saffron</h3>
-                </div>
-              </a>
-              <a className="tile" data-reveal style={{ "--d": ".16s" }} href="/contact">
-                <img
-                  src="/assets/img/fashion-rack.jpg"
-                  alt="Curated women's clothing rail at Sage Thread fashion boutique Indiranagar"
-                  title="In-Store Collection — Sage Thread Bangalore"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="plus">→</span>
-                <div className="tile__cap">
-                  <p className="meta">In store</p>
-                  <h3>The Rail</h3>
-                </div>
-              </a>
-              <a className="tile" data-reveal style={{ "--d": ".24s" }} href="/contact">
-                <img
-                  src="/assets/img/fashion-feature.jpg"
-                  alt="Behind the scenes at Sage Thread women's fashion atelier Bangalore"
-                  title="Boutique Atelier — Sage Thread"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="plus">→</span>
-                <div className="tile__cap">
-                  <p className="meta">Atelier</p>
-                  <h3>Backstage</h3>
-                </div>
-              </a>
-            </div>
-          </div>
-        </section>
+        <JewelryReel />
 
         <section className="section">
           <div className="container">
@@ -364,9 +262,9 @@ export default function FashionPage() {
             </div>
             <div>
               <h4>Fashion</h4>
-              <a href="#lookbook">Lookbook</a>
+              <a href="#collections">Collections</a>
               <br />
-              <a href="#lookbook">Ready-to-Wear</a>
+              <a href="#collections">Ready-to-Wear</a>
               <br />
               <a href="/contact">Custom Styling</a>
               <br />

@@ -29,3 +29,9 @@ _diag.mjs
 
 # Local source media (re-encode source for the furniture scroll hero)
 media-source/
+
+# local tool caches & backups (not source)
+.numba_cache/
+public/assets/img/_backup/
+# original space-named upload (a clean copy lives at assets/video/jewelry-reel.mp4)
+/public/WhatsApp Video*.mp4

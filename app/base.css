@@ -43,6 +43,7 @@ ul { list-style: none; }
   --muted: #6f675c;
   --accent: #b08d57;
   --accent-2: #2f2a24;
+  --rose-gold: #e8b4b8;
   --line: rgba(0,0,0,.12);
   --hero-overlay: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.5));
   --font-display: Georgia, serif;
@@ -112,7 +113,7 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
 /* ---------- Header / Nav ---------- */
 .site-header {
   position: fixed; inset: 0 0 auto 0; z-index: 100;
-  transition: background .5s var(--ease), box-shadow .5s var(--ease), backdrop-filter .5s;
+  transition: background .5s var(--ease), box-shadow .5s var(--ease), backdrop-filter .5s, color .5s var(--ease);
 }
 .nav-wrap {
   max-width: 1480px; margin-inline: auto;
@@ -160,6 +161,20 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; line-height
 }
 .site-header.scrolled .brand span,
 .site-header.scrolled .nav-links a.active { color: var(--accent); }
+
+/* jewellery reel in view — page is black, so flip the navbar to rose gold
+   and strip its light backdrop (wins over both the base and .scrolled states) */
+body.jewel-view .site-header,
+body.jewel-view .site-header.scrolled {
+  color: var(--rose-gold);
+  background: transparent;
+  box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+body.jewel-view .site-header .brand span,
+body.jewel-view .site-header .nav-links a.active,
+body.jewel-view .site-header.scrolled .brand span,
+body.jewel-view .site-header.scrolled .nav-links a.active { color: var(--rose-gold); }
 
 /* mobile toggle */
 .nav-toggle { display: none; width: 30px; height: 22px; position: relative; z-index: 110; }
