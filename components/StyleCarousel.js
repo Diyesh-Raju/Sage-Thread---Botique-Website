@@ -34,7 +34,8 @@ const SLIDES = [
     name: "Comfort Clothes",
     src: "/assets/img/style-comfort.png",
     alt: "Woman in an oatmeal hoodie and matching joggers — comfort wear at Sage Thread Boutique Bangalore",
-    bg: "#A49A87",
+    /* Slightly deeper taupe so white sneakers stay distinct against the stage */
+    bg: "#8E8574",
     ink: "#ffffff",
     type: {
       fontFamily: '"Quicksand", "Montserrat", sans-serif',
