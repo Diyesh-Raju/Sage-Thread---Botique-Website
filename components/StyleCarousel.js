@@ -10,6 +10,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import "./StyleCarousel.css";
 
+/* Each style sets its own type, so the name reads as the thing it names:
+   urban signage for street wear, soft rounded for comfort, a high-fashion
+   didone for timeless, a Devanagari-flavoured face for traditional. The
+   faces differ enormously in weight and x-height, so size/tracking travel
+   with the family rather than living in the stylesheet. */
 const SLIDES = [
   {
     name: "Street Wear",
@@ -17,6 +22,13 @@ const SLIDES = [
     alt: "Woman in a white racer tank and navy wide-leg track pants — streetwear at Sage Thread Boutique Bangalore",
     bg: "#1B2A4E",
     ink: "#ffffff",
+    type: {
+      fontFamily: '"Bungee", "Anton", sans-serif',
+      fontWeight: 400,
+      fontSize: "clamp(1.25rem, 2.4vw, 1.85rem)",
+      letterSpacing: ".02em",
+      textTransform: "uppercase",
+    },
   },
   {
     name: "Comfort Clothes",
@@ -24,6 +36,13 @@ const SLIDES = [
     alt: "Woman in an oatmeal hoodie and matching joggers — comfort wear at Sage Thread Boutique Bangalore",
     bg: "#A49A87",
     ink: "#ffffff",
+    type: {
+      fontFamily: '"Quicksand", "Montserrat", sans-serif',
+      fontWeight: 600,
+      fontSize: "clamp(1.5rem, 3vw, 2.3rem)",
+      letterSpacing: ".14em",
+      textTransform: "lowercase",
+    },
   },
   {
     name: "Timeless Fashion",
@@ -32,6 +51,14 @@ const SLIDES = [
     bg: "#F2EADC",
     /* white would vanish on cream — this slide runs on the site's dark ink */
     ink: "#1D1419",
+    type: {
+      fontFamily: '"Bodoni Moda", "Italiana", serif',
+      fontWeight: 400,
+      fontStyle: "italic",
+      fontSize: "clamp(1.6rem, 3.4vw, 2.6rem)",
+      letterSpacing: ".06em",
+      textTransform: "none",
+    },
   },
   {
     name: "Traditional",
@@ -39,6 +66,13 @@ const SLIDES = [
     alt: "Woman in a mirror-work blouse and printed sharara with a cape — traditional Indian wear at Sage Thread Boutique Bangalore",
     bg: "#B9836F",
     ink: "#ffffff",
+    type: {
+      fontFamily: '"Yatra One", "Bodoni Moda", serif',
+      fontWeight: 400,
+      fontSize: "clamp(1.5rem, 3vw, 2.3rem)",
+      letterSpacing: ".04em",
+      textTransform: "none",
+    },
   },
 ];
 
@@ -163,10 +197,6 @@ export default function StyleCarousel() {
       >
         <div className="stylecar__grain" style={{ backgroundImage: GRAIN }} />
 
-        <div className="stylecar__ghost" aria-hidden="true">
-          {slide.name}
-        </div>
-
         <div className="stylecar__track">
           {SLIDES.map((s, i) => {
             const role = roleOf(i);
@@ -186,7 +216,11 @@ export default function StyleCarousel() {
         </div>
 
         <div className="stylecar__copy">
-          <p className="stylecar__title">{slide.name}</p>
+          {/* keyed on the name so React swaps the node and the fade-in
+              replays each time the style changes */}
+          <p key={slide.name} className="stylecar__title" style={slide.type}>
+            {slide.name}
+          </p>
           <p className="stylecar__blurb">
             Pieces chosen one at a time, fitted in the atelier and finished by hand. Walk in, try the
             rail, leave with a wardrobe that already fits. Book a styling visit.

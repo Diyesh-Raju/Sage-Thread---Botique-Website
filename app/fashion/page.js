@@ -55,7 +55,7 @@ export default function FashionPage() {
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
       <link
-        href="https://fonts.googleapis.com/css2?family=Anton&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Italiana&family=Montserrat:wght@300;400;500&family=Pinyon+Script&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Bungee&family=Italiana&family=Montserrat:wght@300;400;500&family=Pinyon+Script&family=Quicksand:wght@500;600&family=Yatra+One&display=swap"
         rel="stylesheet"
       />
       <link rel="preload" as="image" href="/assets/img/fashion-hero-beach.jpg" />

@@ -1,5 +1,5 @@
 /* ── Shop by style carousel ─────────────────────────────────────
-   Full-bleed stage: giant ghost word behind, cut-out models in front,
+   Full-bleed stage: cut-out models front and centre,
    copy bottom-left and a "discover" link bottom-right. Colours come
    from the component (they change per slide), everything else here. */
 
@@ -11,17 +11,6 @@
   pointer-events: none;
   background-repeat: repeat; background-size: 200px 200px;
   opacity: .4;
-}
-
-.stylecar__ghost {
-  position: absolute; left: 0; right: 0; top: 16%;
-  z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-  pointer-events: none; user-select: none; white-space: nowrap;
-  font-family: "Anton", "Montserrat", sans-serif; font-weight: 400;
-  font-size: clamp(46px, 12.5vw, 220px); line-height: 1;
-  letter-spacing: -.02em; text-transform: uppercase;
-  color: currentColor;
 }
 
 .stylecar__brand {
@@ -41,17 +30,56 @@
   width: 100%; height: 100%;
   object-fit: contain; object-position: bottom center;
   -webkit-user-drag: none;
+  position: relative; z-index: 1;
+  /* Depth + separation: a grounded cast shadow lifts the figure off the
+     backdrop (the 3D), and a tight halo-shadow traces the silhouette so
+     light shoes / cream fabric never dissolve into a light slide. */
+  filter:
+    drop-shadow(0 14px 20px rgba(0,0,0,.42))
+    drop-shadow(0 3px 6px rgba(0,0,0,.30))
+    drop-shadow(0 0 1.4px rgba(0,0,0,.34));
+}
+
+/* Mini pedestal — a soft round disc the figure appears to stand on. Two
+   layers behind the model: a cast shadow (::before) and the lit disc top
+   (::after). Both are white/black alpha so they read on every slide colour,
+   and both scale with the figure width so side + back roles get a smaller
+   disc automatically. */
+.stylecar__figure::before,
+.stylecar__figure::after {
+  content: ""; position: absolute; left: 50%; bottom: 0;
+  border-radius: 50%; pointer-events: none;
+}
+.stylecar__figure::before {          /* cast shadow on the ground */
+  width: 76%; aspect-ratio: 4.2 / 1; z-index: 0;
+  transform: translate(-50%, 60%);
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,.44), rgba(0,0,0,.16) 44%, transparent 72%);
+  filter: blur(4px);
+}
+.stylecar__figure::after {           /* lit disc the feet rest on */
+  width: 60%; aspect-ratio: 3 / 1; z-index: 0;
+  transform: translate(-50%, 42%);
+  background: radial-gradient(ellipse at 50% 32%,
+    rgba(255,255,255,.34), rgba(255,255,255,.12) 42%, transparent 68%);
 }
 
 .stylecar__copy {
   position: absolute; bottom: 1.5rem; left: 1rem; z-index: 60;
   max-width: 320px;
 }
+/* family / size / tracking all arrive inline from the active slide — this
+   only holds what stays constant across the four faces */
 .stylecar__title {
   margin-bottom: .5rem;
-  font-family: var(--font-accent); font-weight: 700;
-  font-size: 1rem; letter-spacing: .16em; text-transform: uppercase;
+  line-height: 1.1;
   opacity: .95;
+  animation: stylecar-type 500ms cubic-bezier(.4,0,.2,1) both;
+}
+
+@keyframes stylecar-type {
+  from { opacity: 0; transform: translateY(.4em); letter-spacing: .3em; }
+  to   { opacity: .95; transform: none; }
 }
 .stylecar__blurb { display: none; }
 .stylecar__nav { display: flex; gap: .75rem; }
@@ -79,7 +107,7 @@
 @media (min-width: 640px) {
   .stylecar__brand { left: 2rem; }
   .stylecar__copy { bottom: 5rem; left: 6rem; }
-  .stylecar__title { font-size: 1.375rem; margin-bottom: .75rem; }
+  .stylecar__title { margin-bottom: .75rem; }
   .stylecar__blurb {
     display: block; margin-bottom: 1.25rem;
     font-size: .875rem; line-height: 1.6; opacity: .85;
@@ -91,4 +119,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .stylecar, .stylecar__figure { transition: none !important; }
+  .stylecar__title { animation: none; }
 }
