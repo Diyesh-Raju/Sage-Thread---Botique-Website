@@ -35,9 +35,10 @@
      backdrop (the 3D), and a tight halo-shadow traces the silhouette so
      light shoes / cream fabric never dissolve into a light slide. */
   filter:
-    drop-shadow(0 14px 20px rgba(0,0,0,.42))
-    drop-shadow(0 3px 6px rgba(0,0,0,.30))
-    drop-shadow(0 0 1.4px rgba(0,0,0,.34));
+    drop-shadow(0 16px 22px rgba(0,0,0,.45))
+    drop-shadow(0 4px 7px rgba(0,0,0,.34))
+    drop-shadow(0 0 2px rgba(0,0,0,.55))
+    drop-shadow(0 0 1px rgba(0,0,0,.55));
 }
 
 /* Mini pedestal — a soft round disc the figure appears to stand on. Two
