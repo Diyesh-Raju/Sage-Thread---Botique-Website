@@ -31,14 +31,8 @@
   object-fit: contain; object-position: bottom center;
   -webkit-user-drag: none;
   position: relative; z-index: 1;
-  /* Depth + separation: a grounded cast shadow lifts the figure off the
-     backdrop (the 3D), and a tight halo-shadow traces the silhouette so
-     light shoes / cream fabric never dissolve into a light slide. */
-  filter:
-    drop-shadow(0 22px 28px rgba(0,0,0,.5))
-    drop-shadow(0 8px 12px rgba(0,0,0,.36))
-    drop-shadow(0 2px 4px rgba(0,0,0,.28))
-    drop-shadow(0 0 1.5px rgba(0,0,0,.55));
+  /* no drop-shadows: the silhouette-hugging shadow stack read as a black
+     aura around every figure — grounding comes from the pedestal disc */
 }
 
 /* Mini pedestal — a soft round disc the figure appears to stand on. Two

@@ -146,10 +146,12 @@ export default function StyleCarousel() {
     if (role === "center") {
       return {
         left: "50%",
-        bottom: 0,
+        bottom: isMobile ? "4%" : "7%",
         /* the cut-outs are trimmed tight to the subject, so the figure is
-           sized by height alone — no scale-up, or the head leaves the stage */
-        height: isMobile ? "62%" : "86%",
+           sized by height alone — no scale-up, or the head leaves the stage.
+           Kept well under native resolution so the photos stay crisp, and
+           lifted off the stage floor so the feet don't hug the fold. */
+        height: isMobile ? "55%" : "76%",
         transform: "translateX(-50%) scale(1)",
         filter: "blur(0px)",
         opacity: 1,
