@@ -1,0 +1,73 @@
+/* Sticky card stack — the frames pin one over another, each shrinking and
+   tilting away as the next climbs over it. */
+.estack {
+  /* big enough to carry a full look, short enough to sit inside the viewport
+     whole — frame plus its breathing room never exceeds the screen. 4:3 to
+     match the photographs, so filling the frame costs no crop of its own. */
+  --frame-h: min(78svh, 720px);
+  --frame-w: min(calc(var(--frame-h) * 4 / 3), 92vw);
+  /* centred in the viewport, but never tucked under the fixed header */
+  --frame-top: max(96px, calc((100svh - var(--frame-h)) / 2));
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10vh;
+  padding-inline: var(--pad);
+  background: var(--bg);
+}
+
+.estack__intro {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  padding-block: clamp(4.5rem, 13vh, 9rem);
+  text-align: center;
+}
+.estack__intro h2 {
+  max-width: 18ch;
+  font-size: clamp(1.9rem, 4.2vw, 3.2rem);
+}
+
+.estack__frame {
+  position: sticky;
+  top: var(--frame-top);
+  width: var(--frame-w);
+  height: var(--frame-h);
+  flex: none;
+  overflow: hidden;
+  border-radius: clamp(16px, 1.8vw, 30px);
+  /* seen only in the corners once a frame has turned past the photo behind it */
+  background: var(--accent-2);
+  box-shadow: 0 34px 90px -34px rgba(29, 20, 25, .5);
+  will-change: transform;
+}
+
+.estack__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+/* holds the last frame pinned for a beat before the quote band arrives */
+.estack__tail { height: 26vh; }
+
+/* a 4:3 frame off a phone's width would be a letterbox — go upright instead,
+   and let the width lead so the frame still carries the screen. the trade is
+   crop: an upright frame takes a slice out of a landscape photograph. */
+@media (max-width: 760px) {
+  .estack {
+    --frame-w: 92vw;
+    --frame-h: min(calc(var(--frame-w) * 1.3), 72svh);
+    gap: 7vh;
+  }
+  .estack__tail { height: 18vh; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .estack__frame,
+  .estack__frame img { transform: none !important; }
+}

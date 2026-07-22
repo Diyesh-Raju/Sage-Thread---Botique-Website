@@ -32,11 +32,6 @@
 .editorial h2 { color: #fff; }
 .editorial .lead { color: rgba(243,230,234,.72); }
 
-.video-feature { position: relative; border-radius: var(--radius); overflow: hidden; }
-.video-feature video { width: 100%; aspect-ratio: 16/9; object-fit: cover; }
-.video-feature__cap { position: absolute; left: clamp(1.2rem,3vw,2.4rem); bottom: clamp(1.2rem,3vw,2.4rem); color: #fff; z-index: 2; }
-.video-feature::after { content:""; position:absolute; inset:0; background: linear-gradient(0deg, rgba(0,0,0,.5), transparent 60%); }
-
 /* ============================================================
    FASHION HERO — sharp subject on the left, a progressive
    right-side blur that dissolves the sunset into a soft canvas

@@ -4,7 +4,10 @@ import CollectionsCarousel from "@/components/CollectionsCarousel";
 import TheLook from "@/components/TheLook";
 import FashionParallax from "@/components/FashionParallax";
 import StyleCarousel from "@/components/StyleCarousel";
+import ScrollStroke from "@/components/ScrollStroke";
+import LuminaSlider from "@/components/LuminaSlider";
 import JewelryReel from "@/components/JewelryReel";
+import EditorialStack from "@/components/EditorialStack";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
 import JsonLd from "@/components/JsonLd";
@@ -147,56 +150,13 @@ export default function FashionPage() {
 
         <StyleCarousel />
 
+        <ScrollStroke />
+
+        <LuminaSlider />
+
         <JewelryReel />
 
-        <section className="section">
-          <div className="container">
-            <div className="video-feature" data-reveal="scale">
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                poster="/assets/img/fashion-clip-poster.jpg"
-                title="Sage Thread Boutique fashion campaign — women's designer wear Bangalore"
-              >
-                <source src="/assets/video/fashion-clip.webm" type="video/webm" />
-                <source src="/assets/video/fashion-clip.mp4" type="video/mp4" />
-              </video>
-              <div className="video-feature__cap">
-                <p className="eyebrow" style={{ color: "#fff" }}>
-                  Film · Boutique Campaign
-                </p>
-                <h2 style={{ color: "#fff", fontSize: "clamp(1.8rem,4vw,3rem)" }}>
-                  Contemporary fashion, Bangalore
-                </h2>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="band section">
-          <div className="band__bg">
-            <img
-              src="/assets/img/fashion-4.jpg"
-              alt="Designer women's occasion wear at Sage Thread Boutique Bengaluru"
-              title="Occasion Wear — Sage Thread Bangalore"
-              data-parallax="0.12"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <div className="container">
-            <blockquote data-reveal>
-              &ldquo;Elegance is the only beauty that never fades — and the
-              right boutique makes all the difference.&rdquo;
-            </blockquote>
-            <cite data-reveal style={{ "--d": ".15s" }}>
-              — Sage Thread Boutique, Bangalore
-            </cite>
-          </div>
-        </section>
+        <EditorialStack />
 
         <div className="marquee" aria-hidden="true" data-reveal="fade">
           <div className="marquee__track">

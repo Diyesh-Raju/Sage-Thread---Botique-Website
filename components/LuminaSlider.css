@@ -1,0 +1,256 @@
+/* Lumina slider — four photographs handing over through a bubble of glass.
+   The original runs edge to edge; this one is a box held inside the page's
+   own margins, so it reads as a plate set on the blush rather than a break
+   in it. */
+.lumina {
+  padding-block: clamp(3rem, 9vh, 7.5rem);
+  padding-inline: var(--pad);
+  background: var(--bg);
+}
+
+.lumina__stage {
+  position: relative;
+  /* narrower than the page's own measure, and never touching the edges */
+  width: min(1240px, 100%);
+  margin-inline: auto;
+  /* the box is wide and low, as in the reference — the photographs are
+     cover-fitted into it by the shader, so their own shape doesn't matter */
+  aspect-ratio: 2.1 / 1;
+  overflow: hidden;
+  border-radius: clamp(14px, 1.6vw, 26px);
+  /* seen only for the instant before the first photograph decodes */
+  background: var(--accent-2);
+  box-shadow: 0 40px 90px -42px rgba(29, 20, 25, .55);
+  /* keeps the box's own stacking to itself, so the fixed navbar and the
+     jewellery reel's black backdrop still sit above it */
+  isolation: isolate;
+}
+
+/* ---- the picture ------------------------------------------------------ */
+
+/* Stands in until the canvas is live, and stays the whole story for a browser
+   without WebGL, or for a crawler reading the page. It is not hidden once the
+   canvas arrives — the canvas is opaque and covers it. */
+.lumina__poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.lumina__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity .6s var(--ease);
+}
+.lumina.is-live .lumina__canvas { opacity: 1; }
+
+/* the photographs are lit however they were shot, and white type has to hold
+   over all four — this buys the contrast without dulling the picture */
+.lumina__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(0deg, rgba(12, 8, 10, .62), rgba(12, 8, 10, 0) 46%),
+    radial-gradient(58% 46% at 50% 44%, rgba(12, 8, 10, .34), rgba(12, 8, 10, 0) 76%);
+}
+
+/* The four photographs run from a near-black portrait to a rail of cream
+   knitwear, and the same white type sits on all of them. A soft shadow is the
+   half of the job a scrim does badly: over the pale frames it buys the letters
+   their edge back, and over the dark ones it is dark on dark, so it costs
+   nothing there. */
+.lumina__title,
+.lumina__desc { text-shadow: 0 1px 18px rgba(12, 8, 10, .5); }
+.lumina__label { text-shadow: 0 1px 10px rgba(12, 8, 10, .65); }
+
+/* ---- counter ---------------------------------------------------------- */
+.lumina__count {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(.8rem, 1.15vw, 1.05rem);
+  letter-spacing: .3em;
+  color: rgba(255, 255, 255, .85);
+}
+.lumina__count--now { left: clamp(1rem, 3.6%, 3.4rem); }
+.lumina__count--all { right: clamp(1rem, 3.6%, 3.4rem); color: rgba(255, 255, 255, .6); }
+
+/* ---- title + line ----------------------------------------------------- */
+.lumina__copy {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: min(84%, 52ch);
+  text-align: center;
+}
+
+.lumina__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 5.4vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -.005em;
+  color: #fff;
+}
+.lumina__title span {
+  display: inline-block;
+  animation-duration: .8s;
+  animation-fill-mode: both;
+  /* the letters arrive in sequence rather than as a block */
+  animation-delay: calc(var(--i) * 30ms);
+}
+
+.lumina__desc {
+  margin: clamp(.9rem, 1.9vw, 1.6rem) auto 0;
+  max-width: 46ch;
+  font-family: var(--font-body);
+  font-size: clamp(.86rem, .8rem + .3vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, .78);
+  animation: lumina-rise .8s var(--ease) .22s both;
+}
+
+/* Four slides, four entrances — the original cycles a different one per
+   index, and this keeps that. Which one runs is picked by data-anim. */
+.lumina__title[data-anim="0"] span {
+  animation-name: lumina-rise;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}
+.lumina__title[data-anim="1"] span {
+  animation-name: lumina-fall;
+  animation-timing-function: cubic-bezier(.34, 1.56, .64, 1);
+}
+.lumina__title[data-anim="2"] span {
+  animation-name: lumina-focus;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+}
+.lumina__title[data-anim="3"] span {
+  animation-name: lumina-bloom;
+  animation-duration: .65s;
+  animation-timing-function: cubic-bezier(.34, 1.56, .64, 1);
+}
+
+@keyframes lumina-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes lumina-fall {
+  from { opacity: 0; transform: translateY(-22px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes lumina-focus {
+  from { opacity: 0; filter: blur(10px); transform: scale(1.4); }
+  to   { opacity: 1; filter: blur(0); transform: none; }
+}
+@keyframes lumina-bloom {
+  from { opacity: 0; transform: scale(0); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ---- the four titles along the bottom --------------------------------- */
+.lumina__nav {
+  position: absolute;
+  left: clamp(1rem, 4.4%, 4rem);
+  right: clamp(1rem, 4.4%, 4rem);
+  bottom: clamp(1rem, 5%, 2.8rem);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(.5rem, 2.2vw, 2.4rem);
+}
+
+.lumina__item {
+  display: grid;
+  gap: .75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: rgba(255, 255, 255, .48);
+  transition: color .5s var(--ease);
+}
+.lumina__item[aria-current="true"] { color: #fff; }
+.lumina__item:hover { color: rgba(255, 255, 255, .82); }
+.lumina__item:focus-visible {
+  outline: 1px solid rgba(255, 255, 255, .7);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+.lumina__line {
+  position: relative;
+  height: 1px;
+  background: rgba(255, 255, 255, .24);
+  overflow: hidden;
+}
+/* the hold, drawn. scaleX rather than width so it rides the compositor —
+   it runs only under the slide currently on screen */
+.lumina__fill {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.lumina.is-holding .lumina__item[aria-current="true"] .lumina__fill {
+  animation: lumina-fill var(--hold, 5000ms) linear forwards;
+}
+@keyframes lumina-fill { to { transform: scaleX(1); } }
+
+.lumina__label {
+  font-family: var(--font-body);
+  font-size: clamp(.58rem, .5rem + .18vw, .72rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ---- phones ----------------------------------------------------------- */
+/* a 2.1:1 box off a phone's width is a letterbox barely taller than the type
+   inside it — go upright, and let the four titles run narrower */
+@media (max-width: 760px) {
+  .lumina__stage { aspect-ratio: 4 / 5; }
+  .lumina__copy { top: 42%; width: 88%; }
+  .lumina__nav { gap: .45rem; bottom: 1.2rem; }
+  .lumina__item { gap: .5rem; }
+  .lumina__label { letter-spacing: .12em; }
+  /* an upright box is narrow enough that the counter, held at the middle,
+     lands on the description — send it to the top corners instead */
+  .lumina__count {
+    top: 1.15rem;
+    transform: none;
+    font-size: .72rem;
+    letter-spacing: .22em;
+  }
+}
+
+/* ---- stillness -------------------------------------------------------- */
+/* the glass, the letter stagger and the self-advancing are all motion; what
+   is left is a photograph with its title on it, changed by tapping one of the
+   four. The component drops the timer and the tween to match. */
+@media (prefers-reduced-motion: reduce) {
+  .lumina__canvas { transition: none; }
+  .lumina__title span,
+  .lumina__desc {
+    animation: none;
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+  .lumina.is-holding .lumina__item[aria-current="true"] .lumina__fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

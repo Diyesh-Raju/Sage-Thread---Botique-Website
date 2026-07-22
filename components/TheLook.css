@@ -4,6 +4,12 @@
    product-card carousel of each piece on the right.
    ============================================================ */
 .the-look {
+  /* the two big boxes and the mini boxes. the photography is tinted to land
+     on these exactly, so a cut-out's own studio sweep leaves no seam where it
+     meets the box behind it. */
+  --look-box: #eeeae5;
+  --look-card: #f3f0eb;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100vw;
@@ -12,14 +18,14 @@
      instead of falling back to its (tall) intrinsic ratio */
   height: 100vh;
   height: 100svh;
-  background: var(--surface);
+  background: var(--look-box);
 }
 
 /* ---- left: the finished outfit ---------------------------------------- */
 .the-look__figure {
   position: relative;
   overflow: hidden;
-  background: #f7f7f7;   /* matches the model cutout's own backdrop */
+  background: var(--look-box);
 }
 .the-look__figure img {
   width: 100%;
@@ -37,7 +43,9 @@
   align-items: center;
   justify-content: flex-start;                 /* title sits high, clear of the fixed header */
   padding: clamp(5rem, 16vh, 9rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 5vw, 4.5rem);
-  background: var(--surface);
+  background: var(--look-box);
+  /* the off-stage pieces run past the panel's edges and are cut off there */
+  overflow: hidden;
 }
 /* centre the carousel + caption in the space beneath the raised title */
 .the-look__stage { margin-top: auto; }
@@ -80,7 +88,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
-  background: #f7f7f7;   /* matches the product cutouts' backdrop */
+  background: var(--look-card);
   border-radius: 3px;
   transform-origin: center;
   will-change: transform, opacity;
@@ -100,11 +108,31 @@
   display: block;
 }
 
-/* slots: active centred, neighbours peek + fade to either side */
+/* Slots: the piece on stage holds the centre alone, and its neighbours sit out
+   at the panel's edges with most of themselves cut off — only a sliver of each
+   stays in frame.
+   The offset is measured off the panel, not the card: the panel is half the
+   viewport, so 25vw is the distance from the card's centre to the panel's edge.
+   Adding a fraction of the card's own width from there fixes how much of it
+   stays visible — ~28% — and holds that fraction at every screen size, since
+   both terms scale with the layout. */
 .the-look__card.is-active { transform: translateX(0) scale(1); opacity: 1; z-index: 3; }
-.the-look__card.is-next  { transform: translateX(88%) scale(.82); opacity: .32; z-index: 1; }
-.the-look__card.is-prev  { transform: translateX(-88%) scale(.82); opacity: .32; z-index: 1; }
-.the-look__card.is-hidden { opacity: 0; z-index: 0; transform: scale(.7); }
+.the-look__card.is-next  { transform: translateX(calc(25vw + 19%)) scale(.86); opacity: 1; z-index: 1; }
+.the-look__card.is-prev  { transform: translateX(calc(-25vw - 19%)) scale(.86); opacity: 1; z-index: 1; }
+.the-look__card.is-hidden { transform: translateX(0) scale(.7); opacity: 0; z-index: 0; }
+
+/* the wrapping piece is placed rather than moved — see TheLook.js. the browser
+   starts a transition from the after-change style, so a card that cuts this
+   turn still animates normally on the next one. */
+.the-look__card.is-cut { transition: none; }
+
+/* the off-stage pieces sit flatter, so the lit one keeps the depth */
+.the-look__card.is-next,
+.the-look__card.is-prev {
+  box-shadow:
+    0 16px 36px -22px rgba(24, 12, 20, .34),
+    inset 0 0 0 1px rgba(24, 12, 20, .05);
+}
 
 /* ---- arrows ---------------------------------------------------------- */
 .the-look__arrow {
@@ -118,7 +146,7 @@
   height: 46px;
   border-radius: 50%;
   border: 1px solid var(--line);
-  background: var(--surface);
+  background: var(--look-card);
   color: var(--accent-2);
   cursor: pointer;
   box-shadow: 0 8px 20px -12px rgba(24, 12, 20, .4);
@@ -161,6 +189,9 @@
   .the-look__track { --card-w: clamp(200px, 52vw, 280px); }
   .the-look__arrow--prev { left: clamp(.25rem, 2vw, 1rem); }
   .the-look__arrow--next { right: clamp(.25rem, 2vw, 1rem); }
+  /* stacked, the panel is the full width — so half of it is 50vw, not 25 */
+  .the-look__card.is-next { transform: translateX(calc(50vw + 19%)) scale(.86); }
+  .the-look__card.is-prev { transform: translateX(calc(-50vw - 19%)) scale(.86); }
 }
 
 @media (prefers-reduced-motion: reduce) {

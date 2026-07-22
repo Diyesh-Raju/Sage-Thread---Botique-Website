@@ -1,0 +1,57 @@
+/* Scroll-drawn stroke — the frame pins while the line draws itself behind the
+   statement and the artwork pans up past it. */
+.sstroke {
+  position: relative;
+  /* the pin lasts for the surplus over one screen: this is the length of the
+     passage the line is drawn across */
+  height: 210svh;
+  background: var(--bg);
+}
+
+.sstroke__pin {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 100svh;
+  overflow: hidden;   /* the artwork is taller than the frame and pans through it */
+}
+
+.sstroke__art {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  /* the drawing stands about twice the frame — the pan stops in ScrollStroke.js
+     are set against this, so the two move together */
+  height: var(--art-h, 190svh);
+  width: auto;
+  translate: -50% 0;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.sstroke__line {
+  position: relative;
+  z-index: 1;
+  max-width: 14ch;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.1rem, 5.4vw, 4.6rem);
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  color: var(--accent-2);
+}
+
+@media (max-width: 760px) {
+  .sstroke { height: 200svh; }
+  .sstroke__line { max-width: 12ch; }
+}
+
+/* nothing to follow when the page doesn't move — show the finished line */
+@media (prefers-reduced-motion: reduce) {
+  .sstroke { height: auto; }
+  .sstroke__pin { position: relative; }
+  .sstroke__art { --art-h: 130svh; }
+}
