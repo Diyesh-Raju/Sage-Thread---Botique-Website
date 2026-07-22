@@ -69,7 +69,7 @@ const small = (src) => src.replace(/\.jpg$/, "-sm.jpg");
 /* how long the glass takes to cross the box, and how long a slide is held
    once it has arrived. the pair is the full cycle — the progress line under
    each title runs for the hold only, as in the original. */
-const CROSS_MS = 2500;
+const CROSS_MS = 1500;
 const HOLD_MS = 5000;
 
 /* The glass, at the original's "Default" preset. These are constants rather

@@ -4,7 +4,7 @@
   position: relative;
   /* the pin lasts for the surplus over one screen: this is the length of the
      passage the line is drawn across */
-  height: 210svh;
+  height: 340svh;
   background: var(--bg);
 }
 
@@ -45,7 +45,7 @@
 }
 
 @media (max-width: 760px) {
-  .sstroke { height: 200svh; }
+  .sstroke { height: 320svh; }
   .sstroke__line { max-width: 12ch; }
 }
 
