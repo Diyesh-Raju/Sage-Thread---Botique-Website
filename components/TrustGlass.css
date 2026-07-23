@@ -1,0 +1,235 @@
+/* ── Trust glass ─────────────────────────────────────────────────
+   Two stacked sections that sit above the FAQ:
+   1. .assure   — a row of three frosted "liquid glass" promise cards.
+   2. .rubyquote — a full-bleed portrait with a single glass testimonial
+                   floated over its dark side.
+   Both share the .glass surface below. */
+
+/* ---- the glass surface (Apple "liquid glass" button) ----------------- */
+.glass {
+  position: relative;
+  border-radius: clamp(22px, 2.6vw, 34px);
+  border: 1px solid rgba(255, 255, 255, .45);
+  -webkit-backdrop-filter: blur(16px) saturate(185%);
+  backdrop-filter: blur(16px) saturate(185%);
+  /* depth: a soft cast shadow, a bright top lip, and a faint inner floor */
+  box-shadow:
+    0 24px 50px -22px rgba(29, 20, 25, .38),
+    inset 0 1px 0 rgba(255, 255, 255, .7),
+    inset 0 -14px 28px rgba(255, 255, 255, .06);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .55s var(--ease), box-shadow .55s var(--ease),
+              border-color .55s var(--ease);
+}
+/* the glossy sheen skimming the top third — this is what sells "glass" */
+.glass::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 58%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .34), rgba(255, 255, 255, 0));
+  pointer-events: none;
+}
+/* a specular bloom in the top-left corner, like light catching a curved edge */
+.glass::after {
+  content: "";
+  position: absolute;
+  top: -30%; left: -12%;
+  width: 55%; aspect-ratio: 1;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, .5), rgba(255, 255, 255, 0));
+  filter: blur(6px);
+  opacity: .8;
+  pointer-events: none;
+}
+.glass:hover {
+  transform: translateY(-6px);
+  border-color: rgba(255, 255, 255, .75);
+  box-shadow:
+    0 34px 64px -24px rgba(29, 20, 25, .46),
+    inset 0 1px 0 rgba(255, 255, 255, .85),
+    inset 0 -14px 28px rgba(255, 255, 255, .1);
+}
+
+.glass--light { background: rgba(255, 255, 255, .46); }
+.glass--dark {
+  /* a warm smoky tint rather than a bright frost, so the white text stays
+     legible even where the big card crosses the lit side of the portrait */
+  background: rgba(26, 10, 14, .3);
+  border-color: rgba(255, 255, 255, .3);
+}
+
+/* ---- section 1: the three promise cards ------------------------------ */
+.assure {
+  position: relative;
+  padding: clamp(3.5rem, 9vh, 6.5rem) var(--pad);
+  background: var(--bg);
+  overflow: hidden;
+}
+/* soft rose wash behind the cards so the frost has colour to refract */
+.assure::before {
+  content: "";
+  position: absolute;
+  inset: -12% -6%;
+  background:
+    radial-gradient(38% 46% at 16% 28%, rgba(201, 150, 130, .28), transparent 70%),
+    radial-gradient(34% 42% at 84% 22%, rgba(183, 110, 121, .24), transparent 70%),
+    radial-gradient(48% 52% at 60% 100%, rgba(214, 176, 150, .24), transparent 72%);
+  filter: blur(8px);
+  pointer-events: none;
+}
+.assure__inner {
+  position: relative;
+  width: min(1180px, 100%);
+  margin-inline: auto;
+}
+.assure__head {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 3.4rem);
+}
+.assure__eyebrow {
+  font-family: var(--font-body);
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.assure__title {
+  margin-top: .7rem;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  letter-spacing: -.01em;
+  color: var(--accent-2);
+}
+.assure__title em {
+  font-family: var(--font-accent);
+  font-style: normal;
+  color: var(--accent);
+}
+
+.assure__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 2.4vw, 1.9rem);
+}
+.assure__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(1.9rem, 3.2vw, 2.9rem) clamp(1.4rem, 2.6vw, 2.2rem);
+}
+.assure__icon {
+  width: clamp(48px, 5vw, 62px);
+  height: auto;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  color: var(--accent);
+}
+.assure__cardTitle {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  color: var(--accent-2);
+}
+.assure__text {
+  margin-top: .75rem;
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(.86rem, 1vw, .95rem);
+  line-height: 1.65;
+  color: var(--accent-2);
+  opacity: .78;
+}
+
+/* ---- section 2: testimonial over the ruby portrait ------------------- */
+.rubyquote {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* the big card sits centred, as in the reference */
+  min-height: min(100vh, 820px);
+  min-height: min(100svh, 820px);
+  padding: clamp(3rem, 9vh, 6rem) var(--pad);
+  overflow: hidden;
+  background: #26090d; /* under the photo while it loads */
+}
+.rubyquote__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 72% center; /* keep the model to the right */
+}
+/* darken the left, where the card sits, and fade off before the model */
+.rubyquote__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(18, 3, 6, .62) 0%, rgba(18, 3, 6, .25) 42%, rgba(18, 3, 6, 0) 66%);
+  pointer-events: none;
+}
+
+.rubyquote__card {
+  position: relative;
+  width: min(1000px, 92%); /* big, ~reference scale — overlaps the model on purpose */
+  padding: clamp(2.75rem, 6vw, 4.75rem) clamp(2.25rem, 6vw, 5rem);
+  text-align: center;
+  color: #fff;
+}
+.rubyquote__card * { text-shadow: 0 1px 14px rgba(0, 0, 0, .28); }
+.rubyquote__eyebrow {
+  font-family: var(--font-body);
+  font-size: .64rem;
+  font-weight: 500;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .82);
+}
+.rubyquote__stars {
+  display: flex;
+  justify-content: center;
+  gap: .3rem;
+  margin: 1.1rem 0 1.4rem;
+  color: #e7bd6b; /* warm gold */
+}
+.rubyquote__stars svg { width: clamp(20px, 2.3vw, 26px); height: auto; filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .35)); }
+.rubyquote__quote {
+  margin: 0;
+  font-family: "Cormorant Garamond", var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.5;
+  color: #fff;
+}
+.rubyquote__by {
+  margin-top: 1.5rem;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: .8rem;
+  letter-spacing: .06em;
+  color: rgba(255, 255, 255, .82);
+}
+
+/* ---- narrower --------------------------------------------------------- */
+@media (max-width: 860px) {
+  .assure__grid { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }
+  .rubyquote { justify-content: center; }
+  .rubyquote__card { margin-left: 0; }
+  .rubyquote__scrim {
+    background: linear-gradient(180deg, rgba(18, 3, 6, .35), rgba(18, 3, 6, .55));
+  }
+  .rubyquote__bg { object-position: 64% center; }
+}
+
+/* ---- glass fallback where backdrop-filter is unsupported -------------- */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass--light { background: rgba(255, 255, 255, .88); }
+  .glass--dark { background: rgba(26, 10, 14, .62); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass { transition: none; }
+  .glass:hover { transform: none; }
+}

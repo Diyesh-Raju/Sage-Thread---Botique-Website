@@ -167,7 +167,7 @@
 }
 
 /* ── Shop by gender ─────────────────────────────────────────────
-   Two portraits held in tall ovals, each with a script label under
+   Two portraits held in circles, each with a script label under
    it — the same Pinyon Script as the hero's "Fashion,". */
 .genders { padding: clamp(4rem, 9vw, 7.5rem) 0; }
 .genders__grid {
@@ -177,8 +177,8 @@
 }
 .gender { display: block; text-decoration: none; text-align: center; }
 .gender__frame {
-  width: clamp(200px, 30vw, 380px);
-  aspect-ratio: 3 / 4;
+  width: clamp(170px, 22vw, 290px);
+  aspect-ratio: 1;
   border-radius: 50%;
   overflow: hidden;
   background: rgba(29,20,25,.06);
@@ -204,5 +204,5 @@
 
 @media (max-width: 720px) {
   .genders__grid { grid-template-columns: 1fr; gap: 3rem; }
-  .gender__frame { width: min(70vw, 300px); }
+  .gender__frame { width: min(58vw, 240px); }
 }

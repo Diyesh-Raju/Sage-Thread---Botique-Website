@@ -1,0 +1,83 @@
+/* ── Emerald Reverie feature ─────────────────────────────────────
+   Film left, announcement right, as in the reference. The film runs to the
+   viewport's left edge — only the copy side carries page padding. */
+
+.emfeat {
+  display: grid;
+  /* the film takes the greater share, closer to the reference's proportions;
+     the copy is capped below its column's width anyway, so giving the film
+     the room costs the text nothing */
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  padding-block: clamp(3rem, 8vh, 6.5rem);
+  padding-right: var(--pad);
+  background: var(--bg);
+}
+
+.emfeat__media {
+  /* the film's own shape, so nothing of it is cropped away */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  /* the film is cut on black; matching it means no seam while it loads */
+  background: #000;
+}
+.emfeat__video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.emfeat__copy {
+  max-width: 30rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.emfeat__title {
+  /* Cormorant Garamond rather than the page's Bodoni: the reference sets its
+     announcements in a bracketed old-style serif, not a Didone */
+  font-family: "Cormorant Garamond", var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 3vw, 2.9rem);
+  line-height: 1.14;
+  letter-spacing: 0;
+  color: var(--accent-2);
+}
+
+.emfeat__desc {
+  margin-top: clamp(1rem, 2vw, 1.5rem);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(.92rem, 1.05vw, 1.02rem);
+  line-height: 1.75;
+  color: var(--accent-2);
+  opacity: .88;
+}
+
+.emfeat__cta {
+  display: inline-block;
+  margin-top: clamp(1.6rem, 3vw, 2.5rem);
+  padding-bottom: .45rem;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent-2);
+  transition: color .3s var(--ease), border-color .3s var(--ease);
+}
+.emfeat__cta:hover { color: var(--accent); border-color: var(--accent); }
+
+@media (max-width: 860px) {
+  /* stacked: film first, still full-bleed, with the copy under it */
+  .emfeat {
+    grid-template-columns: 1fr;
+    gap: clamp(1.75rem, 6vw, 2.75rem);
+    padding-inline: 0;
+  }
+  .emfeat__copy { padding-inline: var(--pad); }
+}

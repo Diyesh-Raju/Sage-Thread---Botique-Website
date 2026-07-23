@@ -24,47 +24,56 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./LuminaSlider.css";
 
-/* The four photographs are shipped square. The box is a wide letterbox on a
-   desktop and upright on a phone, and a square is the one shape that composes
-   into both: the desktop shows the middle ~48% of its height, the phone the
-   middle 80% of its width. Each was cropped so its subject sits in that
-   overlap. 4K masters are kept out of the repo in media-source/lumina/.
+/* The four photographs are shipped 16:9, at the largest crop of each frame that
+   still centres its subject. The box is a wide letterbox on a desktop and
+   upright on a phone, so one file has to compose into both: 16:9 loses only the
+   top and bottom to the desktop crop, while the phone's upright crop keeps the
+   middle ~45% of the width — which is why the subject has to be centred rather
+   than the frame. Untouched masters are kept out of the repo in
+   media-source/lumina/.
 
-   Swapping in a different shoot: keep the square, and keep the subject in the
-   vertical middle half or the desktop crop will behead it. */
+   These frames are ~1280px to begin with, so they are shipped at their own size
+   rather than padded out to a fixed one; `w` is each file's real width, because
+   the srcset below has to describe them honestly for the browser to choose
+   between them. Swapping in a different shoot: centre the subject, and keep it
+   out of the top and bottom sixth or the desktop crop will clip it. */
 const SLIDES = [
   {
     img: "/assets/img/lumina-1.jpg",
-    title: "The Drape",
-    desc: "Silk cut on the bias, so it follows the body instead of holding a shape of its own.",
-    alt: "Model in an emerald silk slip dress with a fine gold pendant — evening wear at Sage Thread Boutique Bangalore",
+    w: 1152,
+    title: "Brilliant Cut",
+    desc: "Fifty-eight facets, set high off the finger so the stone always has light to work with.",
+    alt: "Model wearing a diamond necklace, bracelet and rings by the sea — high jewellery at Sage Thread Boutique Bangalore",
   },
   {
     img: "/assets/img/lumina-2.jpg",
-    title: "Quiet Colour",
-    desc: "A rail kept to naturals — cream, camel, undyed wool — so everything on it agrees.",
-    alt: "A rail of cream and camel knitwear beside dried pampas grass — the naturals rail at Sage Thread Boutique Bangalore",
+    w: 1060,
+    title: "Temple Gold",
+    desc: "Twenty-two carat, struck rather than cast — you feel the weight of it before you read the work.",
+    alt: "Model in a gold tissue saree with a temple gold necklace and waist belt beside a lotus pond — bridal gold at Sage Thread Boutique Bangalore",
   },
   {
     img: "/assets/img/lumina-3.jpg",
-    title: "Second Skin",
-    desc: "A blouse you have stopped noticing by mid-morning. That is the whole brief.",
-    alt: "Model turned away in a cream ruffled-collar blouse — everyday womenswear at Sage Thread Boutique Bangalore",
+    w: 1228,
+    title: "Uncut Polki",
+    desc: "Flat uncut diamond bedded on gold foil, so the shine comes up lamplit instead of sharp and white.",
+    alt: "Model holding a lotus, wearing an uncut polki necklace and earrings — polki jewellery at Sage Thread Boutique Bangalore",
   },
   {
     img: "/assets/img/lumina-4.jpg",
-    title: "Made to Keep",
-    desc: "Checked wool and a hand-set waistband: the season it arrives in is not the one it retires in.",
-    alt: "Hand resting in the pocket of a checked wool skirt worn with a rust knit — tailoring at Sage Thread Boutique Bangalore",
+    w: 1280,
+    title: "The Bridal Set",
+    desc: "Seven rows sitting high on the throat. Everything else worn that day is chosen around it.",
+    alt: "Model in a diamond and sapphire bridal choker with layered chains — bridal jewellery at Sage Thread Boutique Bangalore",
   },
 ];
 
-/* Four 2560² textures is ~105MB of GPU memory. That is nothing to a desktop
-   and a great deal to a mid-range phone, which is showing the picture in a
-   350px box regardless — so a small layout loads the 1080² set instead, at
-   ~19MB. The poster below carries the matching srcset, so whichever file the
-   texture asks for is the one already in the cache. */
+/* A phone is showing the picture in a ~350px box, so it loads a set cut to 62%
+   instead — a quarter of the texture memory for a box that cannot resolve the
+   difference. The poster below carries the matching srcset, so whichever file
+   the texture asks for is the one already in the cache. */
 const small = (src) => src.replace(/\.jpg$/, "-sm.jpg");
+const SMALL_SCALE = 0.62;
 
 /* how long the glass takes to cross the box, and how long a slide is held
    once it has arrived. the pair is the full cycle — the progress line under
@@ -448,7 +457,7 @@ export default function LuminaSlider() {
       ref={section}
       style={{ "--hold": `${HOLD_MS}ms` }}
       aria-roledescription="carousel"
-      aria-label="Sage Thread — the season in four frames"
+      aria-label="Sage Thread — jewellery in four frames"
     >
       <div className="lumina__stage">
         {/* stands in until the canvas is live, and stays the whole story for
@@ -456,7 +465,7 @@ export default function LuminaSlider() {
         <img
           className="lumina__poster"
           src={slide.img}
-          srcSet={`${small(slide.img)} 1080w, ${slide.img} 2560w`}
+          srcSet={`${small(slide.img)} ${Math.round(slide.w * SMALL_SCALE)}w, ${slide.img} ${slide.w}w`}
           sizes="(max-width: 760px) 92vw, min(1240px, 100vw)"
           alt={slide.alt}
           loading="lazy"

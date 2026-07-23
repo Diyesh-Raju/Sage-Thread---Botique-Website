@@ -1,41 +1,47 @@
-/* Scroll-drawn stroke — the frame pins while the line draws itself behind the
-   statement and the artwork pans up past it. */
+/* ── Scroll-drawn stroke ─────────────────────────────────────────
+   Nothing is pinned: the statement and the artwork travel with the page while
+   the line draws itself against the section's scroll. The words leave at the
+   top and the reader carries on down the ink. */
+
 .sstroke {
-  position: relative;
-  /* the pin lasts for the surplus over one screen: this is the length of the
-     passage the line is drawn across */
-  height: 340svh;
+  /* The drawing is 2669px tall where it is drawn 1:1, and the passage has to
+     be exactly as long as the drawing is — scroll length and ink length are
+     the same thing here. Both the artwork's scale and the section's height
+     read from these, so shrinking the art for a narrow screen shortens the
+     passage with it instead of leaving dead scroll after the line runs out. */
+  --art-scale: 1;
+  --art-top: clamp(5rem, 10.5svh, 10.5rem);
+
+  width: 100%;
+  height: calc(var(--art-top) + 2669px * var(--art-scale) + 30svh);
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  padding-inline: 1rem;
   background: var(--bg);
 }
 
-.sstroke__pin {
-  position: sticky;
-  top: 0;
-  display: grid;
-  place-items: center;
-  height: 100svh;
-  overflow: hidden;   /* the artwork is taller than the frame and pans through it */
-}
-
-.sstroke__art {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  /* the drawing stands about twice the frame — the pan stops in ScrollStroke.js
-     are set against this, so the two move together */
-  height: var(--art-h, 190svh);
-  width: auto;
-  translate: -50% 0;
-  will-change: transform;
-  pointer-events: none;
+/* Anchor for the artwork. Width is fit-content on purpose — the drawing hangs
+   off this box's own edges, so the block has to measure the words, not the
+   page, or the ink drifts away from them. */
+.sstroke__block {
+  position: relative;
+  width: fit-content;
+  margin-top: var(--art-top);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
 }
 
 .sstroke__line {
   position: relative;
-  z-index: 1;
-  max-width: 14ch;
+  z-index: 10;   /* the ink runs behind the words, so they stay legible */
   margin: 0;
-  text-align: center;
   font-family: var(--font-display);
   font-weight: 400;
   font-size: clamp(2.1rem, 5.4vw, 4.6rem);
@@ -44,14 +50,32 @@
   color: var(--accent-2);
 }
 
-@media (max-width: 760px) {
-  .sstroke { height: 320svh; }
-  .sstroke__line { max-width: 12ch; }
+/* top: 0 is what starts the ink level with the top of the statement.
+   The original hangs the drawing off the block's right edge (-40%), which
+   assumes its own very wide headline; ours is narrower, so the same percentage
+   drags the knot across the words. Anchoring instead to the knot's own
+   coordinate — it begins at x=495 in the artwork — puts its first loop on the
+   centre of the statement at any text width, which is the relationship the
+   original actually shows. */
+.sstroke__art {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -495px;
+  z-index: 0;
+  pointer-events: none;
+  /* scaled about the knot's own start, so it keeps sitting on the centre of
+     the statement at every size */
+  scale: var(--art-scale);
+  transform-origin: 495px 0;
 }
 
-/* nothing to follow when the page doesn't move — show the finished line */
-@media (prefers-reduced-motion: reduce) {
-  .sstroke { height: auto; }
-  .sstroke__pin { position: relative; }
-  .sstroke__art { --art-h: 130svh; }
-}
+/* The drawing is a fixed 1278px wide — wider than a small screen — so it
+   shrinks below the wide breakpoints. The section height follows the same
+   variable, so the passage shortens with it. */
+@media (max-width: 1100px) { .sstroke { --art-scale: .62; } }
+@media (max-width: 760px)  { .sstroke { --art-scale: .4; } }
+
+/* Nothing to follow when the page doesn't move: the line is handed over
+   already complete (see the component), and the section keeps its computed
+   height so the whole drawing still has room to be scrolled past. */

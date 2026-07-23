@@ -1,0 +1,197 @@
+/* ── Jewellery directory ─────────────────────────────────────────
+   Category rail, a filtered row of pieces, then the cuts. */
+
+.jdir {
+  padding-block: clamp(3rem, 8vh, 6rem);
+  padding-inline: var(--pad);
+  background: var(--bg);
+}
+
+/* ---- category rail --------------------------------------------------- */
+.jdir__rail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(1rem, 4vw, 2.5rem);
+  width: min(880px, 100%);
+  margin-inline: auto;
+}
+.jdir__railLink {
+  display: grid;
+  place-items: center;
+  color: var(--accent-2);
+  opacity: .78;
+  transition: color .35s var(--ease), opacity .35s var(--ease), transform .35s var(--ease);
+}
+.jdir__railLink svg { width: clamp(28px, 3.4vw, 36px); height: auto; }
+.jdir__railLink:hover { color: var(--accent); opacity: 1; transform: translateY(-3px); }
+
+/* ---- tabs ------------------------------------------------------------ */
+.jdir__tabs {
+  display: flex;
+  justify-content: center;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  margin-top: clamp(2.25rem, 5vw, 3.5rem);
+}
+.jdir__tab {
+  padding: 0 .25rem .55rem;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: .82rem;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: var(--accent-2);
+  opacity: .5;
+  transition: opacity .3s var(--ease), border-color .3s var(--ease);
+}
+.jdir__tab:hover { opacity: .8; }
+.jdir__tab.is-on { opacity: 1; border-bottom-color: currentColor; }
+
+/* ---- the pieces ------------------------------------------------------ */
+.jdir__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.75rem);
+  width: min(1240px, 100%);
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+  list-style: none;
+  padding: 0;
+}
+/* Own entrance, staggered — see the note in the component about why these
+   can't ride on the page's reveal observer. */
+.jdir__card { animation: jdir-in .55s var(--ease) both; animation-delay: var(--d, 0s); }
+@keyframes jdir-in {
+  from { opacity: 0; transform: translate3d(0, 18px, 0); }
+  to   { opacity: 1; transform: none; }
+}
+
+.jdir__shot {
+  display: block;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--surface);
+}
+.jdir__shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform .8s cubic-bezier(.2,.7,.3,1);
+}
+.jdir__shot:hover img { transform: scale(1.045); }
+
+.jdir__name {
+  margin-top: .85rem;
+  font-family: var(--font-body);
+  font-size: .84rem;
+  font-weight: 400;
+  color: var(--accent-2);
+}
+.jdir__meta {
+  margin-top: .2rem;
+  font-family: var(--font-body);
+  font-size: .74rem;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* ---- shop by category ------------------------------------------------ */
+.jdir__heading {
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 2.8vw, 2.4rem);
+  letter-spacing: -.01em;
+  color: var(--accent-2);
+}
+.jdir__heading em {
+  font-family: var(--font-accent);
+  font-style: normal;
+  color: var(--accent);
+}
+
+.jdir__cuts {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(.65rem, 1.4vw, 1.1rem);
+  width: min(1240px, 100%);
+  margin: clamp(1.75rem, 4vw, 2.75rem) auto 0;
+  list-style: none;
+  padding: 0;
+}
+.jdir__cut {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding: clamp(1.1rem, 2.2vw, 1.9rem) .75rem clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  text-decoration: none;
+  transition: transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
+}
+.jdir__cut:hover {
+  transform: translateY(-4px);
+  border-color: transparent;
+  box-shadow: 0 22px 42px -26px rgba(29,20,25,.4);
+}
+/* the line art carries the rose gold; the words stay in ink */
+.jdir__cut svg {
+  width: clamp(40px, 4.4vw, 54px);
+  height: auto;
+  margin-bottom: clamp(.7rem, 1.6vw, 1.15rem);
+  color: var(--accent);
+}
+.jdir__cutNote {
+  font-family: var(--font-body);
+  font-size: .6rem;
+  font-weight: 300;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+/* pinned to the foot of the card, so a note that wraps on a narrow screen
+   can't shunt one name out of line with the rest of the row */
+.jdir__cutName {
+  margin-top: auto;
+  padding-top: .18rem;
+  font-family: var(--font-body);
+  font-size: .8rem;
+  font-weight: 400;
+  color: var(--accent-2);
+  text-align: center;
+}
+
+/* ---- narrower ---------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .jdir__cuts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .jdir__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* the rail would squash past six abreast, so it scrolls instead */
+  .jdir__rail {
+    justify-content: flex-start;
+    gap: 1.75rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-bottom: .25rem;
+  }
+  .jdir__rail::-webkit-scrollbar { display: none; }
+  .jdir__railLink { flex: 0 0 auto; }
+}
+@media (max-width: 520px) {
+  .jdir__cuts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jdir__card { animation: none; }
+  .jdir__shot img,
+  .jdir__cut,
+  .jdir__railLink { transition: none; }
+}
