@@ -2,14 +2,12 @@ import "../fashion.css";
 import Header from "@/components/Header";
 import CollectionsCarousel from "@/components/CollectionsCarousel";
 import TheLook from "@/components/TheLook";
-import FashionParallax from "@/components/FashionParallax";
 import StyleCarousel from "@/components/StyleCarousel";
 import ScrollStroke from "@/components/ScrollStroke";
 import LuminaSlider from "@/components/LuminaSlider";
 import EmeraldFeature from "@/components/EmeraldFeature";
 import JewelDirectory from "@/components/JewelDirectory";
 import SignatureCarousel from "@/components/SignatureCarousel";
-import EditorialStack from "@/components/EditorialStack";
 import TrustGlass from "@/components/TrustGlass";
 import Faq from "@/components/Faq";
 import { faqItems } from "@/components/faqData";
@@ -149,8 +147,6 @@ export default function FashionPage() {
           </div>
         </section>
 
-        <FashionParallax />
-
         <StyleCarousel />
 
         <ScrollStroke />
@@ -162,8 +158,6 @@ export default function FashionPage() {
         <JewelDirectory />
 
         <SignatureCarousel />
-
-        <EditorialStack />
 
         <TrustGlass />
 

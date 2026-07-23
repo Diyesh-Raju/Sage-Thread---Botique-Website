@@ -174,7 +174,8 @@
 .rubyquote__card {
   position: relative;
   width: min(1000px, 92%); /* big, ~reference scale — overlaps the model on purpose */
-  padding: clamp(2.75rem, 6vw, 4.75rem) clamp(2.25rem, 6vw, 5rem);
+  /* bottom trimmed vs top to make room for the dots without growing the box */
+  padding: clamp(2.5rem, 5.5vw, 4.2rem) clamp(2.25rem, 6vw, 5rem) clamp(1.9rem, 4vw, 3rem);
   text-align: center;
   color: #fff;
 }
@@ -212,6 +213,76 @@
   color: rgba(255, 255, 255, .82);
 }
 
+/* ---- review carousel: stacked slides, sweep line, dots ---------------- */
+.rubyquote__stage {
+  position: relative;
+  display: grid; /* all slides share one cell, so it's as tall as the tallest */
+  width: 100%;
+  margin-top: .35rem;
+  overflow: hidden;
+}
+.rubyquote__slide {
+  grid-area: 1 / 1;
+  align-self: center;
+  opacity: 0;
+  visibility: hidden; /* still laid out, so it counts toward the stage height */
+}
+.rubyquote__slide.is-on {
+  opacity: 1;
+  visibility: visible;
+  animation: rq-reveal .8s var(--ease) both;
+}
+/* the active review is wiped in from the right, tracking the gold line */
+@keyframes rq-reveal {
+  from { opacity: 0; clip-path: inset(0 0 0 100%); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+/* full-width overlay carrying the line at its right edge; sliding it fully
+   left walks the line from the right edge across to the left */
+.rubyquote__sweep {
+  grid-area: 1 / 1;
+  align-self: stretch;
+  justify-self: stretch;
+  position: relative;
+  pointer-events: none;
+  animation: rq-sweep .8s var(--ease) both;
+}
+.rubyquote__sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 0 auto;
+  right: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, transparent, rgba(231, 189, 107, .95), transparent);
+  box-shadow: 0 0 16px 3px rgba(231, 189, 107, .5);
+}
+@keyframes rq-sweep {
+  0%   { transform: translateX(0); opacity: 0; }
+  12%  { opacity: 1; }
+  86%  { opacity: 1; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+
+.rubyquote__dots {
+  display: flex;
+  justify-content: center;
+  gap: .55rem;
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+.rubyquote__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(255, 255, 255, .3);
+  transition: background .3s var(--ease), transform .3s var(--ease);
+}
+.rubyquote__dot:hover { background: rgba(255, 255, 255, .55); }
+.rubyquote__dot.is-on { background: #e7bd6b; transform: scale(1.25); }
+
 /* ---- narrower --------------------------------------------------------- */
 @media (max-width: 860px) {
   .assure__grid { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }
@@ -232,4 +303,6 @@
 @media (prefers-reduced-motion: reduce) {
   .glass { transition: none; }
   .glass:hover { transform: none; }
+  .rubyquote__slide.is-on { animation: none; }
+  .rubyquote__sweep { display: none; }
 }

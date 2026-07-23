@@ -59,7 +59,10 @@
    original actually shows. */
 .sstroke__art {
   position: absolute;
-  top: 0;
+  /* dropped below the statement so the (now heavier) line clears the words
+     instead of crossing them; scaled with the art so the gap holds at every
+     breakpoint */
+  top: calc(190px * var(--art-scale));
   left: 50%;
   margin-left: -495px;
   z-index: 0;

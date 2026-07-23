@@ -231,21 +231,6 @@ export default function FurniturePage() {
         {/* 2nd fixed image — 3D-hover social icons */}
         <FurnitureSocial />
 
-        <div className="marquee" aria-hidden="true" data-reveal="fade">
-          <div className="marquee__track">
-            <span>Silk</span>
-            <span>Designer Dresses</span>
-            <span>Tailor-Made</span>
-            <span>Bangalore</span>
-            <span>Occasion Wear</span>
-            <span>Silk</span>
-            <span>Designer Dresses</span>
-            <span>Tailor-Made</span>
-            <span>Bangalore</span>
-            <span>Occasion Wear</span>
-          </div>
-        </div>
-
         {/* ===== FAQ ===== */}
         <section className="section faq-section">
           <div className="container">

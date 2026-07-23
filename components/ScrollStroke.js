@@ -56,9 +56,10 @@ export default function ScrollStroke() {
           <motion.path
             d={D}
             stroke="var(--accent)"
-            /* the original's 20 is set against a heavy grotesk; against this
-               display serif it reads as a rope, so the line is drawn finer */
-            strokeWidth="14"
+            /* a chunkier "rope" weight — the artwork is dropped below the words
+               (see .sstroke__art top in the CSS) so the heavier line no longer
+               crosses the statement */
+            strokeWidth="24"
             strokeLinecap="round"
             style={still ? { pathLength: 1 } : { pathLength }}
           />

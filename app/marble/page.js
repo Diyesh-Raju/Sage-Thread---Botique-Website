@@ -221,21 +221,6 @@ export default function MarblePage() {
           </div>
         </section>
 
-        <div className="marquee" aria-hidden="true" data-reveal="fade">
-          <div className="marquee__track">
-            <span>Sarees</span>
-            <span>Lehengas</span>
-            <span>Ethnic Wear</span>
-            <span>Bangalore</span>
-            <span>Handwoven</span>
-            <span>Sarees</span>
-            <span>Lehengas</span>
-            <span>Ethnic Wear</span>
-            <span>Bangalore</span>
-            <span>Handwoven</span>
-          </div>
-        </div>
-
         <section className="section faq-section">
           <div className="container">
             <p className="eyebrow faq-eyebrow" data-reveal>
