@@ -2,6 +2,7 @@ import "../../../marble.css";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
+import BackButton from "@/components/BackButton";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/business";
@@ -61,13 +62,7 @@ export default async function CollectionDetailPage({ params }) {
 
       <main className="cdetail">
         <div className="container">
-          <nav className="collection__crumbs" aria-label="Breadcrumb">
-            <Link href="/marble">Marble</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/marble#curated">Curated Collections</Link>
-            <span aria-hidden="true">/</span>
-            <span>{c.name}</span>
-          </nav>
+          <BackButton fallback="/marble#curated" />
 
           <div className="cdetail__grid">
             <div className="cdetail__media" data-reveal="left">

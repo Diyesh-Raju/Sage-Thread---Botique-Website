@@ -135,70 +135,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ===== GEO answer block ===== */}
-        <section className="section section--tight" id="about" aria-label="About Sage Thread Boutique">
-          <div className="container">
-            <div className="sec-head" data-reveal>
-              <p className="eyebrow">Know us</p>
-              <h2>Your boutique for women&apos;s fashion in Bangalore</h2>
-            </div>
-            <div className="split" style={{ gap: "2.5rem", marginTop: "2rem" }}>
-              <div data-reveal>
-                <h3 style={{ fontSize: "clamp(1.3rem,2vw,1.6rem)", marginBottom: ".75rem" }}>
-                  What is Sage Thread Boutique?
-                </h3>
-                <p className="measure" style={{ color: "var(--muted)" }}>
-                  Sage Thread Boutique is a women&apos;s fashion boutique in
-                  Bangalore specializing in designer wear, custom styling, and
-                  premium clothing. We are a destination for women who want
-                  boutique fashion — curated edits, expert fittings, and
-                  tailor-made dresses crafted in our Indiranagar atelier.
-                </p>
-              </div>
-              <div data-reveal style={{ "--d": ".1s" }}>
-                <h3 style={{ fontSize: "clamp(1.3rem,2vw,1.6rem)", marginBottom: ".75rem" }}>
-                  Where is Sage Thread Boutique located?
-                </h3>
-                <p className="measure" style={{ color: "var(--muted)" }}>
-                  We are at {BUSINESS.address.street}, {BUSINESS.address.cityAlt},{" "}
-                  {BUSINESS.address.region} {BUSINESS.address.postalCode} — in the
-                  heart of Indiranagar, one of Bangalore&apos;s finest shopping
-                  neighbourhoods.{" "}
-                  <a href="/contact" style={{ textDecoration: "underline" }}>
-                    Schedule a boutique visit
-                  </a>
-                  .
-                </p>
-              </div>
-            </div>
-            <div className="split" style={{ gap: "2.5rem", marginTop: "2rem" }}>
-              <div data-reveal>
-                <h3 style={{ fontSize: "clamp(1.3rem,2vw,1.6rem)", marginBottom: ".75rem" }}>
-                  What services does Sage Thread Boutique offer?
-                </h3>
-                <p className="measure" style={{ color: "var(--muted)" }}>
-                  Our services include women&apos;s clothing, boutique fashion,
-                  custom stitching, designer wear, ethnic wear, contemporary
-                  fashion, fashion consultation, and occasion wear. Whether you
-                  need a saree for a wedding or a tailored dress for an evening
-                  out, our stylists guide you from first sketch to final stitch.
-                </p>
-              </div>
-              <div data-reveal style={{ "--d": ".1s" }}>
-                <h3 style={{ fontSize: "clamp(1.3rem,2vw,1.6rem)", marginBottom: ".75rem" }}>
-                  Why choose Sage Thread Boutique?
-                </h3>
-                <p className="measure" style={{ color: "var(--muted)" }}>
-                  Women across Bangalore choose Sage Thread for our decade of
-                  fashion expertise, artisan partnerships, and the intimacy of a
-                  true boutique experience. We are not a department store — we
-                  are your personal fashion house in Bengaluru.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ===== Collections ===== */}
         <section className="section section--tight" id="collections">
           <div className="container">
@@ -340,48 +276,6 @@ export default function HomePage() {
                   <div className="lbl">Would return</div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* ===== E-E-A-T: Boutique story ===== */}
-        <section className="section section--tight" id="story">
-          <div className="container split">
-            <div data-reveal>
-              <p className="eyebrow">Our boutique story</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.4rem)" }}>
-                A decade of dressing
-                <br />
-                Bangalore&apos;s women
-              </h2>
-              <p className="lead mt-2 measure">
-                Sage Thread began in 2014 with a simple conviction: Bangalore
-                deserved a women&apos;s boutique that treated fashion as craft,
-                not commodity. What started as a small atelier in Indiranagar
-                has become a trusted name for designer wear, ethnic collections,
-                and custom stitching across Karnataka.
-              </p>
-              <p className="mt-2 measure" style={{ color: "var(--muted)" }}>
-                Our design philosophy honours Indian artistry while embracing
-                contemporary silhouettes — so every client leaves feeling seen,
-                styled, and beautifully dressed.
-              </p>
-            </div>
-            <div data-reveal="right">
-              <p className="eyebrow">Quality standards</p>
-              <h3 style={{ fontSize: "clamp(1.5rem,3vw,2rem)", marginTop: ".5rem" }}>
-                The Sage Thread promise
-              </h3>
-              <p className="measure mt-2" style={{ color: "var(--muted)" }}>
-                We inspect every seam, source fabrics from verified mills and
-                weavers, and stand behind our tailoring with complimentary
-                fittings. Customer experience is not an afterthought — it is the
-                foundation of our reputation as one of Bangalore&apos;s best
-                boutiques.
-              </p>
-              <a href="/contact" className="btn btn--ghost mt-3">
-                Book a Fashion Consultation <span className="arrow">→</span>
-              </a>
             </div>
           </div>
         </section>

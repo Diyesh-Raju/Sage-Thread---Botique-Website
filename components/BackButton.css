@@ -1,0 +1,39 @@
+/* Back button — replaces the breadcrumb at the top of detail pages. A quiet
+   outlined pill that inherits each page theme's muted tone and accent, so it
+   reads the same on the marble and furniture pages. */
+
+.backbtn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: clamp(1.4rem, 3vw, 2.4rem);
+  padding: .55rem 1.15rem .55rem .95rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: .74rem;
+  font-weight: 500;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted, #8a7d6c);
+  opacity: .82;
+  transition: color .35s var(--ease), border-color .35s var(--ease),
+              opacity .35s var(--ease);
+}
+.backbtn__arrow {
+  font-size: 1.05em;
+  line-height: 1;
+  transition: transform .35s var(--ease);
+}
+.backbtn:hover {
+  opacity: 1;
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.backbtn:hover .backbtn__arrow { transform: translateX(-3px); }
+.backbtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}

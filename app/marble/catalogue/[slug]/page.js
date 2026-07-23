@@ -1,8 +1,8 @@
 import "../../../marble.css";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Printer } from "lucide-react";
 import Header from "@/components/Header";
+import BackButton from "@/components/BackButton";
 import Flipbook from "@/components/Flipbook";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
@@ -60,13 +60,7 @@ export default async function CataloguePage({ params }) {
 
       <main className="catalogue">
         <div className="container">
-          <nav className="collection__crumbs" aria-label="Breadcrumb">
-            <Link href="/marble">Marble</Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/marble#catalogues">Catalogues</Link>
-            <span aria-hidden="true">/</span>
-            <span>{c.title}</span>
-          </nav>
+          <BackButton fallback="/marble#catalogues" />
 
           <header className="catalogue__head">
             <p className="eyebrow">{c.eyebrow}</p>

@@ -1,7 +1,7 @@
 import "../../furniture.css";
-import Link from "next/link";
 import Header from "@/components/Header";
 import ProductCard from "@/components/ProductCard";
+import BackButton from "@/components/BackButton";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema } from "@/lib/schema";
 import { SITE_URL } from "@/lib/business";
@@ -107,11 +107,7 @@ export default function LivingRoomPage() {
 
       <main className="collection">
         <div className="container">
-          <nav className="collection__crumbs" aria-label="Breadcrumb">
-            <Link href="/furniture">Furniture</Link>
-            <span aria-hidden="true">/</span>
-            <span>Living Room</span>
-          </nav>
+          <BackButton fallback="/furniture" />
 
           <header className="collection__head" data-reveal>
             <p className="eyebrow">Sage Thread · Furniture</p>

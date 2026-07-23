@@ -68,7 +68,7 @@ export default function ContactPage() {
           <div className="container contact-grid">
             <div data-reveal>
               <p className="eyebrow">Connect with our designers</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.2rem)" }}>
+              <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.2rem)", color: "#fff" }}>
                 Tell us about
                 <br />
                 your perfect look
@@ -220,7 +220,7 @@ export default function ContactPage() {
           <div className="container">
             <div className="sec-head" data-reveal>
               <p className="eyebrow">Find us</p>
-              <h2>Your boutique near me in Bangalore</h2>
+              <h2 style={{ color: "#fff" }}>Your boutique near me in Bangalore</h2>
               <p className="measure-sm mt-2" style={{ color: "var(--muted)" }}>
                 Sage Thread Boutique is in Indiranagar — centrally located for
                 women across Bengaluru searching for a designer boutique, ethnic
