@@ -100,7 +100,18 @@ export default function Flipbook({ catalogue }) {
         showCover: true,
         flippingTime: 850,
         usePortrait: !phone,
-        autoSize: true,
+        /* Off on phones. autoSize is the one setting that lets the library
+           rewrite the book's geometry after it is built — it is the flag
+           gating the inline width/maxWidth on the block and the
+           padding-bottom it puts on .stf__wrapper — and it recomputes them on
+           every window resize. On iOS the address bar sliding in and out
+           fires resize constantly while you scroll, which is when the book
+           was moving down over the controls and staying there. With it off
+           the library never touches those, and the box is pinned in CSS
+           instead (see .fb-book on phones in marble.css), so the geometry
+           cannot drift. Desktop keeps autoSize; it has no address bar
+           collapsing under it and wants the resize behaviour. */
+        autoSize: !phone,
         /* Phones must keep this on. With it off the library calls
            preventDefault() on touchstart and feeds every touchmove to the
            page-drag handler, so a touch that lands on the book cannot scroll

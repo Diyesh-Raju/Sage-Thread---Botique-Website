@@ -641,6 +641,21 @@
      the reader its own layer above, so a stray page stays visible instead of
      disappearing behind the button. */
   .fb { position: relative; z-index: 1; }
+
+  /* Pin the book's box. autoSize is off on phones (see Flipbook.js), so the
+     library no longer sets the wrapper's padding-bottom and no longer
+     recomputes it on resize — the size is stated here once instead. The ratio
+     is the spread: two 460x720 pages side by side. Because the height is now
+     tied to the width, and the width is the column, nothing the address bar
+     does while scrolling can change it. */
+  .fb-book { aspect-ratio: 920 / 720; }
+  .fb-book .stf__wrapper {
+    height: 100%;
+    padding-bottom: 0 !important;
+  }
+  /* last-ditch guard: whatever happens inside, it cannot spill onto the
+     arrows underneath */
+  .fb-stage { overflow: hidden; }
 }
 
 /* page faces (built imperatively in Flipbook.js) */
