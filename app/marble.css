@@ -648,7 +648,19 @@
      is the spread: two 460x720 pages side by side. Because the height is now
      tied to the width, and the width is the column, nothing the address bar
      does while scrolling can change it. */
-  .fb-book { aspect-ratio: 920 / 720; }
+  /* Give the book a containing block of its own, permanently.
+     StPageFlip's .stf__block is absolutely positioned. While the book is
+     closed .fb-book carries translateX(-25%), and a transform makes an
+     element the containing block for absolutely-positioned descendants — so
+     the block resolves against the book and sits exactly where it should.
+     The moment the book opens that transform is dropped, .fb-book goes back
+     to static, and the block resolves against an ancestor further up with
+     nothing to anchor it but its static position — which a repaint after a
+     scroll is free to re-resolve, dropping the book down over the controls
+     until a reload rebuilds it. That is why it only ever moved once the book
+     was open. `position: relative` keeps the anchor whichever state it is
+     in. */
+  .fb-book { position: relative; aspect-ratio: 920 / 720; }
   .fb-book .stf__wrapper {
     height: 100%;
     padding-bottom: 0 !important;
