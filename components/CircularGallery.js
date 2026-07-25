@@ -34,10 +34,10 @@ function CircularGallery({ items, heading, radius, className }) {
   const raf = useRef(0);
   const running = useRef(false);
 
-  // Phone: which card is at the front. The ref is the source of truth the
-  // animation reads; the state copy only re-renders the arrows' disabled state.
+  // Phone: which card is at the front. A ref, not state — the arrows are
+  // always live and the transforms are written straight to the DOM, so moving
+  // between cards never needs a re-render.
   const indexRef = useRef(0);
-  const [index, setIndex] = useState(0);
   const goRef = useRef(null);
 
   // Starts false so the server render and the first client render agree; the
@@ -126,12 +126,19 @@ function CircularGallery({ items, heading, radius, className }) {
     };
 
     if (isPhone) {
-      // Arrows drive the ring; nothing is bound to scroll.
+      // Arrows drive the ring; nothing is bound to scroll. Both stay live at
+      // every card — back from the first wraps to the last and forward from
+      // the last wraps to the first.
+      //
+      // The wrap rewinds across the other cards rather than carrying on in the
+      // same direction, because the ring is only part full: spacing is fixed to
+      // a 9-slot circle (see SPACING_COUNT) while there are n cards, so the
+      // slots past the last one are empty. Turning "onwards" off the end would
+      // sweep through that blank arc; turning back lands on the target card
+      // over real ones.
       goRef.current = (dir) => {
-        const next = Math.min(n - 1, Math.max(0, indexRef.current + dir));
-        if (next === indexRef.current) return;
+        const next = (indexRef.current + dir + n) % n;
         indexRef.current = next;
-        setIndex(next);
         target.current = -next * anglePerItem;
         ensure();
       };
@@ -218,7 +225,6 @@ function CircularGallery({ items, heading, radius, className }) {
               type="button"
               className="cg-arrow"
               aria-label="Previous image"
-              disabled={index === 0}
               onClick={() => goRef.current?.(-1)}
             >
               <span aria-hidden="true">←</span>
@@ -227,7 +233,6 @@ function CircularGallery({ items, heading, radius, className }) {
               type="button"
               className="cg-arrow"
               aria-label="Next image"
-              disabled={index === n - 1}
               onClick={() => goRef.current?.(1)}
             >
               <span aria-hidden="true">→</span>

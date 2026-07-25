@@ -113,7 +113,7 @@
   display: flex;
   justify-content: center;
   gap: 1.1rem;
-  padding: 1.4rem var(--pad) clamp(2rem, 6vw, 3rem);
+  padding: 1.75rem var(--pad) clamp(2rem, 6vw, 3rem);
 }
 .cg-arrow {
   width: 48px;
@@ -136,10 +136,6 @@
   transform: scale(0.94);
   border-color: var(--accent);
 }
-.cg-arrow:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
 
 @media (max-width: 760px) {
   /* Drop the pin: no tall scroll wrapper, no sticky child, so the section
@@ -151,9 +147,13 @@
     position: static;
     height: auto;
   }
-  /* The ring lost the 100vh flex parent that used to size it. */
+  /* The ring lost the 100vh flex parent that used to size it. Size it to the
+     card's *rendered* height, not its CSS height: the front card sits at
+     translateZ(637px) under a 3000px perspective, so it projects ~1.27x its
+     box (470px -> ~597px here). Undersize this and the card spills past the
+     ring, which is what put the arrows right up against it. */
   .cg-root {
-    height: 520px;
+    height: 620px;
     flex: none;
   }
 }
@@ -166,7 +166,8 @@
     margin-left: -130px;
     margin-top: -190px;
   }
+  /* 380px card projects to ~482px */
   .cg-root {
-    height: 430px;
+    height: 500px;
   }
 }
