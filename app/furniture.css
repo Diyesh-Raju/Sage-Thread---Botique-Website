@@ -290,6 +290,40 @@
   opacity: 0;               /* fades in once the first frame is drawn over the poster */
   transition: opacity .25s ease;
 }
+/* Intro title — sits over the first frames, then the scroll handler fades and
+   lifts it away. The scene is a bright white room, so the type is espresso
+   with a soft light halo rather than the usual white-on-video treatment. */
+.furn-scrollhero__intro {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding-inline: var(--pad);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+.furn-scrollhero__title {
+  margin: 0;
+  font-family: var(--font-accent);
+  font-weight: 400;
+  font-size: clamp(1.5rem, 3.6vw, 3.2rem);
+  line-height: 1.3;
+  letter-spacing: .34em;
+  text-indent: .34em;        /* re-centre against the trailing letter-space */
+  text-transform: uppercase;
+  text-align: center;
+  color: #060504;
+  text-shadow: 0 0 38px rgba(255,255,255,.8), 0 1px 3px rgba(255,255,255,.9);
+  animation: furn-hero-title-in 1.15s var(--ease) .2s both;
+}
+/* No letter-spacing in the `to` frame: a filled animation value would outrank
+   the per-breakpoint tracking below. The implicit end frame uses the base
+   value, so each breakpoint settles on its own tracking. */
+@keyframes furn-hero-title-in {
+  from { opacity: 0; transform: translateY(16px); letter-spacing: .52em; }
+  to   { opacity: 1; transform: none; }
+}
 .furn-scrollhero__cue {
   position: absolute;
   bottom: 2.2rem;
@@ -314,10 +348,17 @@
 }
 @media (max-width: 640px) {
   .furn-scrollhero { height: 420vh; }
+  /* smaller step + tighter tracking so the line still fits a phone unbroken */
+  .furn-scrollhero__title {
+    font-size: clamp(1.05rem, 5.2vw, 1.7rem);
+    letter-spacing: .2em;
+    text-indent: .2em;
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .furn-scrollhero { height: 100vh; height: 100svh; }
   .furn-scrollhero__chevron { animation: none; }
+  .furn-scrollhero__title { animation: none; }
 }
 
 /* ===== Living Room collection page ===== */

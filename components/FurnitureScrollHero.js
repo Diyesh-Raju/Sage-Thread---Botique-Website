@@ -16,11 +16,17 @@ const POSTER = framePath(0);
 
 const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
+/* Scrub progress over which the intro title fades out — it should be gone
+   within the first flick of the wheel, long before the pan gets going. */
+const TITLE_FADE_START = 0.004;
+const TITLE_FADE_END = 0.075;
+
 export default function FurnitureScrollHero() {
   const stageRef = useRef(null);
   const stickyRef = useRef(null);
   const canvasRef = useRef(null);
   const cueRef = useRef(null);
+  const introRef = useRef(null);
 
   useEffect(() => {
     const stage = stageRef.current;
@@ -45,6 +51,7 @@ export default function FurnitureScrollHero() {
     let rafId = null;
     let running = false;
     let cueHidden = false;
+    let lastIntro = -1;
 
     const nearestLoaded = (idx) => {
       if (frames[idx]) return idx;
@@ -95,6 +102,24 @@ export default function FurnitureScrollHero() {
       } else if (cueRef.current && cueHidden && p <= 0.02) {
         cueHidden = false;
         cueRef.current.style.opacity = "";
+      }
+
+      // Intro title: tied to scroll position rather than a timer, so it
+      // dissolves exactly as the pan starts and comes back if you scroll up.
+      const intro = introRef.current;
+      if (intro) {
+        const t = clamp(
+          (p - TITLE_FADE_START) / (TITLE_FADE_END - TITLE_FADE_START),
+          0,
+          1
+        );
+        if (Math.abs(t - lastIntro) > 0.004) {
+          lastIntro = t;
+          const e = t * t * (3 - 2 * t); // smoothstep
+          intro.style.opacity = String(1 - e);
+          intro.style.transform = `translate3d(0, ${(-e * 46).toFixed(1)}px, 0)`;
+          intro.style.filter = e > 0.001 ? `blur(${(e * 6).toFixed(2)}px)` : "";
+        }
       }
     };
 
@@ -202,6 +227,9 @@ export default function FurnitureScrollHero() {
           draggable={false}
         />
         <canvas ref={canvasRef} className="furn-scrollhero__canvas" />
+        <div ref={introRef} className="furn-scrollhero__intro">
+          <h1 className="furn-scrollhero__title">Transforming spaces</h1>
+        </div>
         <div ref={cueRef} className="furn-scrollhero__cue" aria-hidden="true">
           <span className="furn-scrollhero__chevron" />
         </div>

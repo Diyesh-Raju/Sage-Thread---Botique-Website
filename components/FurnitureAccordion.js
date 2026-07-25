@@ -3,11 +3,11 @@
 import { useState } from "react";
 
 const accordionItems = [
-  { id: 1, title: "Evening Gowns", imageUrl: "/assets/img/furn-couches.jpg" },
-  { id: 2, title: "Cocktail Dresses", imageUrl: "/assets/img/furn-lounge-chair.jpg" },
-  { id: 3, title: "Bridal Edit", imageUrl: "/assets/img/furn-bed-frames.jpg" },
-  { id: 4, title: "Festive Wear", imageUrl: "/assets/img/furn-kitchen.jpg" },
-  { id: 5, title: "Workwear", imageUrl: "/assets/img/furn-closet.jpg" },
+  { id: 1, title: "Living Room", imageUrl: "/assets/img/furn-living-room.jpg" },
+  { id: 2, title: "Bedroom", imageUrl: "/assets/img/furn-bedroom.jpg" },
+  { id: 3, title: "Outdoor", imageUrl: "/assets/img/furn-outdoor.jpg" },
+  { id: 4, title: "Dining", imageUrl: "/assets/img/furn-dining.jpg" },
+  { id: 5, title: "Dresser", imageUrl: "/assets/img/furn-dresser.jpg" },
 ];
 
 const FALLBACK = "https://placehold.co/400x450/2d3748/ffffff?text=Image";
@@ -42,7 +42,7 @@ function AccordionItem({ item, isActive, onOpen }) {
     >
       <img
         src={item.imageUrl}
-        alt={`${item.title} — designer dresses at Sage Thread Boutique Bangalore`}
+        alt={`${item.title} furniture at Sage Thread Boutique Bangalore`}
         title={`${item.title} — Sage Thread`}
         onError={(e) => {
           e.target.onerror = null;
@@ -102,7 +102,7 @@ export function LandingAccordionItem() {
           }}
         >
           <div style={{ flex: "1 1 300px", minWidth: 0 }}>
-            <p className="eyebrow">Shop by occasion</p>
+            <p className="eyebrow">Shop by room</p>
             <h2
               style={{
                 fontSize: "clamp(2rem, 4.4vw, 3.4rem)",
@@ -111,18 +111,18 @@ export function LandingAccordionItem() {
                 marginTop: ".4rem",
               }}
             >
-              A designer dress
+              Curated Furniture
               <br />
-              for every moment
+              for Every Space
             </h2>
             <p
               className="lead"
               style={{ marginTop: "1.4rem", maxWidth: "34rem" }}
             >
-              Explore our designer dress collection by occasion — from evening
-              gowns and cocktail dresses to bridal edits, festive wear, and
-              polished workwear. Each piece at our Bangalore boutique is chosen
-              for women who expect more from their wardrobe.
+              Explore our furniture collection room by room — from living room
+              seating and bedroom suites to outdoor lounging, dining sets, and
+              dressers. Each piece at our Bangalore boutique is chosen for homes
+              that expect more from every corner.
             </p>
             <div style={{ marginTop: "2rem" }}>
               <a href="/contact" className="btn btn--solid">

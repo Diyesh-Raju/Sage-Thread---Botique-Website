@@ -89,23 +89,24 @@ export default function FurniturePage() {
             <div className="feature__media" data-reveal>
               <div className="media media--tall" data-img>
                 <img
-                  src="/assets/img/fabrics-textures.jpg"
-                  alt="Premium boutique fabrics for designer dresses at Sage Thread Bangalore"
-                  title="Boutique Fabrics — Sage Thread"
+                  src="/assets/img/craftsmanship.jpg"
+                  alt="Hand-crafted upholstered lounge chair at Sage Thread Bangalore"
+                  title="Exquisite Craftsmanship — Sage Thread"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
             </div>
             <div data-reveal="right">
-              <p className="eyebrow">Premium textiles</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Boutique Fabrics</h2>
+              <p className="eyebrow">Made by hand</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>
+                Exquisite Craftsmanship
+              </h2>
               <p className="lead mt-2 measure">
-                Our fabric library is the foundation of every designer dress we
-                create. We partner with specialist mills and weavers across India
-                to source premium silks, linens, and velvets — each chosen for
-                drape, durability, and the way it flatters on the women of
-                Bangalore.
+                Every piece begins at a workbench, not an assembly line. Our
+                makers cut and joint seasoned hardwood, shape each curve by hand,
+                and close every seam themselves — so the care you can see in the
+                stitching runs all the way through the frame beneath it.
               </p>
             </div>
           </div>
@@ -115,21 +116,24 @@ export default function FurniturePage() {
         <section className="section">
           <div className="container split split--img-right">
             <div data-reveal>
-              <p className="eyebrow">Tailor-made dresses</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Custom Stitching</h2>
+              <p className="eyebrow">Materials that last</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>
+                Exceptional Quality
+              </h2>
               <p className="lead mt-2 measure">
-                Commission a tailor-made dress crafted to your measurements and
-                vision. Choose from our fabric library, select embellishments, and
-                work with our Bangalore tailors through two fitting sessions — from
-                cocktail dresses to gala gowns, each piece is built for you alone.
+                We choose materials that age well — solid hardwood frames,
+                hand-tied support, and heavyweight weaves rated for years of daily
+                use. Each piece is checked at every stage and once more before it
+                leaves our Bangalore studio, so nothing reaches your home that we
+                would not keep in ours.
               </p>
             </div>
             <div className="feature__media" data-reveal="right">
               <div className="media media--tall" data-img>
                 <img
-                  src="/assets/img/upholstery.jpg"
-                  alt="Custom tailor-made dresses at Sage Thread women's boutique Bangalore"
-                  title="Custom Stitching — Sage Thread Boutique"
+                  src="/assets/img/quality.jpg"
+                  alt="Close detail of hardwood frame and woven upholstery at Sage Thread Bangalore"
+                  title="Exceptional Quality — Sage Thread Boutique"
                   loading="lazy"
                   decoding="async"
                 />
@@ -144,26 +148,29 @@ export default function FurniturePage() {
             <div className="feature__media" data-reveal>
               <div className="media media--tall" data-img>
                 <img
-                  src="/assets/img/wallpaper.jpg"
-                  alt="Artisan embellishment on designer dresses at Sage Thread Bangalore"
-                  title="Artisan Finishing — Sage Thread"
+                  src="/assets/img/warranty.jpg"
+                  alt="Written furniture warranty agreed at Sage Thread Bangalore"
+                  title="Warranty You Can Trust — Sage Thread"
                   loading="lazy"
                   decoding="async"
                 />
               </div>
             </div>
             <div data-reveal="right">
-              <p className="eyebrow">Embellishment &amp; detail</p>
-              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>Artisan Finishing</h2>
+              <p className="eyebrow">Peace of mind</p>
+              <h2 style={{ fontSize: "clamp(2rem,4.6vw,3.4rem)" }}>
+                Warranty You Can Trust
+              </h2>
               <p className="lead mt-2 measure">
-                From hand embroidery and zardozi to contemporary beadwork and
-                appliqué, our artisan partners bring depth and character to every
-                designer dress. Each finish is chosen to honour the occasion —
-                understated for workwear, luminous for celebrations.
+                Every piece leaves with a written warranty covering its frame,
+                joinery, and upholstery — plain terms, handed over at purchase,
+                with no fine print built to lose you. If a fault is ours, we repair
+                or replace it.
               </p>
               <p className="lead mt-2 measure">
-                Discuss embellishment options during your fashion consultation at
-                our Indiranagar boutique — we guide you from sketch to final stitch.
+                Service is handled by our own Indiranagar team, from tightening a
+                joint to a full re-upholstery — the people who sold you the piece
+                are the ones who look after it.
               </p>
             </div>
           </div>
