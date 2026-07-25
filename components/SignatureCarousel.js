@@ -12,7 +12,8 @@
    /public/assets/img (maison-model + maison-piece-1..3) for real product
    frames and nothing else changes. */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import useSwipe from "./useSwipe";
 import "./SignatureCarousel.css";
 
 const PIECES = [
@@ -52,10 +53,23 @@ export default function SignatureCarousel() {
     return () => clearInterval(id);
   }, [paused]);
 
+  /* A finger never fires mouseleave, so a swipe would pause the reel for good.
+     Hold it off while the user is driving, then let it pick up again. */
+  const resume = useRef(null);
+  useEffect(() => () => clearTimeout(resume.current), []);
+  const step = (d) => {
+    setActive((n) => (n + d + PIECES.length) % PIECES.length);
+    setPaused(true);
+    clearTimeout(resume.current);
+    resume.current = setTimeout(() => setPaused(false), 6000);
+  };
+  const panelRef = useSwipe({ onNext: () => step(1), onPrev: () => step(-1) });
+
   return (
     <section className="sig" aria-label="Sage Thread signature creations">
       <div
         className="sig__panel"
+        ref={panelRef}
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
         data-reveal

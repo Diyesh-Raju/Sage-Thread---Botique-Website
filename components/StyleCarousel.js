@@ -8,6 +8,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import useSwipe from "./useSwipe";
 import "./StyleCarousel.css";
 
 /* Each style sets its own type, so the name reads as the thing it names:
@@ -92,7 +93,6 @@ export default function StyleCarousel() {
   const [isMobile, setIsMobile] = useState(false);
   const [onStage, setOnStage] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const stageRef = useRef(null);
 
   useEffect(() => {
     SLIDES.forEach((s) => {
@@ -116,6 +116,13 @@ export default function StyleCarousel() {
       locked.current = false;
     }, DUR);
   }, []);
+
+  /* swipe the stage on touch — the arrows below stay for pointer users.
+     Doubles as the element the IntersectionObserver watches. */
+  const stageRef = useSwipe({
+    onNext: () => navigate("next"),
+    onPrev: () => navigate("prev"),
+  });
 
   /* only run while the section is actually on screen — an off-screen carousel
      ticking away is wasted paint, and it would land the user mid-rotation */

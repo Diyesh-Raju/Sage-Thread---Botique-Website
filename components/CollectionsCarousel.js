@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import useSwipe from "./useSwipe";
 import "./CollectionsCarousel.css";
 
 /* "Our Collections" — a peek-stack carousel modelled on the Zoya homepage.
@@ -25,6 +26,20 @@ export default function CollectionsCarousel({ items, interval = 4200 }) {
   const go = useCallback((idx) => setActive(((idx % n) + n) % n), [n]);
   const next = useCallback(() => setActive((a) => (a + 1) % n), [n]);
   const prev = useCallback(() => setActive((a) => (a - 1 + n) % n), [n]);
+
+  // swipe the deck on touch; the arrows/dots stay for pointer users
+  const stageRef = useSwipe({ onNext: next, onPrev: prev });
+
+  // A touch has no "mouse leave" to un-pause on, so autoplay would stay dead
+  // after the first swipe. Hold it off while the finger is driving, then let
+  // it pick up again a few seconds later.
+  const resumeTimer = useRef(null);
+  const holdAutoplay = useCallback(() => {
+    paused.current = true;
+    clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => (paused.current = false), 6000);
+  }, []);
+  useEffect(() => () => clearTimeout(resumeTimer.current), []);
 
   // autoplay — pauses on hover/focus and when the tab is hidden
   useEffect(() => {
@@ -61,10 +76,12 @@ export default function CollectionsCarousel({ items, interval = 4200 }) {
 
       <div
         className="cc-stage"
+        ref={stageRef}
         onMouseEnter={() => (paused.current = true)}
         onMouseLeave={() => (paused.current = false)}
         onFocusCapture={() => (paused.current = true)}
         onBlurCapture={() => (paused.current = false)}
+        onPointerDown={holdAutoplay}
       >
         {items.map((it, i) => {
           const rel = (i - active + n) % n;
@@ -96,7 +113,7 @@ export default function CollectionsCarousel({ items, interval = 4200 }) {
       </div>
 
       <div className="cc-nav">
-        <button type="button" className="cc-arrow" aria-label="Previous collection" onClick={prev}>
+        <button type="button" className="cc-arrow" aria-label="Previous collection" onClick={() => { holdAutoplay(); prev(); }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M15 5l-7 7 7 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -109,11 +126,11 @@ export default function CollectionsCarousel({ items, interval = 4200 }) {
               className={"cc-dot" + (d === active ? " is-active" : "")}
               aria-label={`Show ${it.name}`}
               aria-current={d === active}
-              onClick={() => go(d)}
+              onClick={() => { holdAutoplay(); go(d); }}
             />
           ))}
         </div>
-        <button type="button" className="cc-arrow" aria-label="Next collection" onClick={next}>
+        <button type="button" className="cc-arrow" aria-label="Next collection" onClick={() => { holdAutoplay(); next(); }}>
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M9 5l7 7-7 7" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

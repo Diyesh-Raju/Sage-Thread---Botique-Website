@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import useSwipe from "./useSwipe";
 import "./FurnitureCarousel.css";
 
 /* Furniture piece showcase: product image on the left, name + description on
@@ -12,8 +13,14 @@ export default function FurnitureCarousel({ items }) {
   const go = (idx) => setI((idx + n) % n);
   const cur = items[i];
 
+  // swipe across the piece on touch; the arrows and dots stay for pointer users
+  const swipeRef = useSwipe({
+    onNext: () => go(i + 1),
+    onPrev: () => go(i - 1),
+  });
+
   return (
-    <div className="fc">
+    <div className="fc" ref={swipeRef}>
       <div className="fc-media" key={"m" + i}>
         <img src={cur.img} alt={cur.name} loading="lazy" decoding="async" />
       </div>

@@ -22,6 +22,7 @@
    Six slides became four, which is also why the counter reads /04. */
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import useSwipe from "./useSwipe";
 import "./LuminaSlider.css";
 
 /* The four photographs are shipped 16:9, at the largest crop of each frame that
@@ -364,6 +365,13 @@ export default function LuminaSlider() {
 
   goRef.current = go;
 
+  /* swipe across the picture on touch; the titles below stay the pointer path.
+     `go` no-ops while the glass is mid-crossing, so a flurry of swipes is safe. */
+  const stageRef = useSwipe({
+    onNext: () => go((rest.current + 1) % SLIDES.length),
+    onPrev: () => go((rest.current - 1 + SLIDES.length) % SLIDES.length),
+  });
+
   /* ---- build ---------------------------------------------------------- */
   useEffect(() => {
     const el = section.current;
@@ -459,7 +467,7 @@ export default function LuminaSlider() {
       aria-roledescription="carousel"
       aria-label="Sage Thread — jewellery in four frames"
     >
-      <div className="lumina__stage">
+      <div className="lumina__stage" ref={stageRef}>
         {/* stands in until the canvas is live, and stays the whole story for
             a browser without WebGL or a crawler reading the page */}
         <img

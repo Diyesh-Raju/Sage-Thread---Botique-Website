@@ -157,7 +157,8 @@
 
 /* the stage holds the perspective track + the two flanking arrows, which sit
    absolutely in the GAP between the near cards and the peeking far cards */
-.mci__stage { position: relative; }
+/* pan-y so a vertical flick still scrolls the page past the coverflow */
+.mci__stage { position: relative; touch-action: pan-y pinch-zoom; }
 .mci__track {
   position: relative;
   height: clamp(360px, 56vw, 520px);

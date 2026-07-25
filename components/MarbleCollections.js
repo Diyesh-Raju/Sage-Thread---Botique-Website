@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { MARBLE_COLLECTIONS } from "./marbleCollectionsData";
+import useSwipe from "./useSwipe";
 
 /* "Curated Collections" — a MCI-style coverflow carousel placed right after the
    pinned intro/video box. The centre card is featured (large, with a title +
@@ -29,6 +30,10 @@ export default function MarbleCollections() {
   const sectionRef = useRef(null);
   const n = MARBLE_COLLECTIONS.length;
   const go = (idx) => setI((idx + n) % n);
+
+  // the coverflow parks its other cards far off-screen; on touch the arrows
+  // were the only way to reach them, so the stage takes a swipe too
+  const stageRef = useSwipe({ onNext: () => go(i + 1), onPrev: () => go(i - 1) });
 
   // Arriving from a detail page's "All collections" link (/marble#curated):
   // Next's App Router doesn't reliably scroll to the hash across a page change,
@@ -77,7 +82,7 @@ export default function MarbleCollections() {
       <div className="container">
         <h2 className="mci__title">Curated Collections</h2>
 
-        <div className="mci__stage">
+        <div className="mci__stage" ref={stageRef}>
           <button
             type="button"
             className="mci__arrow mci__arrow--prev"

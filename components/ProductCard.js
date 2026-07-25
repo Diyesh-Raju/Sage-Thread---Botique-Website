@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import useSwipe from "./useSwipe";
 
 // Product card modelled on the Roche Bobois collection grid:
 // a light-grey square image stage with a wishlist heart, then category,
@@ -41,12 +42,19 @@ export default function ProductCard({ product }) {
     // Keep the arrow-selected frame on exit; otherwise reset to the hero shot.
     if (!paused) setIndex(0);
   };
-  const go = (dir) => (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const step = (dir) => {
     setPaused(true);
     setIndex((i) => (i + dir + count) % count);
   };
+  const go = (dir) => (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    step(dir);
+  };
+
+  /* The card is a link, so swiping across the frames must not open it —
+     useSwipe swallows the click that follows a gesture it claimed. */
+  const stageRef = useSwipe({ onNext: () => step(1), onPrev: () => step(-1) });
 
   return (
     <article
@@ -54,7 +62,7 @@ export default function ProductCard({ product }) {
       onMouseEnter={enter}
       onMouseLeave={leave}
     >
-      <div className="pcard__stage">
+      <div className="pcard__stage" ref={stageRef}>
         <div
           className="pcard__track"
           style={{ transform: `translateX(-${index * 100}%)` }}

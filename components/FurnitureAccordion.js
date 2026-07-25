@@ -12,10 +12,16 @@ const accordionItems = [
 
 const FALLBACK = "https://placehold.co/400x450/2d3748/ffffff?text=Image";
 
-function AccordionItem({ item, isActive, onMouseEnter }) {
+function AccordionItem({ item, isActive, onOpen }) {
   return (
-    <div
-      onMouseEnter={onMouseEnter}
+    // A button, not a div: hover alone leaves this unreachable on touch and by
+    // keyboard, so opening is driven by click/focus and hover is a shortcut.
+    <button
+      type="button"
+      onClick={onOpen}
+      onFocus={onOpen}
+      onMouseEnter={onOpen}
+      aria-expanded={isActive}
       style={{
         position: "relative",
         height: "450px",
@@ -25,6 +31,13 @@ function AccordionItem({ item, isActive, onMouseEnter }) {
         overflow: "hidden",
         cursor: "pointer",
         transition: "width 700ms cubic-bezier(0.4,0,0.2,1)",
+        appearance: "none",
+        border: 0,
+        padding: 0,
+        background: "transparent",
+        font: "inherit",
+        color: "inherit",
+        textAlign: "left",
       }}
     >
       <img
@@ -63,7 +76,7 @@ function AccordionItem({ item, isActive, onMouseEnter }) {
       >
         {item.title}
       </span>
-    </div>
+    </button>
   );
 }
 
@@ -124,7 +137,9 @@ export function LandingAccordionItem() {
                 display: "flex",
                 flexDirection: "row",
                 alignItems: "center",
-                justifyContent: "center",
+                // `safe` so that once the strip overflows on a phone the first
+                // card stays scrollable instead of being centred off the edge
+                justifyContent: "safe center",
                 gap: "12px",
                 overflowX: "auto",
                 padding: "1rem",
@@ -135,7 +150,7 @@ export function LandingAccordionItem() {
                   key={item.id}
                   item={item}
                   isActive={index === activeIndex}
-                  onMouseEnter={() => setActiveIndex(index)}
+                  onOpen={() => setActiveIndex(index)}
                 />
               ))}
             </div>

@@ -3,6 +3,9 @@
   /* Shared, fixed row height so only the left image swaps — the description
      box keeps the exact same size on every slide (no resize jump). */
   --fc-h: clamp(360px, 40vw, 480px);
+  /* the row is a swipe surface — let a vertical flick scroll the page, and
+     leave pinch-zoom to the user */
+  touch-action: pan-y pinch-zoom;
   display: grid;
   gap: clamp(1.5rem, 4vw, 3rem);
   align-items: center;

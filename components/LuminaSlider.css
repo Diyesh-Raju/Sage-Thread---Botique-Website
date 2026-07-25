@@ -10,6 +10,8 @@
 
 .lumina__stage {
   position: relative;
+  /* swipe surface — vertical flicks stay with the page, pinch-zoom with the user */
+  touch-action: pan-y pinch-zoom;
   /* narrower than the page's own measure, and never touching the edges */
   width: min(1240px, 100%);
   margin-inline: auto;

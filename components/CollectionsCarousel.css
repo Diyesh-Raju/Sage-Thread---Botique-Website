@@ -102,7 +102,9 @@
   transition: opacity .5s ease .1s, transform .5s ease .1s;
 }
 .cc-card__explore .arrow { transition: transform .4s var(--ease); }
-.cc-card:hover .cc-card__explore .arrow { transform: translateX(4px); }
+@media (hover: hover) {
+  .cc-card:hover .cc-card__explore .arrow { transform: translateX(4px); }
+}
 
 /* ---- slots ------------------------------------------------------------- */
 .cc-card.is-featured {
@@ -180,15 +182,43 @@
   .cc-head { text-align: center; margin-left: 0; }
   .cc-sub { margin-inline: auto; }
   .cc-nav { grid-column: 1; }
-  /* centre the featured card and tuck the peeks away on one column */
+  /* One card, centred. The stage clips instead of bleeding: the desktop
+     clip-path deliberately extends 45% past the right edge so the third card
+     reads, and on a phone that lone rule stretched the layout viewport to
+     ~950px — the whole page rendered zoomed out. */
+  .cc-stage {
+    clip-path: none;
+    overflow: hidden;
+    /* room for the card's drop shadow without letting anything escape */
+    padding: 0 0 6px;
+    /* vertical scroll still belongs to the page; pinch-zoom still belongs to
+       the user — dropping it here would make the cards un-zoomable */
+    touch-action: pan-y pinch-zoom;
+  }
   .cc-card { left: 50%; margin-left: calc(var(--cc-card-w) / -2); }
   .cc-card.is-featured { transform: translate3d(0, 0, 0) scale(1); }
-  .cc-card.is-peek1 { transform: translate3d(70%, 6%, 0) scale(.82); opacity: 0; }
-  .cc-card.is-peek2 { transform: translate3d(150%, 12%, 0) scale(.7); opacity: 0; }
+  .cc-card.is-peek1 { transform: translate3d(64%, 4%, 0) scale(.86); opacity: 0; }
+  .cc-card.is-peek2 { transform: translate3d(64%, 4%, 0) scale(.86); opacity: 0; }
+  .cc-card.is-hidden { transform: translate3d(64%, 4%, 0) scale(.86); opacity: 0; }
   .cc-card.is-exit { transform: translate3d(-40%, -2%, 0) scale(.92); }
+  /* the "Explore" line is hover-revealed on the deck; on touch show it outright */
+  .cc-card.is-featured .cc-card__explore { opacity: 1; transform: none; }
+
+  /* arrows and dots need real finger targets */
+  .cc-nav { gap: 1rem; }
+  .cc-arrow { width: 46px; height: 46px; }
+  .cc-dots { gap: .35rem; }
+  .cc-dot { height: 12px; width: 26px; background: transparent; position: relative; }
+  .cc-dot::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%;
+    height: 2px; margin-top: -1px; background: var(--line);
+    transition: background .4s var(--ease);
+  }
+  .cc-dot.is-active { width: 34px; background: transparent; }
+  .cc-dot.is-active::before { background: var(--accent); }
 }
 @media (max-width: 560px) {
-  .cc { --cc-card-w: min(86vw, 340px); }
+  .cc { --cc-card-w: min(84vw, 340px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

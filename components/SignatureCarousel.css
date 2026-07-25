@@ -19,6 +19,8 @@
 
 /* ---- left: the rotating stage ---------------------------------------- */
 .sig__panel {
+  /* swipe surface — vertical flicks stay with the page, pinch-zoom with the user */
+  touch-action: pan-y pinch-zoom;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -157,6 +157,12 @@ export default function SiteScripts() {
 
     let ticking = false;
     let lastY = -1;
+    // Cached viewport box. On touch the URL bar collapses and expands as you
+    // scroll, which changes innerHeight mid-sequence; reading it live would
+    // re-scale the pinned-intro beats under the user's finger. So the beats
+    // run against a height that only moves when the width does (rotation).
+    let viewW = window.innerWidth;
+    let viewH = window.innerHeight;
 
     function onScroll() {
       if (!ticking) {
@@ -172,7 +178,7 @@ export default function SiteScripts() {
       if (header) header.classList.toggle("scrolled", y > 24);
 
       if (parallaxEls.length) {
-        const vh = window.innerHeight;
+        const vh = viewH;
         for (let i = 0; i < parallaxEls.length; i++) {
           const el = parallaxEls[i];
           const rect = el.getBoundingClientRect();
@@ -185,8 +191,8 @@ export default function SiteScripts() {
       }
 
       if (introSection) {
-        const vh = window.innerHeight;
-        const vw = window.innerWidth;
+        const vh = viewH;
+        const vw = viewW;
         const r = introSection.getBoundingClientRect();
         const total = r.height - vh;
         const p = total > 0 ? clamp01(-r.top / total) : 0;
@@ -235,7 +241,15 @@ export default function SiteScripts() {
     }
     // On resize the scroll position may be unchanged, so force a recompute
     // (parallax offsets + the pinned-intro beats depend on viewport size).
+    // A height-only change on touch is the URL bar, not a real resize — take
+    // the new height but leave the sequence alone so it doesn't jump.
     const onResize = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const heightOnly = w === viewW && h !== viewH;
+      viewW = w;
+      if (isTouch && heightOnly) return;
+      viewH = h;
       lastY = -1;
       update();
     };

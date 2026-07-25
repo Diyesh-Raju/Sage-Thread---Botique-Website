@@ -370,6 +370,8 @@
 .pcard__stage {
   position: relative; overflow: hidden; background: #f1efea;
   aspect-ratio: 1 / 1; border-radius: 2px;
+  /* pan-y so swiping the frames never steals a vertical scroll of the grid */
+  touch-action: pan-y pinch-zoom;
 }
 .pcard__track { display: flex; height: 100%; width: 100%; transition: transform .6s var(--ease); }
 .pcard__slide { flex: 0 0 100%; height: 100%; }
