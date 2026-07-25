@@ -12,35 +12,23 @@ const accordionItems = [
 
 const FALLBACK = "https://placehold.co/400x450/2d3748/ffffff?text=Image";
 
+/* Sizing lives in furniture.css (.room-acc*) rather than inline, so the strip
+   can be re-proportioned on a phone to fit all five panels on screen at once.
+   The desktop numbers are unchanged. */
 function AccordionItem({ item, isActive, onOpen }) {
   return (
     // A button, not a div: hover alone leaves this unreachable on touch and by
     // keyboard, so opening is driven by click/focus and hover is a shortcut.
     <button
       type="button"
+      className="room-acc__item"
       onClick={onOpen}
       onFocus={onOpen}
       onMouseEnter={onOpen}
       aria-expanded={isActive}
-      style={{
-        position: "relative",
-        height: "450px",
-        width: isActive ? "380px" : "56px",
-        flex: "0 0 auto",
-        borderRadius: "1rem",
-        overflow: "hidden",
-        cursor: "pointer",
-        transition: "width 700ms cubic-bezier(0.4,0,0.2,1)",
-        appearance: "none",
-        border: 0,
-        padding: 0,
-        background: "transparent",
-        font: "inherit",
-        color: "inherit",
-        textAlign: "left",
-      }}
     >
       <img
+        className="room-acc__img"
         src={item.imageUrl}
         alt={`${item.title} furniture at Sage Thread Boutique Bangalore`}
         title={`${item.title} — Sage Thread`}
@@ -48,34 +36,9 @@ function AccordionItem({ item, isActive, onOpen }) {
           e.target.onerror = null;
           e.target.src = FALLBACK;
         }}
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-        }}
       />
-      <div
-        style={{ position: "absolute", inset: 0, background: "rgba(0,0,0,0.4)" }}
-      />
-      <span
-        style={{
-          position: "absolute",
-          left: "50%",
-          bottom: isActive ? "1.5rem" : "6rem",
-          transform: isActive
-            ? "translateX(-50%) rotate(0deg)"
-            : "translateX(-50%) rotate(90deg)",
-          color: "#ffffff",
-          fontSize: "1.125rem",
-          fontWeight: 600,
-          whiteSpace: "nowrap",
-          transition: "all 300ms ease-in-out",
-        }}
-      >
-        {item.title}
-      </span>
+      <div className="room-acc__veil" />
+      <span className="room-acc__label">{item.title}</span>
     </button>
   );
 }
@@ -132,19 +95,7 @@ export function LandingAccordionItem() {
           </div>
 
           <div style={{ flex: "1.8 1 540px", minWidth: 0 }}>
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                // `safe` so that once the strip overflows on a phone the first
-                // card stays scrollable instead of being centred off the edge
-                justifyContent: "safe center",
-                gap: "12px",
-                overflowX: "auto",
-                padding: "1rem",
-              }}
-            >
+            <div className="room-acc">
               {accordionItems.map((item, index) => (
                 <AccordionItem
                   key={item.id}

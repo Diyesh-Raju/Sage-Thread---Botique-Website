@@ -1,18 +1,51 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-/* Scroll-scrubbed video hero.
+/* Scroll-scrubbed video hero (desktop).
    The source video is pre-decoded into a JPEG frame sequence (public/assets/
    furn-hero-seq) and drawn to a <canvas>. Scrubbing a frame sequence is far
    smoother and more reliable across browsers (Safari / Opera / Chrome) than
    seeking a <video> element's currentTime, which stutters badly on seek.
    Frames are loaded progressively; the canvas always draws the nearest loaded
-   frame so scrolling never blocks, and a preloaded poster shows instantly. */
+   frame so scrolling never blocks, and a preloaded poster shows instantly.
+
+   PHONES (<=760px) get a different hero entirely: four still frames that
+   cross-fade on a timer, with the title left where it sits. The scrub is a
+   cursor idiom, and the frame sequence is a 9.6MB download that a phone would
+   pay for in full to scrub a hero it can't scrub well — the four stills come
+   to ~1.9MB and none of the canvas code below runs. */
 
 const FRAME_COUNT = 91;
 const framePath = (i) => `/assets/furn-hero-seq/f_${String(i + 1).padStart(3, "0")}.jpg`;
 const POSTER = framePath(0);
+
+const PHONE_Q = "(max-width: 760px)";
+
+/* Cropped from 4K masters kept in media-source/furn-hero (gitignored, per the
+   repo's convention of shipping only derivatives). Shipped at 1200x2600 — a
+   430pt phone at 3x needs 1290x2796, so these carry full detail without
+   paying for pixels object-fit would throw away. None appear anywhere else
+   on the site. */
+const PHONE_SLIDES = [
+  {
+    src: "/assets/img/furn-hero-lounge.jpg",
+    alt: "Warm minimalist lounge with a curved plaster bench and paper lamp at Sage Thread Bangalore",
+  },
+  {
+    src: "/assets/img/furn-hero-scandi.jpg",
+    alt: "Light oak cabinets and a moulded plywood chair at Sage Thread Bangalore",
+  },
+  {
+    src: "/assets/img/furn-hero-sideboard.jpg",
+    alt: "Ivory sideboard with dried grasses beside a sheer-curtained window at Sage Thread Bangalore",
+  },
+  {
+    src: "/assets/img/furn-hero-atrium.jpg",
+    alt: "Bright minimal room with a cane lounge chair and low ivory cabinet at Sage Thread Bangalore",
+  },
+];
+const SLIDE_MS = 4200;
 
 const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
@@ -28,7 +61,45 @@ export default function FurnitureScrollHero() {
   const cueRef = useRef(null);
   const introRef = useRef(null);
 
+  // Starts false so the server render and the first client render agree.
+  const [isPhone, setIsPhone] = useState(false);
+  const [slide, setSlide] = useState(0);
+
   useEffect(() => {
+    const mq = window.matchMedia(PHONE_Q);
+    const sync = () => setIsPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  // Cross-fade timer. Reduced motion holds on the first frame.
+  useEffect(() => {
+    if (!isPhone) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(
+      () => setSlide((s) => (s + 1) % PHONE_SLIDES.length),
+      SLIDE_MS
+    );
+    return () => clearInterval(id);
+  }, [isPhone]);
+
+  useEffect(() => {
+    // Read the query directly rather than leaning on the state above: this
+    // effect and the one that sets isPhone both run on mount, and a phone must
+    // not kick off the 91-frame loader for even one pass.
+    if (window.matchMedia(PHONE_Q).matches) {
+      // Clear anything the scrub handler left behind when crossing the
+      // breakpoint on a resize, or the title stays faded out.
+      const intro = introRef.current;
+      if (intro) {
+        intro.style.opacity = "";
+        intro.style.transform = "";
+        intro.style.filter = "";
+      }
+      return;
+    }
+
     const stage = stageRef.current;
     const sticky = stickyRef.current;
     const canvas = canvasRef.current;
@@ -209,24 +280,50 @@ export default function FurnitureScrollHero() {
       window.removeEventListener("orientationchange", onResize);
       if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
+  }, [isPhone]);
 
   return (
     <section
       ref={stageRef}
-      className="furn-scrollhero"
+      className={
+        isPhone ? "furn-scrollhero furn-scrollhero--phone" : "furn-scrollhero"
+      }
       aria-label="Luxury living room interior — Sage Thread"
     >
       <div ref={stickyRef} className="furn-scrollhero__sticky">
-        <img
-          className="furn-scrollhero__poster"
-          src={POSTER}
-          alt="Luxury living room interior at Sage Thread Bangalore"
-          fetchPriority="high"
-          decoding="async"
-          draggable={false}
-        />
-        <canvas ref={canvasRef} className="furn-scrollhero__canvas" />
+        {isPhone ? (
+          <div className="furn-herocycle">
+            {PHONE_SLIDES.map((s, i) => (
+              <img
+                key={s.src}
+                className={
+                  i === slide
+                    ? "furn-herocycle__img is-on"
+                    : "furn-herocycle__img"
+                }
+                src={s.src}
+                alt={s.alt}
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "low"}
+                decoding="async"
+                draggable={false}
+                aria-hidden={i === slide ? undefined : "true"}
+              />
+            ))}
+          </div>
+        ) : (
+          <>
+            <img
+              className="furn-scrollhero__poster"
+              src={POSTER}
+              alt="Luxury living room interior at Sage Thread Bangalore"
+              fetchPriority="high"
+              decoding="async"
+              draggable={false}
+            />
+            <canvas ref={canvasRef} className="furn-scrollhero__canvas" />
+          </>
+        )}
         <div ref={introRef} className="furn-scrollhero__intro">
           <h1 className="furn-scrollhero__title">Transforming spaces</h1>
         </div>

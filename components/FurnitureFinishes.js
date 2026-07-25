@@ -13,6 +13,11 @@ export default function FurnitureFinishes() {
   const [selected, setSelected] = useState(0);
   const [base, setBase] = useState(0);
 
+  // On a phone the finish chips move up under the swatch they control, so the
+  // picture, the chips and the "Hand-finished" card read as one block instead
+  // of the chips sitting a screen below the image they change.
+  const [isPhone, setIsPhone] = useState(false);
+
   useEffect(() => {
     FABRICS.forEach((w) => {
       const im = new Image();
@@ -20,10 +25,34 @@ export default function FurnitureFinishes() {
     });
   }, []);
 
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 760px)");
+    const sync = () => setIsPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   const choose = (i) => {
     if (i === selected) return;
     setSelected(i);
   };
+
+  const chips = (
+    <div className={isPhone ? "chiplist chiplist--stacked" : "chiplist mt-3"}>
+      {FABRICS.map((w, i) => (
+        <button
+          key={w.name}
+          type="button"
+          className={selected === i ? "chip is-on" : "chip"}
+          aria-pressed={selected === i}
+          onClick={() => choose(i)}
+        >
+          {w.name}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <section className="section">
@@ -61,6 +90,7 @@ export default function FurnitureFinishes() {
               }}
             />
           </div>
+          {isPhone ? chips : null}
           <div className="feature__badge">
             <span className="script">Hand-finished</span>
             <small>by master tailors across India</small>
@@ -79,19 +109,7 @@ export default function FurnitureFinishes() {
             skilled tailors who measure twice and finish by hand — so your
             occasion wear drapes beautifully and lasts beyond a single season.
           </p>
-          <div className="chiplist mt-3">
-            {FABRICS.map((w, i) => (
-              <button
-                key={w.name}
-                type="button"
-                className={selected === i ? "chip is-on" : "chip"}
-                aria-pressed={selected === i}
-                onClick={() => choose(i)}
-              >
-                {w.name}
-              </button>
-            ))}
-          </div>
+          {isPhone ? null : chips}
         </div>
       </div>
     </section>

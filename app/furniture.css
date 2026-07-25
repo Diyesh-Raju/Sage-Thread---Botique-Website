@@ -30,6 +30,10 @@
 .price { font-family: var(--font-accent); color: var(--accent); letter-spacing: .04em; }
 
 .chiplist { display: flex; flex-wrap: wrap; gap: .6rem; }
+/* Phone-only placement: the chips sit between the swatch and the
+   "Hand-finished" card (see FurnitureFinishes), so they need their own
+   breathing room rather than the .mt-3 they carry beside the copy. */
+.chiplist--stacked { justify-content: center; margin: 1.1rem 0 1.2rem; }
 .chip { border: 1px solid var(--line); border-radius: 50px; padding: .5em 1.2em; font-family: var(--font-accent); font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; transition: background .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease); }
 .chip.is-on { background: var(--accent-2); color: #fff; border-color: var(--accent-2); }
 
@@ -359,6 +363,148 @@
   .furn-scrollhero { height: 100vh; height: 100svh; }
   .furn-scrollhero__chevron { animation: none; }
   .furn-scrollhero__title { animation: none; }
+}
+
+/* ---- Phone hero: four stills cross-fading, no scrub ----
+   Only ever rendered under PHONE_Q in FurnitureScrollHero, so none of this
+   can reach the desktop hero. */
+.furn-herocycle { position: absolute; inset: 0; z-index: 0; }
+.furn-herocycle__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1.5s var(--ease, ease);
+}
+.furn-herocycle__img.is-on { opacity: 1; }
+/* Scrim: the four frames run from a dark lounge to a bright white room, so the
+   title needs a constant backdrop to sit on. */
+.furn-herocycle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  /* Holds ~0.38 through the middle band rather than thinning out there: the
+     title sits at 50% and two of the four frames are bright right behind it. */
+  background: linear-gradient(
+    180deg,
+    rgba(18, 14, 10, 0.46) 0%,
+    rgba(18, 14, 10, 0.36) 38%,
+    rgba(18, 14, 10, 0.4) 58%,
+    rgba(18, 14, 10, 0.68) 100%
+  );
+}
+/* Keyed to the media query rather than the JS-applied --phone class on
+   purpose. The server can't know the viewport, so it always renders the
+   desktop hero markup; if these rules waited for hydration a phone would paint
+   a 420vh scrub stage and the poster frame first, then jump. This way first
+   paint is already the phone hero — the stills fade in over it once React
+   mounts. Comes after the 640px block above so it wins on source order. */
+@media (max-width: 760px) {
+  .furn-scrollhero { height: 100vh; height: 100svh; }
+  .furn-scrollhero__sticky {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+  }
+  /* Server-rendered desktop hero: never shown at this width. */
+  .furn-scrollhero__poster,
+  .furn-scrollhero__canvas { display: none; }
+  /* Ivory over the scrim instead of the desktop espresso-on-white halo, which
+     can't hold contrast across frames this different. Same position, size and
+     tracking. */
+  .furn-scrollhero__title {
+    color: #f4ece0;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.55), 0 1px 3px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* ===== Shop-by-room accordion =====
+   Was inline styles on the component; moved here so the strip can be
+   re-proportioned per breakpoint. The desktop values below are exactly the
+   ones that were inline. */
+.room-acc {
+  --acc-h: 450px;
+  --acc-open: 380px;
+  --acc-shut: 56px;
+  --acc-gap: 12px;
+  --acc-label: 1.125rem;
+  --acc-label-shut: 6rem;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* `safe` so that if the strip ever does overflow, the first card stays
+     reachable instead of being centred off the edge */
+  justify-content: safe center;
+  gap: var(--acc-gap);
+  overflow-x: auto;
+  padding: 1rem;
+}
+.room-acc__item {
+  position: relative;
+  height: var(--acc-h);
+  width: var(--acc-shut);
+  flex: 0 0 auto;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: width 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-appearance: none;
+  appearance: none;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+.room-acc__item[aria-expanded="true"] { width: var(--acc-open); }
+.room-acc__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.room-acc__veil { position: absolute; inset: 0; background: rgba(0, 0, 0, 0.4); }
+.room-acc__label {
+  position: absolute;
+  left: 50%;
+  bottom: var(--acc-label-shut);
+  transform: translateX(-50%) rotate(90deg);
+  color: #fff;
+  font-size: var(--acc-label);
+  font-weight: 600;
+  white-space: nowrap;
+  transition: all 300ms ease-in-out;
+}
+.room-acc__item[aria-expanded="true"] .room-acc__label {
+  bottom: 1.5rem;
+  transform: translateX(-50%) rotate(0deg);
+}
+
+@media (max-width: 760px) {
+  /* All five panels on screen at once, no sideways scrolling. The open panel
+     is whatever is left after the four closed ones and the gaps, measured off
+     the viewport — so the row fits exactly at any phone width rather than
+     relying on a hand-picked pixel value. */
+  .room-acc {
+    --acc-h: 300px;
+    --acc-shut: 30px;
+    --acc-gap: 6px;
+    --acc-open: calc(
+      100vw - 2 * var(--pad) - 4 * var(--acc-shut) - 4 * var(--acc-gap)
+    );
+    --acc-label: 0.82rem;
+    --acc-label-shut: 4.6rem;
+    padding: 0;
+    overflow-x: hidden;
+  }
 }
 
 /* ===== Living Room collection page ===== */

@@ -44,8 +44,16 @@ export default function FurniturePage() {
         href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap"
         rel="stylesheet"
       />
-      {/* First hero frame — preloaded so the video hero paints instantly */}
-      <link rel="preload" as="image" href="/assets/furn-hero-seq/f_001.jpg" fetchPriority="high" />
+      {/* First hero frame — preloaded so the video hero paints instantly.
+          Phones render the cross-fade hero instead and never touch the frame
+          sequence, so the preload is scoped away from them. */}
+      <link
+        rel="preload"
+        as="image"
+        href="/assets/furn-hero-seq/f_001.jpg"
+        fetchPriority="high"
+        media="(min-width: 761px)"
+      />
 
       <Header />
 
