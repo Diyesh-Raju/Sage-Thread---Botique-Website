@@ -143,6 +143,23 @@
   .sig__stage { height: clamp(330px, 62vw, 460px); }
 }
 
+/* Phones: 7px dots are a fingertip target of about a sixth the recommended
+   size. The visible dot grows to 12px and an invisible pad around it takes
+   the hit area to 40px without moving anything on the page. */
+@media (max-width: 760px) {
+  .sig__dots { gap: 1rem; }
+  .sig__dot {
+    position: relative;
+    width: 12px;
+    height: 12px;
+  }
+  .sig__dot::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .sig__slide { transition: none; }
 }

@@ -153,7 +153,11 @@ export default function StyleCarousel() {
     if (role === "center") {
       return {
         left: "50%",
-        bottom: isMobile ? "4%" : "7%",
+        /* Phone: lifted well off the floor so the legs clear the arrows, the
+           "street wear" label and the discover link, which all sit in the
+           bottom ~100px. It also fills the dead space the stage used to leave
+           above the head. */
+        bottom: isMobile ? "17%" : "7%",
         /* the cut-outs are trimmed tight to the subject, so the figure is
            sized by height alone — no scale-up, or the head leaves the stage.
            Kept well under native resolution so the photos stay crisp, and

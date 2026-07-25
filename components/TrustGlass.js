@@ -97,6 +97,20 @@ export default function TrustGlass() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  // Phones swap the 7px dots for arrows plus a segmented bar — see the render
+  // below. Starts false so the server and first client render agree.
+  const [isPhone, setIsPhone] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 760px)");
+    const sync = () => setIsPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const step = (dir) =>
+    setActive((n) => (n + dir + REVIEWS.length) % REVIEWS.length);
+
   useEffect(() => {
     if (paused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -196,19 +210,57 @@ export default function TrustGlass() {
             <span className="rubyquote__sweep" key={active} aria-hidden="true" />
           </div>
 
-          <div className="rubyquote__dots" role="tablist" aria-label="Choose a review">
-            {REVIEWS.map((_, n) => (
+          {isPhone ? (
+            <div className="rubyquote__nav">
               <button
-                key={n}
                 type="button"
-                role="tab"
-                aria-selected={n === active}
-                aria-label={`Review ${n + 1}`}
-                className={"rubyquote__dot" + (n === active ? " is-on" : "")}
-                onClick={() => setActive(n)}
-              />
-            ))}
-          </div>
+                className="rubyquote__arrow"
+                aria-label="Previous review"
+                onClick={() => step(-1)}
+              >
+                <span aria-hidden="true">←</span>
+              </button>
+              <div
+                className="rubyquote__bars"
+                role="tablist"
+                aria-label="Choose a review"
+              >
+                {REVIEWS.map((_, n) => (
+                  <button
+                    key={n}
+                    type="button"
+                    role="tab"
+                    aria-selected={n === active}
+                    aria-label={`Review ${n + 1}`}
+                    className={"rubyquote__bar" + (n === active ? " is-on" : "")}
+                    onClick={() => setActive(n)}
+                  />
+                ))}
+              </div>
+              <button
+                type="button"
+                className="rubyquote__arrow"
+                aria-label="Next review"
+                onClick={() => step(1)}
+              >
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          ) : (
+            <div className="rubyquote__dots" role="tablist" aria-label="Choose a review">
+              {REVIEWS.map((_, n) => (
+                <button
+                  key={n}
+                  type="button"
+                  role="tab"
+                  aria-selected={n === active}
+                  aria-label={`Review ${n + 1}`}
+                  className={"rubyquote__dot" + (n === active ? " is-on" : "")}
+                  onClick={() => setActive(n)}
+                />
+              ))}
+            </div>
+          )}
         </figure>
       </section>
     </>

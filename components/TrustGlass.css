@@ -283,6 +283,67 @@
 .rubyquote__dot:hover { background: rgba(255, 255, 255, .55); }
 .rubyquote__dot.is-on { background: #e7bd6b; transform: scale(1.25); }
 
+/* ---- phone review nav: arrow, five segments, arrow -------------------
+   Only rendered under 760px (see TrustGlass.js), so none of this reaches the
+   desktop dots. Segments rather than dots because five of them read as a
+   position along the set — you can see which review you are on and how many
+   are left — and each is a far bigger finger target than a 7px circle. */
+.rubyquote__nav {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  margin-top: clamp(1.4rem, 2.6vw, 2rem);
+}
+.rubyquote__arrow {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .38);
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .3s var(--ease), border-color .3s var(--ease),
+    transform .3s var(--ease);
+}
+.rubyquote__arrow:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, .2);
+  border-color: #e7bd6b;
+}
+.rubyquote__bars {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  min-width: 0;
+}
+.rubyquote__bar {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .3);
+  cursor: pointer;
+  position: relative;
+  transition: background .3s var(--ease);
+}
+/* invisible pad so a 3px bar is still a comfortable finger target */
+.rubyquote__bar::after {
+  content: "";
+  position: absolute;
+  inset: -18px -2px;
+}
+.rubyquote__bar.is-on { background: #e7bd6b; }
+
 /* ---- narrower --------------------------------------------------------- */
 @media (max-width: 860px) {
   .assure__grid { grid-template-columns: 1fr; max-width: 440px; margin-inline: auto; }

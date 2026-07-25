@@ -79,6 +79,13 @@
 @media (max-width: 1100px) { .sstroke { --art-scale: .62; } }
 @media (max-width: 760px)  { .sstroke { --art-scale: .4; } }
 
+/* Phones drop the section entirely. Done in CSS rather than by returning null
+   from the component so it is gone at first paint — bailing after mount would
+   render the block, then collapse a screen's worth of height under the
+   reader. The scroll-drawn line is a desktop idiom anyway: it needs a long
+   scroll passage to read as drawing itself. */
+@media (max-width: 760px) { .sstroke { display: none; } }
+
 /* Nothing to follow when the page doesn't move: the line is handed over
    already complete (see the component), and the section keeps its computed
    height so the whole drawing still has room to be scrolled past. */

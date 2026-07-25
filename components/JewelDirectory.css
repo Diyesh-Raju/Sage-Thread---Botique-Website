@@ -174,9 +174,13 @@
 }
 @media (max-width: 760px) {
   .jdir__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  /* the rail would squash past six abreast, so it scrolls instead */
+  /* the rail would squash past six abreast, so it scrolls instead.
+     `safe` centre, not flex-start: the six icons do fit a phone with room to
+     spare, so flex-start just parked them against the left edge with the
+     slack piled up on the right. `safe` still falls back to flex-start if a
+     narrower screen ever does overflow, keeping the first icon reachable. */
   .jdir__rail {
-    justify-content: flex-start;
+    justify-content: safe center;
     gap: 1.75rem;
     overflow-x: auto;
     scrollbar-width: none;

@@ -166,6 +166,40 @@
   .hero--fashion .scroll-cue { display: none; }
 }
 
+/* Phones only — the 820px block above is left as it is for tablets. */
+@media (max-width: 760px) {
+  /* That block zeroes padding-left, which also kills the .container padding
+     this element inherits, so the headline and the button were running off
+     the left edge. Restore symmetric padding and centre the column. */
+  .hero--fashion .hero__inner--right {
+    padding-left: var(--pad);
+    padding-right: var(--pad);
+    align-items: center;
+  }
+  .fashion-hero__title { text-align: center; }
+  /* The -12px nudge centres the CTA under the "Fashion," word in the desktop
+     column; centred on a phone it just reads as off-centre. */
+  .fashion-hero__cta .btn { transform: none; }
+  /* At .2em this line measured 348px inside a 350px box — one glyph from
+     wrapping. Ease it off so the centring has something to work with. */
+  .fashion-hero__line {
+    font-size: clamp(.9rem, 3.8vw, 1.15rem);
+    letter-spacing: .15em;
+  }
+
+  /* Zoom out. The frame is 16:9 inside a portrait viewport, so `cover` scales
+     it to the hero's *height* and throws away most of the width — at full
+     height only ~26% of the picture was on screen. Two levers, in order of
+     effect:
+       1. shorten the hero, which is what actually lets the crop widen (~26%
+          of the frame visible -> ~35%);
+       2. drop the 6% push-in on top of it.
+     object-position stays at 26% from the 820px block: the model stands in
+     the left third, and centring the crop leaves her out of frame entirely. */
+  .hero--fashion { min-height: 76svh; }
+  .hero--fashion .hero__media { transform: none; }
+}
+
 /* ── Shop by gender ─────────────────────────────────────────────
    Two portraits held in circles, each with a script label under
    it — the same Pinyon Script as the hero's "Fashion,". */
