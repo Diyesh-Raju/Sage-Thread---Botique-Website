@@ -634,6 +634,13 @@
 @media (max-width: 760px) {
   /* every pixel of width here is half a page wider on each side */
   .fb-stage { padding: 0; }
+
+  /* The download button is `position: relative` and sits after the book in
+     the document, so anything of the book's that strays into its band gets
+     painted over by it — the book reads as having slipped underneath. Give
+     the reader its own layer above, so a stray page stays visible instead of
+     disappearing behind the button. */
+  .fb { position: relative; z-index: 1; }
 }
 
 /* page faces (built imperatively in Flipbook.js) */

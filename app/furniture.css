@@ -558,6 +558,17 @@
 @media (max-width: 560px) {
   .pgrid { grid-template-columns: 1fr; }
 }
+@media (max-width: 760px) {
+  /* Opt the product grid out of the scroll reveal on phones.
+     The observer keys on `threshold: 0.12` — twelve percent of the element's
+     *own* height — and stacked into one column this grid is ~2300px tall, so
+     the strip of it below the page heading came to 0.109 of that at 390x700
+     (a real phone with the URL bar showing). Under the threshold, so the
+     products sat at opacity 0 until a scroll dragged them in, and because the
+     observer also clears the class on exit they faded straight back out on
+     the way up. Shown outright here: present on arrival, and they stay. */
+  .pgrid[data-reveal] { opacity: 1; transform: none; }
+}
 
 /* Collection page: white canvas + roomier, larger product cards
    (same 3-over-2 grid layout and image animation, just bigger). */

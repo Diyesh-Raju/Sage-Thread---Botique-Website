@@ -101,7 +101,17 @@ export default function Flipbook({ catalogue }) {
         flippingTime: 850,
         usePortrait: !phone,
         autoSize: true,
-        mobileScrollSupport: false,
+        /* Phones must keep this on. With it off the library calls
+           preventDefault() on touchstart and feeds every touchmove to the
+           page-drag handler, so a touch that lands on the book cannot scroll
+           the page and instead starts a flip that is never finished — the
+           book is left mid-drag and only a reload clears it. On a phone the
+           book spans the full width, so almost every scroll in that band
+           starts on it. With it on, the library only takes the gesture once
+           it has moved more than 10px horizontally, which leaves vertical
+           swipes to the page and still flips on a sideways drag.
+           Desktop is left as it was; it drives the book with mouse events. */
+        mobileScrollSupport: !!phone,
         drawShadow: true,
       });
       pf.loadFromHTML(el.querySelectorAll(".fbpage"));
