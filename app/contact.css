@@ -59,3 +59,30 @@
 
 .map-embed { border-radius: 14px; overflow: hidden; border: 1px solid var(--line); aspect-ratio: 16/7; }
 .map-embed iframe { width: 100%; height: 100%; border: 0; filter: grayscale(.3) contrast(1.05); }
+
+/* ---------- PHONES ---------- */
+@media (max-width: 760px) {
+  /* The two columns of this section are ~1400px and ~900px tall, and the
+     reveal observer keys on `threshold: 0.12` — twelve percent of the
+     element's *own* height. Only the sliver below the 72svh hero is in view
+     at load, which came to 0.111 of the first column: under the threshold, so
+     it never fired and the whole form sat at opacity 0 until a scroll nudged
+     it in. Show them outright here. */
+  .contact-grid > [data-reveal] { opacity: 1; transform: none; }
+
+  /* Telephone and email are the point of this page, and both were 18px-tall
+     text links. Give them a real target without moving the rows. */
+  .info-row p a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  /* long address-like email — let it break rather than force the card wide */
+  .info-row p a[href^="mailto:"] { word-break: break-word; }
+
+  .socials a { min-height: 44px; display: inline-flex; align-items: center; }
+
+  /* 16/7 is a desktop banner crop; across a phone it left a 153px-tall strip
+     with no context around the marker. */
+  .map-embed { aspect-ratio: 4 / 3; }
+}
