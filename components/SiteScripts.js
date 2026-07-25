@@ -150,6 +150,10 @@ export default function SiteScripts() {
     const introCue = introSection
       ? introSection.querySelector(".scroll-cue")
       : null;
+    // phone-only second cue that holds under the video box (marble page)
+    const introCue2 = introSection
+      ? introSection.querySelector("[data-intro-cue2]")
+      : null;
     const clamp01 = (x) => (x < 0 ? 0 : x > 1 ? 1 : x);
     const easeOut = (x) => 1 - Math.pow(1 - x, 3);
     const easeInOut = (x) =>
@@ -199,6 +203,13 @@ export default function SiteScripts() {
 
         // fade the scroll cue out once the first beat is underway
         if (introCue) introCue.style.opacity = (1 - clamp01(p / 0.1)).toFixed(3);
+        // second cue (phones): in with the stone line, held through the box
+        // rise and expansion, out as the pin releases
+        if (introCue2) {
+          const cueIn = clamp01((p - 0.16) / 0.08);
+          const cueOut = 1 - clamp01((p - 0.88) / 0.08);
+          introCue2.style.opacity = (cueIn * cueOut).toFixed(3);
+        }
         // 1) marble slides up from the bottom to cover the hero (p: 0 -> .24)
         if (introMarble) {
           const m = easeOut(clamp01(p / 0.24));

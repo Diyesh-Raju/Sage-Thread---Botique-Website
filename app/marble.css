@@ -119,6 +119,24 @@
 
 .intro .scroll-cue { z-index: 4; }
 
+/* Second cue, phones only — carries through the stone line and the video box.
+   Desktop never renders it; the pinned sequence is short enough there that the
+   first cue does the job. */
+.intro__cue--stage { display: none; }
+@media (max-width: 760px) {
+  .intro__cue--stage {
+    display: flex;
+    /* The expanded box leaves a 14vh margin at the foot of the stage; this
+       sits inside it, clear of the box's bottom edge. */
+    bottom: 1.5rem;
+    opacity: 0;             /* JS scrubs in with the stone line */
+    /* The backdrop here is pale marble, not the dark hero photo the base
+       .scroll-cue is coloured for. */
+    color: rgba(20, 26, 30, .72);
+  }
+  .intro__cue--stage::after { background: rgba(20, 26, 30, .5); }
+}
+
 /* Reduced motion / no-JS: drop the pin and lay the three beats out
    as plain stacked full-height panels so all content stays reachable. */
 @media (prefers-reduced-motion: reduce) {
@@ -281,6 +299,15 @@
   transform: perspective(900px) translateY(-10px) scale(1.04);
 }
 
+/* "Click" hint under the cards — phones only, see MarbleCollections */
+.mci__tap {
+  display: none;
+  margin-top: clamp(1.4rem, 4vw, 2.2rem);
+  text-align: center;
+  font-family: var(--font-body); font-size: .74rem; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--muted);
+}
+
 /* flanking circular arrows — sit in the gap between the near + far cards,
    vertically centred on the row */
 .mci__arrow {
@@ -306,6 +333,16 @@
 @media (max-width: 640px) {
   .mci__slot.is-near { opacity: .5; }
   .mci__slot { width: clamp(190px, 64vw, 260px); }
+
+  /* 13% of the stage lands the arrows on top of the centre card here (66px
+     and 279px against a card spanning 70-320), which both hides artwork and
+     makes them look like part of it. The gaps either side of the centre card
+     run 13-70 and 320-377, so pinning the arrows to the stage edges drops
+     them into the middle of those gaps. */
+  .mci__arrow--prev { left: 0; }
+  .mci__arrow--next { right: 0; }
+
+  .mci__tap { display: block; }
 }
 
 /* ============================================================
@@ -449,6 +486,24 @@
 }
 .cat__row:not(.cat__row--rev) .cat__book { margin-left: clamp(1rem, 6vw, 5rem); }
 .cat__row--rev .cat__book { margin-right: clamp(1rem, 6vw, 5rem); }
+@media (max-width: 760px) {
+  /* Those inset margins pair the book with the copy column beside it. Stacked
+     into one column they just shove it against an edge — the -26deg tilt then
+     carries the front cover off the left of the screen. Hand the centring
+     back. */
+  .cat__row:not(.cat__row--rev) .cat__book,
+  .cat__row--rev .cat__book { margin-inline: auto; }
+
+  .cat__book {
+    /* Centring the *box* is not the same as centring what gets painted: the
+       two covers lean opposite ways (front -4%, behind +15%), so the drawn
+       composition sits ~8% of the book's width right of the box centre and
+       ran off the right edge. Offset by that, and trim the width so the
+       tilted spread has margin either side rather than grazing both. */
+    width: min(48vw, 210px);
+    transform: translateX(-8%);
+  }
+}
 .cat__tap {
   position: relative; z-index: 4;
   display: block; margin-top: clamp(4.5rem, 9vw, 7rem); text-align: center;
@@ -569,7 +624,32 @@
 /* before opening, the closed cover is nudged to sit centred in the stage;
    on the first page turn it slides back to the spread position */
 .fb-book.is-closed { transform: translateX(-25%); }
-@media (max-width: 800px) { .fb-book.is-closed { transform: none; } }
+/* Only the band that still collapses to a single page can skip the nudge —
+   in one-page mode the cover already fills the stage. Phones are back on the
+   two-page spread (see Flipbook.js), where the cover occupies the right half
+   and needs the offset to sit centred. */
+@media (min-width: 761px) and (max-width: 800px) {
+  .fb-book.is-closed { transform: none; }
+}
+@media (max-width: 760px) {
+  /* every pixel of width here is half a page wider on each side */
+  .fb-stage { padding: 0; }
+
+  /* A spread puts each page at half the screen width, so the page furniture
+     has to come down with it or the caption overruns the paper. Slightly
+     more of the page is given to the caption too. */
+  .fbpage__img { height: 55%; }
+  .fbpage__cap { top: 55%; padding: .7rem .8rem; gap: .25rem; }
+  .fbpage__title { font-size: 1rem; line-height: 1.18; }
+  .fbpage__text { font-size: .72rem; line-height: 1.45; }
+  .fbpage__eyebrow { font-size: .56rem; letter-spacing: .14em; }
+  .fbpage__no { font-size: .66rem; }
+  .fbpage__covertitle { font-size: 1.35rem; }
+  .fbpage__brand { font-size: .58rem; letter-spacing: .16em; }
+  .fbpage__coverwrap,
+  .fbpage__backwrap { padding: 1rem .9rem; gap: .35rem; }
+  .fbpage__btn { padding: .6rem 1rem; font-size: .68rem; }
+}
 
 /* page faces (built imperatively in Flipbook.js) */
 .fbpage {

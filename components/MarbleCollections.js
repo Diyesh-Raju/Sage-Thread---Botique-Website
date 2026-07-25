@@ -148,6 +148,11 @@ export default function MarbleCollections() {
             </svg>
           </button>
         </div>
+
+        {/* Phones only (hidden by CSS above 640px). The cards open a collection
+            page, but nothing on a touch screen says so — there is no cursor to
+            change and no hover state to give it away. */}
+        <p className="mci__tap">Click</p>
       </div>
     </section>
   );

@@ -61,7 +61,23 @@ export default function Flipbook({ catalogue }) {
   // spread position the first time it is opened
   const [closed, setClosed] = useState(true);
 
+  /* Phones read the spread, not one page at a time. `usePortrait` lets
+     StPageFlip collapse to a single page when the stage is narrow, which is
+     exactly what a phone got — so it is turned off below 760px and the min
+     page size lowered enough that two pages still fit the width.
+     Starts null so the reader is built once, with the breakpoint already
+     known, rather than mounted portrait and then rebuilt. */
+  const [phone, setPhone] = useState(null);
   useEffect(() => {
+    const mq = window.matchMedia("(max-width: 760px)");
+    const sync = () => setPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  useEffect(() => {
+    if (phone === null) return undefined;
     const el = bookRef.current;
     if (!el) return undefined;
     let pf;
@@ -74,16 +90,22 @@ export default function Flipbook({ catalogue }) {
       if (destroyed) return;
       pf = new PageFlip(el, {
         width: 460,
-        height: 600,
+        // Taller page on a phone. These two set the aspect ratio that `size:
+        // "stretch"` scales to the stage width; at half a phone's width a
+        // 460x600 page comes out 254px tall, which is too short for the
+        // caption under the photo.
+        height: phone ? 720 : 600,
         size: "stretch",
-        minWidth: 280,
+        // low enough that a two-page spread still fits a phone's width; the
+        // desktop floors would force the book wider than the screen
+        minWidth: phone ? 140 : 280,
         maxWidth: 560,
-        minHeight: 360,
+        minHeight: phone ? 180 : 360,
         maxHeight: 760,
         maxShadowOpacity: 0.5,
         showCover: true,
         flippingTime: 850,
-        usePortrait: true,
+        usePortrait: !phone,
         autoSize: true,
         mobileScrollSupport: false,
         drawShadow: true,
@@ -108,7 +130,7 @@ export default function Flipbook({ catalogue }) {
       pfRef.current = null;
       if (el) el.innerHTML = "";
     };
-  }, [catalogue]);
+  }, [catalogue, phone]);
 
   const prev = () => pfRef.current?.flipPrev();
   const next = () => {

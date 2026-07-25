@@ -98,6 +98,15 @@ export default function MarblePage() {
             </div>
 
             <div className="scroll-cue">Scroll</div>
+
+            {/* Phones only (hidden by CSS above 760px). A second cue that
+                arrives with the stone line and holds under the video box until
+                the pin releases — the first cue has already faded by then, and
+                without it the expanded video reads as the end of the page.
+                Opacity is scrubbed alongside the other beats in SiteScripts. */}
+            <div className="scroll-cue intro__cue--stage" data-intro-cue2>
+              Scroll
+            </div>
           </div>
         </section>
 
