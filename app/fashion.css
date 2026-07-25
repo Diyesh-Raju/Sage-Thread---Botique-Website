@@ -198,6 +198,21 @@
      the left third, and centring the crop leaves her out of frame entirely. */
   .hero--fashion { min-height: 76svh; }
   .hero--fashion .hero__media { transform: none; }
+
+  /* Opt this section out of the scroll reveal on phones.
+     The reveal observer uses `threshold: 0.12` — twelve percent of the
+     element's *own* height. This section is ~770px tall, so with the hero
+     now ending mid-screen only 60-140px of it is in view at load: about 0.09
+     on a 700px-tall viewport (an actual phone with the URL bar showing) and
+     0.086 at 360x640. Both sit under the threshold, so the observer never
+     fired and the section stayed at opacity 0 until a scroll nudged it in —
+     an empty band exactly where "Our Collections" should be. Showing it
+     outright also skips the blank frame between first paint and hydration,
+     which the shorter hero likewise made visible. */
+  .collections-section[data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ── Shop by gender ─────────────────────────────────────────────

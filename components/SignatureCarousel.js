@@ -43,6 +43,17 @@ export default function SignatureCarousel() {
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
 
+  // Phones swap the dots for the same arrow-and-segments control the review
+  // carousel uses. Starts false so the server and first client render agree.
+  const [isPhone, setIsPhone] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 760px)");
+    const sync = () => setIsPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
   useEffect(() => {
     if (paused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -97,19 +108,53 @@ export default function SignatureCarousel() {
           ))}
         </div>
 
-        <div className="sig__dots" role="tablist" aria-label="Choose a creation">
-          {PIECES.map((p, n) => (
+        {isPhone ? (
+          <div className="sig__nav">
             <button
-              key={p.img}
               type="button"
-              role="tab"
-              aria-selected={n === active}
-              aria-label={p.name}
-              className={"sig__dot" + (n === active ? " is-on" : "")}
-              onClick={() => setActive(n)}
-            />
-          ))}
-        </div>
+              className="sig__arrow"
+              aria-label="Previous creation"
+              onClick={() => step(-1)}
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+            <div className="sig__bars" role="tablist" aria-label="Choose a creation">
+              {PIECES.map((p, n) => (
+                <button
+                  key={p.img}
+                  type="button"
+                  role="tab"
+                  aria-selected={n === active}
+                  aria-label={p.name}
+                  className={"sig__bar" + (n === active ? " is-on" : "")}
+                  onClick={() => setActive(n)}
+                />
+              ))}
+            </div>
+            <button
+              type="button"
+              className="sig__arrow"
+              aria-label="Next creation"
+              onClick={() => step(1)}
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        ) : (
+          <div className="sig__dots" role="tablist" aria-label="Choose a creation">
+            {PIECES.map((p, n) => (
+              <button
+                key={p.img}
+                type="button"
+                role="tab"
+                aria-selected={n === active}
+                aria-label={p.name}
+                className={"sig__dot" + (n === active ? " is-on" : "")}
+                onClick={() => setActive(n)}
+              />
+            ))}
+          </div>
+        )}
 
         <a className="sig__more" href="/contact">
           More Creations

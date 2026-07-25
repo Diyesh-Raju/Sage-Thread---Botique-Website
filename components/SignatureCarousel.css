@@ -143,22 +143,66 @@
   .sig__stage { height: clamp(330px, 62vw, 460px); }
 }
 
-/* Phones: 7px dots are a fingertip target of about a sixth the recommended
-   size. The visible dot grows to 12px and an invisible pad around it takes
-   the hit area to 40px without moving anything on the page. */
-@media (max-width: 760px) {
-  .sig__dots { gap: 1rem; }
-  .sig__dot {
-    position: relative;
-    width: 12px;
-    height: 12px;
-  }
-  .sig__dot::after {
-    content: "";
-    position: absolute;
-    inset: -14px;
-  }
+/* ---- phone nav: arrow, three segments, arrow -------------------------
+   Replaces the dots below 760px (see SignatureCarousel.js) — the same
+   control as the review carousel, in this section's dark-on-light palette.
+   Every target is finger-sized, and the segments show which of the three
+   creations is on screen. */
+.sig__nav {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  width: min(100%, 320px);
 }
+.sig__arrow {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(29, 20, 25, .28);
+  background: transparent;
+  color: var(--accent-2, #1d1419);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .3s var(--ease), border-color .3s var(--ease),
+    transform .3s var(--ease);
+}
+.sig__arrow:active {
+  transform: scale(0.92);
+  border-color: var(--accent);
+  background: rgba(29, 20, 25, .05);
+}
+.sig__bars {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  min-width: 0;
+}
+.sig__bar {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 2px;
+  background: rgba(29, 20, 25, .18);
+  cursor: pointer;
+  position: relative;
+  transition: background .3s var(--ease);
+}
+/* invisible pad so a 3px bar is still a comfortable finger target */
+.sig__bar::after {
+  content: "";
+  position: absolute;
+  inset: -18px -2px;
+}
+.sig__bar.is-on { background: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {
   .sig__slide { transition: none; }
