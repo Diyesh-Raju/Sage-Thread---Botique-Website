@@ -448,7 +448,10 @@
   flex-direction: row;
   align-items: center;
   /* `safe` so that if the strip ever does overflow, the first card stays
-     reachable instead of being centred off the edge */
+     reachable instead of being centred off the edge. Plain `center` first:
+     an engine that can't parse the `safe` keyword throws the whole
+     declaration away, and without a fallback it would land on flex-start. */
+  justify-content: center;
   justify-content: safe center;
   gap: var(--acc-gap);
   overflow-x: auto;

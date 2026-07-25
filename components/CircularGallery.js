@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import "./CircularGallery.css";
+import useMediaQuery from "./useMediaQuery";
 
 // A simple utility for conditional class names
 const cn = (...classes) => classes.filter(Boolean).join(" ");
@@ -42,15 +43,7 @@ function CircularGallery({ items, heading, radius, className }) {
 
   // Starts false so the server render and the first client render agree; the
   // effect below flips it on a phone right after mount.
-  const [isPhone, setIsPhone] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 760px)");
-    const sync = () => setIsPhone(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+  const isPhone = useMediaQuery("(max-width: 760px)");
 
   const n = items.length;
   // Keep the per-card spacing fixed to the original 9-card ring, so removing

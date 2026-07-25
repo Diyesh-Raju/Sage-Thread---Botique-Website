@@ -634,21 +634,6 @@
 @media (max-width: 760px) {
   /* every pixel of width here is half a page wider on each side */
   .fb-stage { padding: 0; }
-
-  /* A spread puts each page at half the screen width, so the page furniture
-     has to come down with it or the caption overruns the paper. Slightly
-     more of the page is given to the caption too. */
-  .fbpage__img { height: 55%; }
-  .fbpage__cap { top: 55%; padding: .7rem .8rem; gap: .25rem; }
-  .fbpage__title { font-size: 1rem; line-height: 1.18; }
-  .fbpage__text { font-size: .72rem; line-height: 1.45; }
-  .fbpage__eyebrow { font-size: .56rem; letter-spacing: .14em; }
-  .fbpage__no { font-size: .66rem; }
-  .fbpage__covertitle { font-size: 1.35rem; }
-  .fbpage__brand { font-size: .58rem; letter-spacing: .16em; }
-  .fbpage__coverwrap,
-  .fbpage__backwrap { padding: 1rem .9rem; gap: .35rem; }
-  .fbpage__btn { padding: .6rem 1rem; font-size: .68rem; }
 }
 
 /* page faces (built imperatively in Flipbook.js) */
@@ -699,6 +684,30 @@
   display: inline-block; padding: .8rem 1.4rem; border-radius: 999px;
   background: #fff; color: #1b2124; font-family: var(--font-body);
   font-size: .78rem; letter-spacing: .12em; text-transform: uppercase;
+}
+
+/* Phone spread: each page is half the screen wide, so the page furniture has
+   to come down with it or the caption overruns the paper. Placed AFTER the
+   base .fbpage rules above — same specificity, so source order decides, and
+   sitting before them these were silently doing nothing.
+
+   The caption gets half the page. At 55/45 the longest one needed exactly the
+   height it had in Chromium and WebKit — no headroom at all — and Firefox,
+   whose text metrics run a shade taller, overran it by 12px. Text that fits
+   only by luck in two engines out of three will also clip the first time a
+   font falls back or someone raises their default text size. */
+@media (max-width: 760px) {
+  .fbpage__img { height: 50%; }
+  .fbpage__cap { top: 50%; padding: .7rem .8rem; gap: .25rem; }
+  .fbpage__title { font-size: 1rem; line-height: 1.18; }
+  .fbpage__text { font-size: .72rem; line-height: 1.45; }
+  .fbpage__eyebrow { font-size: .56rem; letter-spacing: .14em; }
+  .fbpage__no { font-size: .66rem; }
+  .fbpage__covertitle { font-size: 1.35rem; }
+  .fbpage__brand { font-size: .58rem; letter-spacing: .16em; }
+  .fbpage__coverwrap,
+  .fbpage__backwrap { padding: 1rem .9rem; gap: .35rem; }
+  .fbpage__btn { padding: .6rem 1rem; font-size: .68rem; }
 }
 
 .fb-controls {

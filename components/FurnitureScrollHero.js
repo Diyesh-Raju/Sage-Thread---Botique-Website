@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import useMediaQuery from "./useMediaQuery";
 
 /* Scroll-scrubbed video hero (desktop).
    The source video is pre-decoded into a JPEG frame sequence (public/assets/
@@ -62,16 +63,9 @@ export default function FurnitureScrollHero() {
   const introRef = useRef(null);
 
   // Starts false so the server render and the first client render agree.
-  const [isPhone, setIsPhone] = useState(false);
+  const isPhone = useMediaQuery(PHONE_Q);
   const [slide, setSlide] = useState(0);
 
-  useEffect(() => {
-    const mq = window.matchMedia(PHONE_Q);
-    const sync = () => setIsPhone(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   // Cross-fade timer. Reduced motion holds on the first frame.
   useEffect(() => {

@@ -18,6 +18,7 @@
 
 import { useEffect, useState } from "react";
 import "./TrustGlass.css";
+import useMediaQuery from "./useMediaQuery";
 
 const CARDS = [
   {
@@ -99,14 +100,7 @@ export default function TrustGlass() {
 
   // Phones swap the 7px dots for arrows plus a segmented bar — see the render
   // below. Starts false so the server and first client render agree.
-  const [isPhone, setIsPhone] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 760px)");
-    const sync = () => setIsPhone(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+  const isPhone = useMediaQuery("(max-width: 760px)");
 
   const step = (dir) =>
     setActive((n) => (n + dir + REVIEWS.length) % REVIEWS.length);

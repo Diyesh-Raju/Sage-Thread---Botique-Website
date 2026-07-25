@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import useMediaQuery from "./useMediaQuery";
 
 /* Page-by-page flipbook reader built on StPageFlip (page-flip). The page DOM is
    built imperatively and handed to the library, so React never tries to remove
@@ -67,14 +68,7 @@ export default function Flipbook({ catalogue }) {
      page size lowered enough that two pages still fit the width.
      Starts null so the reader is built once, with the breakpoint already
      known, rather than mounted portrait and then rebuilt. */
-  const [phone, setPhone] = useState(null);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 760px)");
-    const sync = () => setPhone(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+  const phone = useMediaQuery("(max-width: 760px)", null);
 
   useEffect(() => {
     if (phone === null) return undefined;

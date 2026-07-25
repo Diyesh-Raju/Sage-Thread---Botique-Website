@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import useMediaQuery from "./useMediaQuery";
 
 const FABRICS = [
   { name: "Teak", img: "/assets/img/wood-teak.jpg" },
@@ -16,7 +17,7 @@ export default function FurnitureFinishes() {
   // On a phone the finish chips move up under the swatch they control, so the
   // picture, the chips and the "Hand-finished" card read as one block instead
   // of the chips sitting a screen below the image they change.
-  const [isPhone, setIsPhone] = useState(false);
+  const isPhone = useMediaQuery("(max-width: 760px)");
 
   useEffect(() => {
     FABRICS.forEach((w) => {
@@ -25,13 +26,6 @@ export default function FurnitureFinishes() {
     });
   }, []);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 760px)");
-    const sync = () => setIsPhone(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
 
   const choose = (i) => {
     if (i === selected) return;

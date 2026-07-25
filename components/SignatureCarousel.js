@@ -14,6 +14,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import useSwipe from "./useSwipe";
+import useMediaQuery from "./useMediaQuery";
 import "./SignatureCarousel.css";
 
 const PIECES = [
@@ -45,14 +46,7 @@ export default function SignatureCarousel() {
 
   // Phones swap the dots for the same arrow-and-segments control the review
   // carousel uses. Starts false so the server and first client render agree.
-  const [isPhone, setIsPhone] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(max-width: 760px)");
-    const sync = () => setIsPhone(mq.matches);
-    sync();
-    mq.addEventListener("change", sync);
-    return () => mq.removeEventListener("change", sync);
-  }, []);
+  const isPhone = useMediaQuery("(max-width: 760px)");
 
   useEffect(() => {
     if (paused) return;

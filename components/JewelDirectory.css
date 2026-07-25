@@ -180,6 +180,9 @@
      slack piled up on the right. `safe` still falls back to flex-start if a
      narrower screen ever does overflow, keeping the first icon reachable. */
   .jdir__rail {
+    /* plain `center` first — an engine that can't parse `safe` drops the
+       whole declaration, which would put these back at flex-start */
+    justify-content: center;
     justify-content: safe center;
     gap: 1.75rem;
     overflow-x: auto;
