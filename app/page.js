@@ -47,7 +47,7 @@ export default function HomePage() {
 
       <main>
         {/* ===== Hero ===== */}
-        <section className="hero">
+        <section className="hero hero--home">
           <div className="hero__media">
             <video
               autoPlay

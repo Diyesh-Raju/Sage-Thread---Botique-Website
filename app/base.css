@@ -469,8 +469,26 @@ body.jewel-view .site-header.scrolled .nav-links a.active { color: var(--rose-go
      is what pushes the row past the right edge. */
   .feature__badge { position: static; margin-top: 1rem; max-width: none; box-shadow: 0 12px 30px rgba(0,0,0,.12); }
 
+  /* Home "Fashion expertise" split: the figure + badge lead the section on
+     desktop, but on a phone the single column puts a tall image between the
+     heading and its own copy. Send the figure (and the badge stacked under it)
+     below the text and the stats. */
+  #craft .feature__media { order: 1; }
+
+  /* The hero scroll cue sits low-centre; on a phone that lands it on top of
+     the "Explore Our Collection" button. Home hero only — the fashion and
+     marble heroes have room for it. */
+  .hero--home .scroll-cue { display: none; }
+
+  /* Quote band: the desktop size wraps to a wall of text on a narrow screen. */
+  .band blockquote { font-size: clamp(1.2rem, 5vw, 1.5rem); max-width: 30ch; }
+
   .newsletter { flex-direction: column; align-items: stretch; }
-  .newsletter input { min-height: 48px; }
+  /* Shorter field top-to-bottom — inline padding stays as it is. The desktop
+     `flex: 1 1 220px` sets a *height* basis once this form stacks into a
+     column, which is what made the box 220px tall; size it to its content
+     instead. 44px keeps it a legal tap target. */
+  .newsletter input { flex: 0 0 auto; min-height: 44px; padding-block: .5em; }
   .newsletter .btn { justify-content: center; }
 }
 

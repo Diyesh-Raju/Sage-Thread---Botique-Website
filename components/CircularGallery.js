@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./CircularGallery.css";
 
 // A simple utility for conditional class names
@@ -17,16 +17,40 @@ const cn = (...classes) => classes.filter(Boolean).join(" ");
    straight to the DOM — no per-frame React re-render. Each card's depth
    (scale + fade + subtle blur) is recomputed from its live angle off-front, so
    the front card reads as the "main" one and the rest recede into the
-   background cleanly. */
+   background cleanly.
+
+   PHONES (<=760px): the scroll-pinned behaviour is desktop-only. Hijacking the
+   scroll on a touch screen means several flicks that go nowhere before the page
+   moves on, so the phone drops the pin entirely — the section is a normal block
+   and the arrows below the ring step through the cards. Same easing, same depth
+   maths, just a different thing driving the target angle. */
 function CircularGallery({ items, heading, radius, className }) {
   const wrapRef = useRef(null);
   const stageRef = useRef(null);
   const itemRefs = useRef([]);
 
   const cur = useRef(0); // live (eased) rotation
-  const target = useRef(0); // scroll-derived target rotation
+  const target = useRef(0); // scroll- or arrow-derived target rotation
   const raf = useRef(0);
   const running = useRef(false);
+
+  // Phone: which card is at the front. The ref is the source of truth the
+  // animation reads; the state copy only re-renders the arrows' disabled state.
+  const indexRef = useRef(0);
+  const [index, setIndex] = useState(0);
+  const goRef = useRef(null);
+
+  // Starts false so the server render and the first client render agree; the
+  // effect below flips it on a phone right after mount.
+  const [isPhone, setIsPhone] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 760px)");
+    const sync = () => setIsPhone(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   const n = items.length;
   // Keep the per-card spacing fixed to the original 9-card ring, so removing
@@ -101,6 +125,30 @@ function CircularGallery({ items, heading, radius, className }) {
       }
     };
 
+    if (isPhone) {
+      // Arrows drive the ring; nothing is bound to scroll.
+      goRef.current = (dir) => {
+        const next = Math.min(n - 1, Math.max(0, indexRef.current + dir));
+        if (next === indexRef.current) return;
+        indexRef.current = next;
+        setIndex(next);
+        target.current = -next * anglePerItem;
+        ensure();
+      };
+
+      // Settle on whichever card was in front (survives a rotate/resize).
+      target.current = -indexRef.current * anglePerItem;
+      cur.current = target.current;
+      stage.style.transform = `rotateY(${cur.current}deg)`;
+      applyDepth(cur.current);
+
+      return () => {
+        goRef.current = null;
+        cancelAnimationFrame(raf.current);
+        running.current = false;
+      };
+    }
+
     const onScroll = () => {
       readTarget();
       ensure();
@@ -122,8 +170,9 @@ function CircularGallery({ items, heading, radius, className }) {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
       cancelAnimationFrame(raf.current);
+      running.current = false;
     };
-  }, [n, anglePerItem, R, maxRot]);
+  }, [n, anglePerItem, R, maxRot, isPhone]);
 
   return (
     <div ref={wrapRef} className={cn("cg-pin-wrap", className)}>
@@ -163,6 +212,28 @@ function CircularGallery({ items, heading, radius, className }) {
             })}
           </div>
         </div>
+        {isPhone ? (
+          <div className="cg-nav">
+            <button
+              type="button"
+              className="cg-arrow"
+              aria-label="Previous image"
+              disabled={index === 0}
+              onClick={() => goRef.current?.(-1)}
+            >
+              <span aria-hidden="true">←</span>
+            </button>
+            <button
+              type="button"
+              className="cg-arrow"
+              aria-label="Next image"
+              disabled={index === n - 1}
+              onClick={() => goRef.current?.(1)}
+            >
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        ) : null}
       </div>
     </div>
   );

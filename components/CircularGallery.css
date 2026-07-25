@@ -107,6 +107,57 @@
   opacity: 0.65;
 }
 
+/* Arrow pager — phones only (the desktop ring is scrubbed by scroll, so the
+   component doesn't render these at all above 760px). */
+.cg-nav {
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: 1.4rem var(--pad) clamp(2rem, 6vw, 3rem);
+}
+.cg-arrow {
+  width: 48px;
+  height: 48px;
+  flex: none;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.15rem;
+  line-height: 1;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+.cg-arrow:active {
+  transform: scale(0.94);
+  border-color: var(--accent);
+}
+.cg-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 760px) {
+  /* Drop the pin: no tall scroll wrapper, no sticky child, so the section
+     scrolls past like any other block and the arrows do the paging. */
+  .cg-pin-wrap {
+    height: auto;
+  }
+  .cg-pin {
+    position: static;
+    height: auto;
+  }
+  /* The ring lost the 100vh flex parent that used to size it. */
+  .cg-root {
+    height: 520px;
+    flex: none;
+  }
+}
+
 @media (max-width: 560px) {
   /* tighter cards so the front face fits small screens */
   .cg-item {
@@ -114,5 +165,8 @@
     height: 380px;
     margin-left: -130px;
     margin-top: -190px;
+  }
+  .cg-root {
+    height: 430px;
   }
 }
