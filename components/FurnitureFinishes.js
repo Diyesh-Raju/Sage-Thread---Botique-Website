@@ -38,6 +38,13 @@ export default function FurnitureFinishes() {
     setSelected(i);
   };
 
+  const badge = (
+    <div className="feature__badge">
+      <span className="script">Hand-finished</span>
+      <small>by master tailors across India</small>
+    </div>
+  );
+
   const chips = (
     <div className={isPhone ? "chiplist chiplist--stacked" : "chiplist mt-3"}>
       {FABRICS.map((w, i) => (
@@ -91,10 +98,7 @@ export default function FurnitureFinishes() {
             />
           </div>
           {isPhone ? chips : null}
-          <div className="feature__badge">
-            <span className="script">Hand-finished</span>
-            <small>by master tailors across India</small>
-          </div>
+          {isPhone ? null : badge}
         </div>
         <div data-reveal="right">
           <p className="eyebrow">Designer dresses</p>
@@ -111,6 +115,10 @@ export default function FurnitureFinishes() {
           </p>
           {isPhone ? null : chips}
         </div>
+        {/* Phone: the card tails the whole section, after the copy and before
+            "Shop by room". On desktop it stays inside .feature__media, where
+            it is absolutely positioned to overhang the figure. */}
+        {isPhone ? badge : null}
       </div>
     </section>
   );

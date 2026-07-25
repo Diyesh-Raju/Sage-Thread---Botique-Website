@@ -51,6 +51,13 @@
 .split--img-left [data-img]::after,
 .split--img-right [data-img]::after { content: none; }
 
+@media (max-width: 760px) {
+  /* "Materials that last" is the one split with the copy first in the DOM, so
+     stacked into a single column it alone led with the heading. Lift its
+     figure above the copy to match the img-left sections either side of it. */
+  .split--img-right .feature__media { order: -1; }
+}
+
 /* ----- "Our Services" cards (icon tile on top edge + divider) ----- */
 .sec-head--center { text-align: center; margin-inline: auto; }
 .services-grid {
@@ -378,7 +385,9 @@
   object-fit: cover;
   object-position: center;
   opacity: 0;
-  transition: opacity 1.5s var(--ease, ease);
+  /* Paced against SLIDE_MS (1.8s): a longer fade than this and the frames are
+     dissolving more often than they are settled. */
+  transition: opacity 0.7s var(--ease, ease);
 }
 .furn-herocycle__img.is-on { opacity: 1; }
 /* Scrim: the four frames run from a dark lounge to a bright white room, so the

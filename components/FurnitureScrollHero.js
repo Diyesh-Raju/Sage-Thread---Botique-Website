@@ -45,7 +45,7 @@ const PHONE_SLIDES = [
     alt: "Bright minimal room with a cane lounge chair and low ivory cabinet at Sage Thread Bangalore",
   },
 ];
-const SLIDE_MS = 4200;
+const SLIDE_MS = 1800;
 
 const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
