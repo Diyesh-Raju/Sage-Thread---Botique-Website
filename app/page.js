@@ -91,17 +91,15 @@ export default function HomePage() {
             <div data-reveal>
               <p className="eyebrow">Our design philosophy</p>
               <h2 className="display" style={{ fontSize: "clamp(2.2rem,5vw,4rem)" }}>
-                Women&apos;s fashion,
+                Handpicked treasures,
                 <br />
                 curated with <span className="ampersand">purpose</span>
               </h2>
               <p className="lead mt-2 measure">
-                Sage Thread Boutique is a women&apos;s fashion boutique in
-                Bangalore, Karnataka, where every garment is chosen for fabric,
-                fit, and the quiet confidence of a look well composed. From
-                designer dresses to hand-finished ethnic wear, we edit collections
-                the way a stylist edits a wardrobe — sparingly, beautifully, and
-                with lasting taste.
+                A women&apos;s fashion boutique in Bangalore, where every garment
+                is chosen for fabric, fit, and the quiet confidence of a look
+                well composed — from designer dresses to hand-finished ethnic
+                wear.
               </p>
               <p className="mt-2 measure" style={{ color: "var(--muted)" }}>
                 For over a decade, women across Bengaluru have trusted us for
@@ -116,8 +114,8 @@ export default function HomePage() {
               <div className="media" data-img>
                 <img
                   src="/assets/img/home-intro-furniture.jpg"
-                  alt="Designer women's evening wear at Sage Thread Boutique Bangalore"
-                  title="Designer Wear — Sage Thread Boutique"
+                  alt="Marble fireplace lounge at Sage Thread Boutique, Bangalore"
+                  title="Boutique Interior — Sage Thread Bangalore"
                   loading="lazy"
                   decoding="async"
                 />
@@ -141,36 +139,23 @@ export default function HomePage() {
             <div className="sec-head sec-head--row">
               <div data-reveal>
                 <p className="eyebrow">Boutique collections</p>
-                <h2>Designer wear, ethnic fashion &amp; custom styling</h2>
+                <h2>Our collections</h2>
               </div>
-              <p
-                className="measure-sm"
-                data-reveal
-                style={{
-                  "--d": ".1s",
-                  color: "var(--muted)",
-                  fontSize: "clamp(1.1rem, 1rem + .5vw, 1.35rem)",
-                  lineHeight: 1.6,
-                }}
-              >
-                Three curated worlds of women&apos;s fashion — each edited for
-                Bangalore&apos;s climate, occasions, and modern Indian elegance.
-              </p>
             </div>
 
             <div className="collections">
               <a href="/furniture" className="tile" data-reveal data-tilt>
                 <img
                   src="/assets/img/home-col-furniture-v2.jpg"
-                  alt="Designer dresses and occasion wear at Sage Thread Boutique Bangalore"
-                  title="Designer Dresses — Sage Thread Bangalore"
+                  alt="Bespoke furniture at Sage Thread Boutique Bangalore"
+                  title="Bespoke Furniture — Sage Thread Bangalore"
                   loading="lazy"
                   decoding="async"
                 />
                 <span className="plus">→</span>
                 <div className="tile__cap">
                   <p className="meta">01 — Occasion</p>
-                  <h3>Designer Dresses</h3>
+                  <h3>Bespoke Furniture</h3>
                 </div>
               </a>
               <a
@@ -182,15 +167,15 @@ export default function HomePage() {
               >
                 <img
                   src="/assets/img/home-col-fashion.jpg"
-                  alt="Women's fashion and contemporary boutique clothing in Bangalore"
-                  title="Women's Fashion — Sage Thread Boutique"
+                  alt="Fashion and contemporary boutique clothing in Bangalore"
+                  title="Fashion — Sage Thread Boutique"
                   loading="lazy"
                   decoding="async"
                 />
                 <span className="plus">→</span>
                 <div className="tile__cap">
                   <p className="meta">02 — Atelier</p>
-                  <h3>Women&apos;s Fashion</h3>
+                  <h3>Fashion</h3>
                 </div>
               </a>
               <a
@@ -202,15 +187,15 @@ export default function HomePage() {
               >
                 <img
                   src="/assets/img/home-col-marble.jpg"
-                  alt="Ethnic wear and traditional boutique clothing in Bengaluru"
-                  title="Ethnic Wear — Sage Thread Bangalore"
+                  alt="Marble surfaces and stone finishes at Sage Thread, Bengaluru"
+                  title="Marble — Sage Thread Bangalore"
                   loading="lazy"
                   decoding="async"
                 />
                 <span className="plus">→</span>
                 <div className="tile__cap">
                   <p className="meta">03 — Heritage</p>
-                  <h3>Ethnic Wear</h3>
+                  <h3>Marble</h3>
                 </div>
               </a>
             </div>
@@ -224,8 +209,8 @@ export default function HomePage() {
               <div className="media" data-img>
                 <img
                   src="/assets/img/home-feature.jpg"
-                  alt="Inside Sage Thread Boutique — luxury women's fashion store in Indiranagar, Bangalore"
-                  title="Sage Thread Boutique Interior — Bangalore"
+                  alt="A country estate afternoon — the heritage and taste behind Sage Thread"
+                  title="A Family Legacy of Curated Taste — Sage Thread"
                   loading="lazy"
                   decoding="async"
                 />
@@ -238,17 +223,15 @@ export default function HomePage() {
             <div data-reveal="right">
               <p className="eyebrow">Fashion expertise</p>
               <h2 style={{ fontSize: "clamp(2rem,4.4vw,3.4rem)" }}>
-                Boutique clothing,
+                A family legacy
                 <br />
-                tailored to you
+                of curated taste
               </h2>
               <p className="lead mt-2 measure">
-                <strong className="text-emph">
-                  Every piece earns its place on our rail.
-                </strong>{" "}
-                Our buyers and stylists travel across India to source fabrics and
-                silhouettes worthy of a luxury boutique — then fit them to the
-                women of Bangalore with precision and care.
+                <strong className="text-emph">Taste is something you inherit.</strong>{" "}
+                What began as one family&apos;s eye for beautiful things became
+                Sage Thread — the same instinct for quality, the same patience for
+                what lasts, carried into every piece we choose.
               </p>
               <div className="stats mt-3">
                 <div className="stat">
